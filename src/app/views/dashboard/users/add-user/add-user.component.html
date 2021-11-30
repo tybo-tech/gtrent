@@ -1,0 +1,40 @@
+<div class="quick-add" *ngIf="user">
+  <div class="form">
+    <h3>
+      {{heading}}
+    </h3>
+
+
+    <div class="form-item">
+      <label for="">User name</label>
+      <input type="text" name="" id="" [(ngModel)]="user.Name" placeholder="Enter Part name.">
+    </div>
+    <div class="form-item">
+      <label for="">User Email</label>
+      <input type="text" name="" id="" [(ngModel)]="user.Email" placeholder="Email">
+    </div>
+    <div class="form-item">
+      <label for="">Phone Number</label>
+      <input type="tel" name="" id="" [(ngModel)]="user.PhoneNumber" placeholder="PhoneNumber">
+    </div>
+
+
+    <div class="form-item">
+      <label for="">User Type</label>
+      <select [(ngModel)]="user.UserType">
+        <option value="Admin">Admin</option>
+        <option value="Technician">Technician</option>
+      </select>
+    </div>
+
+
+
+
+    <div class="form-item">
+      <button (click)="save()" [disabled]="!user.Name">Save User</button>
+      <div class="link" (click)="user = null">Cancel</div>
+    </div>
+  </div>
+</div>
+
+<!-- <app-user-feedback *ngIf="modalModel && modalModel.heading" [modalModel]="modalModel"></app-user-feedback> -->

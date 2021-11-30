@@ -1,0 +1,54 @@
+<div class="subjects container" *ngIf="tests">
+  <h3>
+    <span>
+      Test Reports<br> <br>
+    </span>
+  </h3>
+
+  <div class="module-actions">
+    <button class="tertiary" (click)="back()">Back to dashboard</button>
+    <button class="secondary" (click)="add()">New Test Report</button>
+  </div>
+  <app-card-list-widget *ngIf="listItems && listItems.length" (itemSelectedEvent)="onitemSelected($event)"
+    [showFilter]="showFilter" [items]="listItems"></app-card-list-widget>
+
+</div>
+
+
+<!-- <div class="quick-add" *ngIf="test">
+  <div class="form">
+    <h3>
+      {{heading}}
+    </h3>
+
+    <div class="form-item">
+      <label for="">Question</label>
+      <textarea [(ngModel)]="test.Question" placeholder="Question here."></textarea>
+    </div>
+    <div class="form-item">
+      <label for="">Certificate Version</label>
+      <textarea [(ngModel)]="test.CertificateQuestion" placeholder="Certificate question here."></textarea>
+    </div>
+
+    <div class="form-item">
+      <label for="">Option 1</label>
+      <input type="text" name="" id="" [(ngModel)]="test.Option1">
+    </div>
+    <div class="form-item">
+      <label for="">Option 2</label>
+      <input type="text" name="" id="" [(ngModel)]="test.Option2">
+    </div>
+    <div class="form-item">
+      <label for="">Option 3</label>
+      <input type="text" name="" id="" [(ngModel)]="test.Option3">
+    </div>
+
+
+
+
+    <div class="form-item">
+      <button (click)="save()" [disabled]="!question.Question">Save question</button>
+      <div class="link" (click)="question =  null">Cancel</div>
+    </div>
+  </div>
+</div> -->

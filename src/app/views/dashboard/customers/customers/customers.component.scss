@@ -1,0 +1,52 @@
+@import '../../../../../assets/styles/color';
+
+
+.top-bar {
+  grid-template-columns: 3% auto;
+
+  @media only screen and (max-width: 600px) {
+    grid-template-columns: 10% auto;
+    position: relative;
+  }
+
+}
+
+
+
+.product-item {
+  grid-template-columns: 9% auto;
+
+  @media only screen and (max-width: 600px) {
+    grid-template-columns: 17% auto;
+    width: 100%;
+  }
+
+  .icon {
+    text-align: center;
+
+    img {
+      width: 2.5em;
+      margin: .4em auto;
+      left: 0;
+
+    }
+  }
+}
+
+
+
+
+.no-data {
+  margin: .5em 1em;
+}
+
+.user-machines{
+  font-size: .7em;
+  padding: .2em 1em;
+  margin: .4em 0;
+  background: $cloud;
+  width: 10em;
+  text-align: center;
+  border-radius: .255em;
+  font-weight: 600;
+}

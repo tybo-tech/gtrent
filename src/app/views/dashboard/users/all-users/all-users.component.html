@@ -1,0 +1,22 @@
+<div class="subjects container" *ngIf="usersItems && usersItems.length">
+  <h3>
+    <span>
+      Users List <br> <br>
+    </span>
+  </h3>
+
+  <div class="module-actions">
+    <button class="tertiary" (click)="back()">Back to dashboard</button>
+    <button class="secondary" (click)="add()">New User</button>
+  </div>
+  <app-card-list-widget *ngIf="usersItems && usersItems.length" (itemSelectedEvent)="onitemSelected($event)" [showFilter]="showFilter" [items]="usersItems"></app-card-list-widget>
+
+</div>
+
+
+
+
+
+<app-add-user *ngIf="user" [user]="user" (doneEvent)="doneEvent($event)"></app-add-user>
+
+

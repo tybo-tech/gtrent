@@ -1,0 +1,265 @@
+<div class="container" *ngIf="order">
+
+  <div class="module-actions">
+    <button class="btn btn-light" (click)="back()"><i class="fa fa-arrow-left"></i> Back to dashboard</button>
+  </div>
+  <p-accordion>
+    <p-accordionTab header="Customer & Compressor Info" [(selected)]="activeState[0]">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card" *ngIf="order.Customer">
+            <div class="card-header bg-dark text-white"><i class="fa fa-user"></i> Customer details.
+            </div>
+            <div class="card-body" *ngIf="editingCustomer">
+              <div>
+                <div class="form-group">
+                  <label for="name">Customer name</label>
+                  <input type="text" [(ngModel)]="order.Customer.Name" class="form-control" id="name"
+                    aria-describedby="emailHelp" required>
+                </div>
+                <div class="form-group">
+                  <label for="name">Customer Email</label>
+                  <input type="text" [(ngModel)]="order.Customer.Email" (change)="saveCustomer()" class="form-control"
+                    id="name" aria-describedby="emailHelp" required>
+                </div>
+                <div class="form-group">
+                  <label for="name">Customer contact person</label>
+                  <input type="text" [(ngModel)]="order.Customer.Surname" (change)="saveCustomer()" class="form-control"
+                    id="personcontact" aria-describedby="emailHelp" required>
+                </div>
+                <div class="form-group">
+                  <label for="name">Phone Number</label>
+                  <input type="text" [(ngModel)]="order.Customer.PhoneNumber" (change)="saveCustomer()"
+                    class="form-control" id="phone" aria-describedby="emailHelp" required>
+                </div>
+
+
+                <div class="form-group">
+                  <label for="name">Address</label>
+                  <textarea [(ngModel)]="order.Customer.AddressLineHome" (change)="saveCustomer()" class="form-control"
+                    id="address" aria-describedby="emailHelp"></textarea>
+                </div>
+
+                <div class="mx-auto">
+                  <button type="submit" [disabled]="!order.Customer.Name" type="button" (click)="saveCustomer()"
+                    class="btn btn-primary text-right">Save customer</button>
+                  <br>
+                  <br>
+                  <a class="btn btn-light" (click)="changeCustomer = true">Choose a different customer</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="col-md-6">
+          <div class="card" *ngIf="order">
+            <div class="card-header bg-dark text-white"><i class="fa fa-cog"></i> Compressor details.
+            </div>
+            <div class="card-body">
+              <div>
+                <div class="form-group">
+                  <label for="name">Compressor Model</label>
+                  <input type="text" [(ngModel)]="order.Model" class="form-control" id="name"
+                    aria-describedby="emailHelp" required>
+                </div>
+                <div class="form-group">
+                  <label for="name">Compressor Serial</label>
+                  <input type="text" [(ngModel)]="order.Serial" (change)="saveCustomer()" class="form-control" id="name"
+                    aria-describedby="emailHelp" required>
+                </div>
+                <div class="form-group">
+                  <label for="name">Compressor Mileage</label>
+                  <input type="text" [(ngModel)]="order.Hours" (change)="saveCustomer()" class="form-control"
+                    id="personcontact" aria-describedby="emailHelp" required>
+                </div>
+
+
+                <div class="mx-auto" *ngIf="order.Customer">
+                  <button type="submit" [disabled]="!order.Customer.Name" type="button" (click)="saveCustomer()"
+                    class="btn btn-primary text-right">Save compressor</button>
+                  <br>
+                  <br>
+                  <a class="btn btn-light" (click)="selectMachine = true">choose a different compressor</a>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </p-accordionTab>
+    <p-accordionTab header="Parts used" [(selected)]="activeState[1]">
+      <div class="mx-auto">
+
+        <a class="btn btn-success" (click)="selectParts = true">Choose a parts used</a>
+      </div>
+
+      <div class="row" *ngIf="user && order && order.Orderproducts">
+
+        <div class="col-md-4" *ngFor="let item of order.Orderproducts; let i = index">
+
+
+          <div class="card">
+
+            <div class="card-header bg-dark text-white"><i class="fa fa-tools"></i> Part {{i+1}} of
+              {{order.Orderproducts.length}} used
+            </div>
+            <div class="card-body">
+              <div>
+
+
+                <p>
+                  Product Type : <b>{{item.ProductType}}</b>
+                </p>
+
+                <p>
+                  Product Name: <b>{{item.ProductName}}</b>
+                </p>
+
+                <div class="form-group">
+                  <label for="name">Quantity</label>
+                  <input type="number" [(ngModel)]="item.Quantity" class="form-control" id="personcontact"
+                    aria-describedby="emailHelp" required>
+                </div>
+                <div class="form-group">
+                  <label for="name">Labour</label>
+                  <input type="number" [(ngModel)]="item.UnitPrice" class="form-control" id="personcontact"
+                    aria-describedby="emailHelp" required>
+                </div>
+
+
+                <div class="mx-auto">
+                  <button type="submit" type="button" class="btn btn-danger"
+                    (click)="deletePart(item, i)">Remove</button>
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+    </p-accordionTab>
+    <p-accordionTab header="Work done" [(selected)]="activeState[2]">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card" *ngIf="order.Customer">
+            <div class="card-header bg-dark text-white"> Work.
+            </div>
+            <div class="card-body">
+              <textarea name="" class="from-control" [(ngModel)]="order.Notes"></textarea>
+            </div>
+          </div>
+
+        </div>
+
+
+
+      </div>
+    </p-accordionTab>
+
+    <p-accordionTab header="Signatures" [(selected)]="activeState[3]">
+      <div class="row">
+        <div class="col-md-6">
+          <label>Customer Signature </label>
+          <div class="sign">
+            <div class="sign-done" *ngIf="order.CustomerSigniture">
+              <img (click)="showSign = true;  heading = 'Customer Signature'" [src]="order.CustomerSigniture" alt="">
+              <p>
+                {{order.CustomerSignitureName}}
+              </p>
+            </div>
+            <button *ngIf="!order.CustomerSigniture" class="tertiary"
+              (click)="showSign = true;  heading = 'Customer Signature'">Click to sign</button>
+          </div>
+        </div>
+
+
+        <div class="col-md-6">
+          <label>Technician Signature </label>
+          <div class="sign">
+            <div class="sign-done" *ngIf="order.TechnicainSigniture">
+              <img (click)="showSign = true; heading = 'Technician Signature'" [src]="order.TechnicainSigniture" alt="">
+              <p>
+                {{order.TechnicainName}}
+              </p>
+            </div>
+            <button class="tertiary" *ngIf="!order.TechnicainSigniture"
+              (click)="showSign = true; heading = 'Technician Signature'">Click to sign</button>
+          </div>
+
+        </div>
+
+
+
+      </div>
+    </p-accordionTab>
+  </p-accordion>
+
+
+
+
+
+
+  <div class="cards">
+
+    <div class="actions">
+      <button class="btn btn-primary" *ngIf="!order.CreateDate || order.StatusId == DRAFT" (click)="saveInvoice()">Save
+        &
+        Publish</button>
+      <button class="btn btn-success" *ngIf="!order.CreateDate || order.StatusId == DRAFT" (click)="saveDaft()">Save as
+        draft</button>
+      <button class="primary" *ngIf="user.UserType == 'Admin' && order.CreateDate && order.Status == 'Active'"
+        (click)="order.Status = 'Processed'; order.StatusId = 2; updateOrder()">Mark as processed</button>
+      <button class="tertiary" *ngIf="order.CreateDate && order.Status == 'Processed'"
+        (click)="order.Status = 'Active'; updateOrder()">Processed</button>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="card">
+  <pre>
+    {{order | json}}
+  </pre>
+</div> -->
+
+
+<app-customer-selector *ngIf="user && !order || !order.Customer || changeCustomer" [user]="user"
+  (doneSelectingCustomer)="doneSelectingCustomer($event)"></app-customer-selector>
+
+
+<app-item-selector *ngIf="selectMachine" [user]="user" [customer]="order.Customer"
+  (doneSelectingMachine)="onItemSelectedMachineEvent($event)"></app-item-selector>
+
+<app-parts-selector *ngIf="selectParts && user && order && order.Customer && order.Machine" [user]="user"
+  [customer]="order.Customer" [machine]="order.Machine" (closeSelectingParts)="onCloseSelectingParts($event)"
+  (doneSelectingParts)="onItemPartsEvent($event)">
+</app-parts-selector>
+
+
+<div class="quick-add" *ngIf="showSign">
+  <div class="form">
+    <h3 class="">
+      {{heading}}
+    </h3>
+
+    <div style="border: 1px dotted rgb(109, 109, 109);">
+      <app-signiture-widget (onUploadFinished)="onUploadFinished($event)" [user]="user"></app-signiture-widget>
+    </div>
+
+    <div class="form-item">
+      <div class="link" (click)="showSign = false">Cancel</div>
+    </div>
+  </div>
+</div>
+
+
+<app-user-feedback *ngIf="modalModel && modalModel.heading" [modalModel]="modalModel"></app-user-feedback>

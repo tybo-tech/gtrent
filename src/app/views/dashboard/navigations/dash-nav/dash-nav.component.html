@@ -1,0 +1,43 @@
+  
+  <div class="nav">
+    <ul (click)="toggleNav()">
+      <li>
+        <a routerLink="/admin/dashboard" (click)="toggleNav()" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+          <span class="material-icons">
+            dashboard
+          </span>
+          Dashboard
+        </a>
+      </li>
+      <li>
+        <a routerLink="/admin/dashboard/products" (click)="toggleNav()" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+          <span class="material-icons">
+            list
+          </span>
+          Parts
+        </a>
+      </li>
+
+      <li>
+        <a routerLink="/admin/dashboard/customers" (click)="toggleNav()" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+          <span class="material-icons">
+            supervisor_account
+          </span>
+          Customers
+        </a>
+      </li>
+
+ 
+
+      <li>
+        <a (click)="logout()" style="display: block;top: 2em; color: rgb(146, 146, 146);cursor: pointer;">
+          <span class="material-icons">
+            logout
+          </span>
+        Logout
+        </a>
+      </li>
+
+
+    </ul>
+  </div>

@@ -1,0 +1,141 @@
+<div class="quick-add" *ngIf="machine && machine.Parts">
+  <div class="form">
+
+    <button class="secondary" (click)="addParts()"> Linke parts to this compressor</button>
+
+    <div class="parts">
+      <div class="part" *ngFor="let item of machine.Parts">
+        <div class="col">
+          <h4>
+            <span>
+              {{item.ProductType}}
+            </span>
+            {{item.ProductName}}
+          </h4>
+        </div>
+        <div class="col">
+          <div class="qty">
+            <div class="col">
+              <img src="assets/images/icon-rem.svg" (click)="qty(-1, item)" alt="">
+            </div>
+            <div class="col">
+              <p>
+                {{item.Qty}}
+              </p>
+            </div>
+            <div class="col">
+              <img src="assets/images/icon-add.svg" (click)="qty(1, item)" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="no-data" *ngIf="!machine.Parts || !machine.Parts.length">
+        <p>
+          No parts linked to this compressor
+        </p>
+      </div>
+    </div>
+    <div class="form-item">
+      <button class="primary" (click)="onCloseSelectingParts()">Finish</button>
+      <div class="link" (click)="onCloseSelectingParts()">Cancel</div>
+
+    </div>
+  </div>
+
+</div>
+
+
+<div class="quick-add" *ngIf="products && products.length">
+
+
+  <div class="form">
+
+    <div class="close">
+      <span class="material-icons" (click)="products = []">
+        close
+      </span>
+    </div>
+
+    <div class="search">
+      <input type="search" class="search-input" [(ngModel)]="searchString" placeholder="🔎 Filter by name">
+      <button class="primary" (click)="addProduct()">Create a new part</button>
+
+    </div>
+
+    <h3 class="">
+      {{heading}}
+    </h3>
+
+
+
+
+    <div class="part" *ngFor="let item of products| searchproduct: searchString; let i = index"
+     >
+      <div class="item">
+        <div class="col">
+          <h4>
+            {{item.Name}}
+          </h4>
+        </div>
+
+        <div class="col">
+          <button class="primary" *ngIf="!item.IsSelected" (click)="selectPart(item)">Select</button>
+          <button class="secondary" *ngIf="item.IsSelected" (click)="selectPart(item)">Selected</button>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="form-item">
+      <button (click)="showSuccess = false">Save</button>
+      <div class="link" (click)="showSuccess =  false">Cancel</div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="quick-add" *ngIf="showAdd && newProduct">
+  <div class="form" *ngIf="!showSuccess">
+    <h3>
+      {{heading}}
+    </h3>
+
+
+    <div class="form-item">
+      <label for="">Part name</label>
+      <input type="text" name="" id="" [(ngModel)]="newProduct.Name" placeholder="Enter Part name.">
+    </div>
+    <div class="form-item">
+      <label for="">Part Type</label>
+      <select name="" [(ngModel)]="newProduct.ProductType" id="">
+        <option [value]="item" *ngFor="let item of productTypes">{{item}}</option>
+      </select>
+    </div>
+
+
+
+    <div class="form-item">
+      <button (click)="saveProduct()" [disabled]="!newProduct.Name">Save part</button>
+      <div class="link" (click)="showAdd = false; showSuccess = false">Cancel</div>
+    </div>
+  </div>
+
+  <!-- <div class="form" *ngIf="showSuccess">
+    <h3 class="success">
+      {{heading}}
+    </h3>
+    <h3>
+      What you want to do next?
+    </h3>
+
+    <div class="form-item">
+      <button (click)="addProduct()">Add a new part</button>
+      <button (click)="showAdd = false;showSuccess = false">View parts list</button>
+      <button (click)="back()">Go to dashboard</button>
+    </div>
+  </div> -->
+</div>

@@ -1,0 +1,42 @@
+<div class="quick-add" *ngIf="compressor">
+  <div class="form">
+    <h3>
+      {{heading}}
+    </h3>
+
+
+
+
+
+    <div class="form-item">
+      <label for="name">Compressor Model
+      </label>
+      <input type="text" [(ngModel)]="compressor.Model">
+    </div>
+
+    
+    <div class="form-item">
+      <label for="name">Compressor Serial
+      </label>
+      <input type="text" [(ngModel)]="compressor.Serial">
+    </div>
+
+    
+    <div class="form-item">
+      <label for="name">Compressor Mileage
+      </label>
+      <input type="text" [(ngModel)]="compressor.Hours">
+    </div>
+
+
+    <div class="form-item">
+      <button (click)="save()" [disabled]="!compressor.Model && !compressor.Serial">Save Compressor</button>
+      <div class="link" (click)="close()">Cancel</div>
+    </div>
+  </div>
+</div>
+
+<app-user-feedback *ngIf="modalModel && modalModel.heading" [modalModel]="modalModel"></app-user-feedback>
+
+
+<app-user-feedback *ngIf="modalModel && modalModel.heading" [modalModel]="modalModel"></app-user-feedback>

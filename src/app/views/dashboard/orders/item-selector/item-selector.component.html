@@ -1,0 +1,33 @@
+<div class="quick-add" *ngIf="customer && customer.Machines">
+  <div class="form">
+    <button class="secondary" (click)="addMachine()">Add New Compressor</button>
+    <h3 class="">
+      <br>
+      Step 2: Select customer compressor for a service.
+      <br>
+    </h3>
+
+    <div class="list-selector-grid" *ngFor="let item of  customer.Machines; let i = index">
+      <div class="item">
+        <div class="col">
+          <h4>
+            {{item.Model}}
+          </h4>
+        </div>
+
+        <div class="col">
+          <button class="primary" (click)="selectItem(item)">Select</button>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="link" (click)="selectItem(null)">Cancel</div>
+
+  </div>
+</div>
+
+
+
+<app-add-machine *ngIf="compressor" [compressor]="compressor" [heading]="heading" (doneEvent)="onDoneEvent($event)">
+</app-add-machine>

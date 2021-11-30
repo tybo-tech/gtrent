@@ -1,0 +1,73 @@
+<div class="quick-add" *ngIf="customers && customers.length">
+  <div class="form">
+
+    <div class="close">
+      <span class="material-icons" (click)="back()">
+        close
+      </span>
+    </div>
+    <h3 class="">
+      <br>
+      Step 1: Please choose or Create a customer for a service.
+      <br>
+    </h3>
+
+    <div class="search">
+      <input type="search" class="search-input" [(ngModel)]="searchString" placeholder="🔎 Filter by name">
+
+      <button class="secondary" (click)="addNewCustomer()"> Add new customer</button>
+
+    </div>
+    <div class="list-selector-grid" *ngFor="let item of customers | searchCustomer: searchString; let i = index">
+      <div class="item">
+        <div class="col">
+          <h4>
+            {{item.Name}}
+          </h4>
+        </div>
+
+        <div class="col">
+          <button class="primary" (click)="selectItem(item)">Select</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="quick-add" *ngIf="newCustomer">
+  <div class="form">
+    <h3>
+     Add new customer
+    </h3>
+
+
+    <div class="form-item">
+      <label for="">Customer name</label>
+      <input type="text" name="" id="" [(ngModel)]="newCustomer.Name" >
+    </div>
+    <div class="form-item">
+      <label for="">Customer Email</label>
+      <input type="text" name="" id="" [(ngModel)]="newCustomer.Email" >
+    </div>
+
+    <div class="form-item">
+      <label for="">Customer contact prson</label>
+      <input type="text" name="" id="" [(ngModel)]="newCustomer.Surname">
+    </div>
+    <div class="form-item">
+      <label for="">Phone Number</label>
+      <input type="text" name="" id="" [(ngModel)]="newCustomer.PhoneNumber">
+    </div>
+
+
+
+
+    <div class="form-item">
+      <button (click)="save()" [disabled]="!newCustomer.Name">Save Customer</button>
+      <div class="link" (click)="newCustomer = null">Cancel</div>
+    </div>
+  </div>
+</div>

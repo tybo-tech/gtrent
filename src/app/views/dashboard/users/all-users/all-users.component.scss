@@ -1,0 +1,13 @@
+@import '../../../../../assets/styles/color';
+.user-type {
+  display: block;
+  margin: .4em 0;
+  background: $black;
+  width: fit-content;
+  padding: .4em 1em;
+  text-align: center;
+  color:$white;
+  border-radius: 1em;
+  font-size: .75em;
+
+}

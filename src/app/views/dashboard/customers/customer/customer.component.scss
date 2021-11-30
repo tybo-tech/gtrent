@@ -1,0 +1,97 @@
+@import '../../../../../assets/styles/color';
+
+.items {
+  .item {
+    background: $white;
+    padding: 1em;
+    border-radius: .5em;
+    margin: 1.5em auto;
+    display: block;
+    margin-bottom: 4em;
+
+    .section {
+      border-bottom: 1px solid $cloud;
+      padding: 1em 0;
+
+      h4 {
+        padding: .4em 0;
+        margin: 0;
+
+        span {
+          display: block;
+          font-weight: 400;
+          color: $darker-grey;
+        }
+      }
+
+      h2 {
+        padding: .4em 0;
+      }
+
+      .part {
+        border: 2px solid $black;
+        padding: 1em;
+        margin: .4em 0;
+        border-radius: .5em;
+
+        h4 {
+          padding: 0;
+        }
+
+      }
+    }
+  }
+}
+
+h2 {
+  padding: 1em 0;
+
+  span {
+    display: block;
+    font-size: .8em
+  }
+}
+
+
+
+.top {
+  .name {
+    font-weight: 600;
+  }
+
+  display: grid;
+  padding: .4em 0;
+  grid-template-columns: 90% auto;
+
+  &:last-child {
+    text-align: right;
+  }
+
+  .material-icons {
+    top: 0;
+  }
+}
+
+.top3 {
+  grid-template-columns: 70% 10% auto;
+
+}
+
+.part{
+  .item{
+    display: grid;
+    padding: 1em;
+    margin: .5em 0;
+    grid-template-columns: 70% auto;
+    border-radius: .35em;
+    box-shadow: $box-shadow;
+    background: $white;
+    button{
+      font-size: .8em !important;
+      width: 94% !important;
+      display: block;
+      margin: 0 auto;
+      padding: .5em 1em !important;
+    }
+  }
+}

@@ -1,0 +1,189 @@
+<div class="container">
+
+  <div class="module-actions">
+    <button class="btn btn-light" (click)="back()"><i class="fa fa-arrow-left"></i> Back to Customers</button>
+    <br>
+    <br>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <app-add-customer *ngIf="customer" [customer]="customer" [heading]="heading"></app-add-customer>
+    </div>
+
+    <div class="col-md-6" *ngIf="customer.Machines">
+
+      <div class="card bg-light mb-3" *ngFor="let item of customer.Machines; let i = index">
+        <div class="card-header bg-light text-dark"><i class="fa fa-braille"></i> Compressor {{i +1}} of {{customer.Machines.length}}
+        </div>
+        <div class="card-body">
+          <p>
+            Model : <b> {{item.Model || '---'}}</b> <br>
+            Mileage : <b> {{item.Hours || '---'}}</b> <br>
+            Serial : <b> {{item.Serial || '---'}}</b><br> <br>
+            <a class="btn btn-light" style="background: #fff;" (click)="compressor=item">Edit compressor</a>
+
+          </p>
+    
+          <p>
+            <b> Parts ({{item.Parts?.length || 0}})</b>
+          </p>
+
+          <div class="" *ngIf="item.Parts && item.Parts.length">
+
+
+            <table class="table">
+
+              <tbody>
+                <tr *ngFor="let part of item.Parts; let i = index">
+                  <td>
+
+
+                    <div class="card">
+                      <div class="card-body">
+                        <p class="card-text">{{part.ProductName}}
+                        </p>
+                      </div>
+                      <div class="card-footer text-muted">
+                        {{part.ProductType || 'No Type'}}
+                      </div>
+                    </div>
+                  </td>
+                  <td class="tac">
+                    <button class="btn btn-danger icon-btn" (click)="removeParts(part)">
+                      <i class="fa fa-times"></i>
+                    </button>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+            <br>
+          </div>
+          <button class="btn btn-primary" (click)="addParts(item)">Add parts to this compressor</button>
+
+        </div>
+
+      </div>
+      <p *ngIf="!customer.Machines.length">
+        Press new compressor to add.
+      </p>
+
+      <button class="btn btn-light" (click)="addMachine()">New Compressor</button>
+
+    </div>
+
+    <div class="col-md-4">
+    </div>
+  </div>
+</div>
+
+<div class="container" *ngIf="customer">
+
+
+
+  <br>
+
+
+
+
+  <!-- <div class="items" *ngIf="customer.Machines && customer.Machines.length">
+
+    <div class="item" style="cursor: default;" *ngFor="let item of customer.Machines">
+
+      <div class="section">
+        <div class="top top3">
+          <div class="name">
+            {{item.Model}}
+          </div>
+
+          <div class="close">
+            <span class="material-icons" (click)="compressor=item">
+              edit
+            </span>
+          </div>
+          <div class="close" style="text-align: right;">
+            <span class="material-icons" (click)="removeMachine(item)">
+              close
+            </span>
+          </div>
+        </div>
+        <h4 *ngIf="item.Serial">
+          <span>Serial</span>
+          {{item.Serial}}
+        </h4>
+        <h4>
+          <span>Notes</span>
+          {{item.Moreinfo1 || 'No Notes'}}
+        </h4>
+      </div>
+
+      <div class="section">
+        <h2>
+          Parts ({{item.Parts?.length || 0}})
+        </h2>
+
+    
+      </div>
+
+    </div>
+
+
+
+
+
+  </div> -->
+
+</div>
+
+<app-user-feedback *ngIf="modalModel && modalModel.heading" [modalModel]="modalModel"></app-user-feedback>
+
+<app-add-machine *ngIf="compressor" [compressor]="compressor" [heading]="heading" (doneEvent)="onDoneEvent($event)">
+</app-add-machine>
+
+
+<div class="quick-add" *ngIf="showSuccess">
+  <div class="form">
+    <h3 class="success">
+      {{heading}}
+    </h3>
+
+    <div class="form-item">
+      <button (click)="showSuccess = false">Done!</button>
+    </div>
+  </div>
+</div>
+
+<div class="quick-add" *ngIf="products && products.length && selectedMachine">
+  <div class="form">
+    <h3 class="">
+      {{heading}}
+    </h3>
+
+    <div class="search">
+      <input type="search" class="search-input" [(ngModel)]="searchString" placeholder="🔎 Filter by name">
+    </div>
+
+    <div class="part" *ngFor="let item of products| searchproduct: searchString; let i = index"
+      (click)="savePart(item)">
+      <div class="item">
+        <div class="col">
+          <h4>
+            {{item.Name}}
+          </h4>
+        </div>
+
+        <div class="col">
+          <button class="primary" *ngIf="!item.IsSelected" (click)="selectPart(item)">Select</button>
+          <button class="secondary" *ngIf="item.IsSelected" (click)="selectPart(item)">Selected</button>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="form-item">
+      <button (click)="showSuccess = false">Save</button>
+      <div class="link" (click)="showSuccess =  false">Cancel</div>
+
+    </div>
+  </div>
+</div>

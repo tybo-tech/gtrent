@@ -1,0 +1,59 @@
+<div class="subjects container" *ngIf="questions">
+  <h3>
+    <span>
+      Questions List <br> <br>
+    </span>
+  </h3>
+
+  <div class="module-actions">
+    <button class="tertiary" (click)="back()">Back to dashboard</button>
+    <button class="secondary" (click)="add()">New Question</button>
+  </div>
+  <app-card-list-widget *ngIf="listItems && listItems.length" (itemSelectedEvent)="onitemSelected($event)"
+    [showFilter]="showFilter" [items]="listItems"></app-card-list-widget>
+
+</div>
+
+
+<div class="quick-add" *ngIf="question">
+  <div class="form">
+    <h3>
+      {{heading}}
+    </h3>
+
+    <div class="form-item">
+      <label for="">Question</label>
+      <textarea [(ngModel)]="question.Question" placeholder="Question here."></textarea>
+    </div>
+    <div class="form-item">
+      <label for="">Certificate Version</label>
+      <textarea [(ngModel)]="question.CertificateQuestion" placeholder="Certificate question here."></textarea>
+    </div>
+
+    <div class="form-item">
+      <label for="">Option 1</label>
+      <input type="text" name="" id="" [(ngModel)]="question.Option1">
+    </div>
+    <div class="form-item">
+      <label for="">Option 2</label>
+      <input type="text" name="" id="" [(ngModel)]="question.Option2">
+    </div>
+    <div class="form-item">
+      <label for="">Option 3</label>
+      <input type="text" name="" id="" [(ngModel)]="question.Option3">
+    </div>
+
+    <div class="form-item">
+      <label for="">Order</label>
+      <input type="text" name="" id="" [(ngModel)]="question.Position">
+    </div>
+
+
+
+
+    <div class="form-item">
+      <button (click)="save()" [disabled]="!question.Question">Save question</button>
+      <div class="link" (click)="question =  null">Cancel</div>
+    </div>
+  </div>
+</div>

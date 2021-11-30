@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42">
+  <g id="icon-customer" transform="translate(-9265 -11511)">
+    <g id="Ellipse_57" data-name="Ellipse 57" transform="translate(9265 11511)" fill="#eee" stroke="#6b98ff" stroke-width="1">
+      <circle cx="21" cy="21" r="21" stroke="none"/>
+      <circle cx="21" cy="21" r="20.5" fill="none"/>
+    </g>
+    <g id="user-icon" transform="translate(9273.132 11519.132)">
+      <circle id="Ellipse_1" data-name="Ellipse 1" cx="6.5" cy="6.5" r="6.5" transform="translate(6.868 -0.132)" fill="#283891"/>
+      <ellipse id="Ellipse_2" data-name="Ellipse 2" cx="13" cy="6" rx="13" ry="6" transform="translate(-0.132 13.868)" fill="#283891"/>
+    </g>
+  </g>
+</svg>

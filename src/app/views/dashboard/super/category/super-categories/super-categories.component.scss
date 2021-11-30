@@ -1,0 +1,11 @@
+@import '../../../../../../assets/styles/color';
+
+.btn-danger{
+  padding: .5em !important;
+}
+
+.btn-danger{
+  &:nth-child(2){
+    margin-left: 2em !important;
+  }
+}

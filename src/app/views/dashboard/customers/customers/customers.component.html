@@ -1,0 +1,17 @@
+<div class="subjects container" *ngIf="custmersItems && custmersItems.length">
+  <h3>
+    <span>
+      Customer List <br> <br>
+    </span>
+  </h3>
+
+  <div class="module-actions">
+    <button class="tertiary" (click)="back()">Back to dashboard</button>
+    <button class="secondary" (click)="add()">New Customer</button>
+  </div>
+  <app-card-list-widget *ngIf="custmersItems && custmersItems.length" [showFilter]="showFilter" [items]="custmersItems"></app-card-list-widget>
+
+</div>
+
+
+<app-add-customer *ngIf="customer" [customer]="customer" [heading]="heading"></app-add-customer>

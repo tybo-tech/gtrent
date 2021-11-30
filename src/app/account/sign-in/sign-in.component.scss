@@ -1,0 +1,91 @@
+@import '../../../assets/styles/color';
+
+.main {
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    height: 100vh;
+  
+    img {
+      width: 100%;
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+    }
+  
+    .form{
+        z-index: 1000;
+        background: none;
+        position: relative;
+        top: 35%;
+        max-width: 28em;
+        margin: 1em auto;
+        input{
+            margin: 1em 0;
+        }
+  
+        button{
+            color: $primary;
+            background: $pop;
+            margin: 2em 0;
+        }
+  
+  
+    }
+  }
+  
+  .error{
+      padding: 2em;
+      color: $black;
+      background: rgb(255, 208, 208);
+      margin: 2em auto;
+      animation: fadeIn .5s ease-in-out 0s;
+      animation-fill-mode: backwards;
+  }
+
+
+  
+@media (min-width : 300px) {
+    .phone-only {
+      display: block;
+    }
+  
+    .pc-only {
+      display: none;
+    }
+  
+    .tab-only {
+      display: none;
+    }
+  }
+  
+  @media (min-width : 800px) {
+    .phone-only {
+      display: none;
+    }
+  
+    .pc-only {
+      display: none;
+    }
+  
+    .tab-only {
+      display: block;
+    }
+  }
+  
+  @media (min-width : 1400px) {
+    .phone-only {
+      display: none;
+    }
+  
+    .pc-only {
+      display: block;
+    }
+  
+    .tab-only {
+      display: none;
+    }
+  }
+  

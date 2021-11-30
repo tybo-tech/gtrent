@@ -1,0 +1,18 @@
+<div class="stats">
+
+  <div class="stat" (click)="goto('customers')">
+    <span> {{customerList?.length}}</span>
+    Customers
+  </div>
+
+  <div class="stat" (click)="goto('products')">
+    <span> {{products?.length}}</span>
+    Parts
+  </div>
+
+  <div class="stat" (click)="goto('all-users')">
+    <span> {{users?.length}}</span>
+    Users
+  </div>
+
+</div>

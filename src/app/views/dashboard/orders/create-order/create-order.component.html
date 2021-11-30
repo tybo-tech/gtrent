@@ -1,0 +1,88 @@
+
+
+<app-customer-selector *ngIf="user && !order || !order.Customer" [user]="user"
+  (doneSelectingCustomer)="doneSelectingCustomer($event)"></app-customer-selector>
+
+
+
+
+
+<div class="container" *ngIf="order && order.Customer">
+  <div class="module-actions">
+    <button class="tertiary" (click)="back()">Back to dashboard</button>
+  </div>
+  <span *ngIf="customerItem">
+    <p>
+      Customer
+    </p>
+    <app-steps-card-widget *ngIf="user && order  && order.Customer && customerItem"
+      [primaryAction]="primaryActionSelection" [item]="customerItem" [canEdit]="!order.CreateDate"
+      (itemSelectedEvent)="itemSelectedEventChangeCustomer($event)">
+    </app-steps-card-widget>
+  </span>
+
+  <span *ngIf="compressorItem">
+    <br>
+    <p *ngIf="user && order  && order.Customer && compressorItem && compressorItem.Name">
+      Compressor
+    </p>
+    <app-steps-card-widget [primaryAction]="primaryActionSelection"
+      *ngIf="user && order  && order.Customer && compressorItem && compressorItem.Name"
+      (itemSelectedEvent)="itemSelectedEventMachine($event)" [item]="compressorItem">
+    </app-steps-card-widget>
+  </span>
+
+  <app-item-selector *ngIf="user && order && order.Customer && showSelectCompressor && !aditMode" [user]="user"
+    [customer]="order.Customer" (doneSelectingMachine)="onItemSelectedMachineEvent($event)"></app-item-selector>
+
+  <app-parts-selector *ngIf="user && order && order.Customer && order.Machine" [user]="user" [customer]="order.Customer"
+    [machine]="order.Machine" (doneSelectingParts)="onItemPartsEvent($event)"></app-parts-selector>
+
+
+
+  <span *ngIf="compressorItem">
+
+    <div class="notes">
+      <h3>
+        Summary
+      </h3>
+
+      <p  *ngIf="aditMode">
+        <span [innerHtml]="order.Notes"></span>
+      </p>
+      <textarea *ngIf="!aditMode" [(ngModel)]="order.Notes" placeholder="Enter summar here"></textarea>
+    </div>
+  </span>
+
+
+  <span *ngIf="aditMode && order.Orderproducts">
+    <div class="notes">
+      <h3>
+        Parts used
+      </h3>
+
+      <div class="row" *ngFor="let item of order.Orderproducts">
+        <div class="col">
+         {{item.Quantity}}  <a>✖️</a>  {{item.ProductName}}
+        </div>
+        <div class="col">
+          {{item.ProductType}}
+        </div>
+      </div>
+    </div>
+
+  </span>
+
+  <div class="actions">
+    <button class="primary" *ngIf="!order.CreateDate" (click)="saveInvoice()">Save & Publish</button>
+    <button class="primary" *ngIf="user.UserType == 'Admin' && order.CreateDate && order.Status == 'Active'"
+      (click)="order.Status = 'Processed'; updateOrder()">Mark as processed</button>
+    <button class="tertiary" *ngIf="order.CreateDate && order.Status == 'Processed'"
+      (click)="order.Status = 'Active'; updateOrder()">Processed</button>
+    <!-- <button class="secondary" *ngIf="!order.CreateDate" (click)="order.Status = 'Draft';  saveInvoice()">Save as
+      draft</button> -->
+  </div>
+</div>
+
+
+<app-user-feedback *ngIf="modalModel && modalModel.heading" [modalModel]="modalModel"></app-user-feedback>

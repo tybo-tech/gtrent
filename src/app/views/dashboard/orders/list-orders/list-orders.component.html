@@ -1,0 +1,22 @@
+<div class="subjects container" *ngIf="custmersItems">
+  <h3>
+    <span>
+      Services List <br> <br>
+    </span>
+  </h3>
+
+  <div class="module-actions">
+    <button class="tertiary" (click)="back()">Back to dashboard</button>
+    <!-- <button class="secondary" (click)="add()">New Service</button> -->
+  </div>
+
+  <div class="top-tabs">
+    <div class="tab" *ngFor="let tab of tabs" [ngClass] ="tab.Class" (click)="tabClicked(tab)">
+      {{tab.Name}}
+    </div>
+   
+  </div>
+  <app-card-list-widget *ngIf="custmersItems && custmersItems.length" [showFilter]="showFilter" [items]="custmersItems">
+  </app-card-list-widget>
+
+</div>

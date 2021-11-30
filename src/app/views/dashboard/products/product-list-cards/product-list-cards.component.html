@@ -1,0 +1,71 @@
+<div class="subjects container" *ngIf="productItems && productItems.length">
+  <h3>
+    <span>
+      Parts List <br> <br>
+    </span>
+  </h3>
+
+  <div class="module-actions">
+    <button class="tertiary" (click)="back()">Back to dashboard</button> <br>
+    <button class="secondary" (click)="addProduct()">New Part</button>
+  </div>
+  <app-card-list-widget *ngIf="productItems && productItems.length" [showFilter]="showFilter"
+    (itemSelectedEvent)="onitemSelected($event)" [items]="productItems"></app-card-list-widget>
+
+</div>
+
+
+<div class="quick-add" *ngIf="showAdd && newProduct">
+  <div class="form" *ngIf="!showSuccess">
+    <h3>
+      {{heading}}
+    </h3>
+
+
+    <div class="form-item">
+      <label for="">Part name</label>
+      <input type="text" name="" class="form-control" id="" [(ngModel)]="newProduct.Name" >
+    </div>
+    <div class="form-item">
+      <label for="">Part Type</label>
+      <select name="" class="form-control" [(ngModel)]="newProduct.ProductType" id="">
+        <option [value]="item.Name" *ngFor="let item of categories">{{item.Name}}</option>
+      </select>
+    </div>
+
+    
+    <div class="form-item">
+      <label for="">Labour</label>
+      <input type="text" name="" class="form-control" id="" [(ngModel)]="newProduct.RegularPrice" >
+    </div>
+
+
+    <div class="form-item" *ngIf="newProduct.Customers && newProduct.Customers.length">
+      <label for="">Customers</label>
+      <a class="abn" *ngFor="let item of newProduct.Customers" [routerLink]="['/admin/dashboard/view-customer', item.CustomerId]">
+        {{item.CustomerName}}
+      </a>
+    </div>
+
+
+    <div class="form-item">
+      <button (click)="saveProduct()" [disabled]="!newProduct.Name">Save part</button>
+      <div class="link" (click)="showAdd = false; showSuccess = false">Cancel</div>
+    </div>
+  </div>
+
+  <div class="form" *ngIf="showSuccess">
+    <h3 class="success">
+      {{heading}}
+    </h3>
+    <h3>
+      What you want to do next?
+    </h3>
+
+    <div class="form-item">
+      <button (click)="addProduct()">Add a new part</button>
+      <button (click)="showAdd = false;showSuccess = false">View parts list</button>
+      <button (click)="back()">Go to dashboard</button>
+    </div>
+  </div>
+</div>

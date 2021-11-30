@@ -1,0 +1,52 @@
+button,
+.btn {
+  border-radius: none;
+  border: none;
+  width: fit-content;
+  font-weight: 600 !important;
+  border-radius: .5em;
+  transition: .4s ease-in-out;
+  font-size: 1em !important;
+  text-transform: none !important;
+  padding: .5em 2em !important;
+
+
+  &:disabled {
+    background: $cloud !important;
+    color: $darker-grey !important;
+    border: 1px solid $darker-grey;
+    cursor: no-drop;
+  }
+
+  cursor: pointer;
+  text-transform: uppercase;
+
+  .primary {
+    background: $pop;
+    color: $black;
+    color: $white !important;
+  }
+
+  .secondary {
+    background: $black !important;
+    color: $white !important;
+    border: 2px solid $black !important;
+
+  }
+
+  .tertiary {
+    border: 2px solid $black !important;
+    color: $black !important;
+    background: $white !important;
+
+  }
+
+
+}
+
+.icon-btn{
+  padding: .5em !important;
+}
+.tac{
+  text-align: center !important; 
+}

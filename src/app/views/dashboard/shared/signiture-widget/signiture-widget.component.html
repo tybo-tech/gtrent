@@ -1,0 +1,19 @@
+
+<div class="form-item">
+  <label>Sign here. </label>
+  <signature-pad [options]="signaturePadOptions" (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete()"></signature-pad>
+
+</div>
+
+<div class="form-item">
+  <label>Your name here </label>
+  <div class="sign">
+   <input type="text" [(ngModel)]="sigName" name="" id="">
+  </div>
+</div>
+
+
+<div class="form-item">
+  <button (click)="saveImage()" [disabled]="!dataUrl || !sigName">Confirm Signature</button>
+</div>
+
