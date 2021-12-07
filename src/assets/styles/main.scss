@@ -1303,44 +1303,6 @@ del {
 
 
 
-.heading {
-  margin: 0;
-  margin-top: 3em;
-  border-top: 1px solid $grey;
-  display: grid;
-  padding: 0;
-  grid-template-columns: auto 13em;
-  padding: 1em;
-
-  li {
-    list-style: none;
-  }
-
-  span {
-    display: block;
-    position: relative;
-    padding: .6em;
-    text-align: left;
-    background: $cloud;
-    border-radius: .2em;
-    cursor: pointer;
-    width: 100%;
-    color: $black;
-    font-weight: 600;
-
-    &:last-child {
-      font-weight: 500;
-      color: $white;
-      background: $pop;
-      text-align: center;
-      width: 12em;
-      font-size: .75em;
-
-    }
-  }
-}
-
-
 
 .black {
   color: $black !important;
@@ -1468,28 +1430,6 @@ del {
   }
 }
 
-
-.container {
-  padding: 1em;
-  padding-top: 2em;
-  margin: 1em 2em !important;
-
-  @media only screen and (max-width: 600px) {
-    margin: 0 !important;
-
-  }
-
-  p,
-  h1,
-  h2,
-  h3,
-  h4,
-  h4,
-  h6 {
-    padding: .4em 1em;
-    margin: 0;
-  }
-}
 
 
 .part{

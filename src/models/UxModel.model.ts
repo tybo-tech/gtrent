@@ -23,34 +23,35 @@ export interface NavHistoryUX {
 
 export interface BreadModel {
   Name: string;
-  Link:string
+  Link: string;
+  Class?: string[];
 }
 
 export interface SliderWidgetModel {
   Id?: string;
   Name?: string;
-  Description?:string;
-  Description2?:string;
-  Link?:string;
-  Icon?:string;
-  Selected?:boolean;
+  Description?: string;
+  Description2?: string;
+  Link?: string;
+  Icon?: string;
+  Selected?: boolean;
   Qty?: number;
   RegularPrice?: number;
 }
 
 export interface AdminStatModel {
-  Customers?:string;
-  Products?:string;
-  Users?:string;
-  ActiveOrders?:string;
-  HistoryOrders?:string;
-  Questions?:string;
-  Testingreports?:string;
+  Customers?: string;
+  Products?: string;
+  Users?: string;
+  ActiveOrders?: string;
+  HistoryOrders?: string;
+  Questions?: string;
+  Testingreports?: string;
 }
 
-export interface TabsUxModel{
-  Id:number;
-  Name:string;
-  Url:string;
+export interface TabsUxModel {
+  Id: number;
+  Name: string;
+  Url: string;
   Class: string[];
 }

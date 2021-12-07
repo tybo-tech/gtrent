@@ -1,6 +1,3 @@
-import { Product } from "../../../tybo-invoice/src/models/product.model";
-import { Company } from "./company.model";
-
 export interface MachineParts {
   MachinePartId: string;
   MachineId: string;

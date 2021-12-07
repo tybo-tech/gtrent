@@ -22,6 +22,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { SignaturePadModule } from 'angular2-signaturepad';
 import {AccordionModule} from 'primeng/accordion';     //accordion and accordion tab
+import {ToastModule} from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 
 @NgModule({
@@ -51,7 +53,9 @@ import {AccordionModule} from 'primeng/accordion';     //accordion and accordion
     SignaturePadModule,
     AccordionModule,
     QuillModule.forRoot(),
+    ToastModule
   ],
-  declarations: [...declarations]
+  declarations: [...declarations],
+  providers: [MessageService]
 })
 export class DashboardModule { }

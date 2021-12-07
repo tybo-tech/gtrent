@@ -1,0 +1,6 @@
+<div class="container">
+    <app-bread [items]="items" [heading]="' Field Service'" [back]="'/admin/dashboard'" *ngIf="items"></app-bread>
+    <app-service-customer *ngIf="user &&  step == 'basic'" [user]="user"></app-service-customer>
+    <app-service-work  *ngIf="user &&  step == 'work'"></app-service-work>
+    <app-service-report  *ngIf="user &&  step == 'report'"></app-service-report>
+</div>

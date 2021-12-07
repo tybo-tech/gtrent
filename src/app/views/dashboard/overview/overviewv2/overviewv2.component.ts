@@ -105,6 +105,21 @@ export class Overviewv2Component implements OnInit {
         }
 
       )
+
+      this.actions.push(  {
+        Id: 'add-service',
+        Name: `Add New  Services`,
+        Description: `Click here to log a new service`,
+        Link: `event`,
+        Icon: `assets/images/icon-add-service.svg`
+      }
+      ,
+      {
+        Name: `Draft Services`,
+        Description: `${this.adminStat.ActiveOrders} items`,
+        Link: `admin/dashboard/services/55`,
+        Icon: `assets/images/icon-waiting.svg`
+      })
     }
     if (this.user && this.user.UserType === TECHNICIAN) {
       this.actions.push(

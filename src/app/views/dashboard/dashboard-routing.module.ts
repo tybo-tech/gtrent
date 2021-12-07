@@ -76,6 +76,12 @@ import { AddVeiwServiceComponent } from './orders/order/add-veiw-service/add-vei
 import { QuestionsComponent } from './question/questions/questions.component';
 import { TestingreportsComponent } from './testingreport/testingreports/testingreports.component';
 import { AddViewGetTestingreportComponent } from './testingreport/add-view-get-testingreport/add-view-get-testingreport.component';
+import { ServiceComponent } from './services/service/service.component';
+import { ServiceCustomerComponent } from './services/service-customer/service-customer.component';
+import { ServiceCompressorComponent } from './services/service-compressor/service-compressor.component';
+import { BreadComponent } from '../home/product-section/collections/bread/bread.component';
+import { ServiceReportComponent } from './services/service-report/service-report.component';
+import { ServiceWorkComponent } from './services/service-work/service-work.component';
 
 const routes: Routes = [
   {
@@ -89,6 +95,8 @@ const routes: Routes = [
       { path: 'product/:id', component: ProductComponent },
       { path: 'order/:id', component: OrderComponent },
       { path: 'service/:id', component: AddVeiwServiceComponent },
+      { path: 'fsr/:id', component: ServiceComponent },
+      { path: 'fsr/:id/:step', component: ServiceComponent },
       { path: 'products', component: ListProductsComponent },
       { path: 'customers', component: CustomersComponent },
       { path: 'services/:status', component: ListOrdersComponent },
@@ -210,7 +218,13 @@ export const declarations: Array<any> = [
   StepsCardWidgetComponent,
   PartsSelectorComponent,
   SignitureWidgetComponent,
-  AddVeiwServiceComponent
+  AddVeiwServiceComponent,
+  ServiceComponent,
+  ServiceCustomerComponent,
+  ServiceCompressorComponent,
+  BreadComponent,
+  ServiceWorkComponent,
+  ServiceReportComponent
 
 ];
 @NgModule({

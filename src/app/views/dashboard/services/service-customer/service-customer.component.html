@@ -1,0 +1,146 @@
+
+<div class="page-content page-container" id="page-content"
+    *ngIf="customers && !editing  && !viewing">
+    <div class="">
+        <h5>
+           Select/Add Customer 
+        </h5>
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <input type="search" class="form-control" [(ngModel)]="searchString"
+                            placeholder="🔎 Filter by name">
+                    </div>
+
+                    <div class="col-lg-4">
+                        <button class="btn btn-primary" (click)="addNewCustomer()"> Add new customer</button>
+                    </div>
+                </div>
+                <br><br>
+
+            </div>
+            <div class="col-lg-8">
+                <div class="list list-row block">
+                    <div class="list-item" *ngFor="let item of customers | searchCustomer: searchString; let i = index"
+                        (click)="selectItem(item)">
+                        <div><a href="#" data-abc="true"><span class="w-48 avatar gd-info">{{item.Dp}}</span></a>
+                        </div>
+                        <div class="flex"> <a class="item-author text-color" data-abc="true"><b>
+                                    {{item.Name}}</b></a>
+                            <div class="item-except text-muted text-sm h-1x">{{item.Machines}} Compressors</div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="row" *ngIf="customer && editing">
+    <div class="col">
+        <div class="card">
+            <div class="card-header bg-dark text-white"><i class="fas fa-user"></i> {{heading}}
+            </div>
+            <div class="card-body">
+                <div>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" [(ngModel)]="customer.Name" class="form-control" id="name"
+                            aria-describedby="emailHelp" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name">Contact person</label>
+                        <input type="text" [(ngModel)]="customer.Surname" class="form-control" id="name"
+                            aria-describedby="emailHelp" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Phone No</label>
+                        <input type="tel" [(ngModel)]="customer.PhoneNumber" class="form-control" id="name"
+                            aria-describedby="emailHelp" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email address</label>
+                        <input type="email" [(ngModel)]="customer.Email" class="form-control" id="email"
+                            aria-describedby="emailHelp" required>
+
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="email">Customer address</label>
+                        <input type="email" [(ngModel)]="customer.AddressLineHome" class="form-control" id="email"
+                            aria-describedby="emailHelp" required>
+
+                    </div>
+
+                    <div class="mx-auto">
+
+
+                        <button  style="margin-right: 2em;" (click)="editing = false; viewing = true"
+                            class="btn btn-dark">Cancel Edit</button>
+
+
+                        <button  [disabled]="!customer.Name" (click)="save()"
+                            class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row" *ngIf="customer && viewing">
+    <div class="col">
+        <div class="card">
+            <div class="card-header bg-dark text-white"><i class="fas fa-user"></i> {{heading}}
+            </div>
+            <div class="card-body">
+                <div>
+                    <div class="card-text">
+                        Name :
+                        <b>{{customer.Name || '----'}}</b>
+                        <hr>
+
+                        Contact person :
+                        <b>{{customer.Surname || '----'}}</b>
+                        <hr>
+
+                        Phone No :
+                        <b>{{customer.PhoneNumber || '----'}}</b>
+                        <hr>
+
+                        Email address :
+                        <b>{{customer.Email || '----'}}</b>
+                        <hr>
+
+                        Customer address :
+                        <b>{{customer.AddressLineHome || '----'}}</b> <br>
+                        <hr>
+                    </div>
+
+
+
+
+                    <div class="mx-auto">
+                        <a  (click)="editing = true; viewing = false"
+                            class="link link-dark" style="margin-right: 1em;">Edit</a>
+
+                            <a  (click)="editing = false; viewing = false"
+                            class="link link-secondary">Change customer</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<app-service-compressor *ngIf="customer && customer.Machines" [customer]="customer" [user]="user"></app-service-compressor>

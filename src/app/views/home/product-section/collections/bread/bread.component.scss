@@ -1,22 +1,56 @@
-@import '../../../../../../assets/styles/color';
+@import "../../../../../../assets/styles/color";
 
 .bread {
-//   display: grid;
-//   grid-template-columns: repeat(3, 33%);
-  padding: 1em;
-  background: $cloud;
-  a{
-      text-decoration: none;
-      color: $black;
-      span{
-          margin: 0;
-          font-size: 1em;
-          left: 1em;
-          top: .1em;
-      }
+    position: fixed;
+    width: 100%;
+    background: $pop;
+    padding: 1em;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    color: $white;
+    .heading {
+        font-weight: 800;
+        text-align: center;
+        width: 100%;
+        position: relative;
+        padding: 1em;
+        ._back {
+            position: absolute;
+            top: 1em;
+            left: 0.4em;
+            font-weight: 400;
+        }
+    }
+    .items {
+        display: grid;
+        grid-template-columns: repeat(3, 33%);
+        background: #414e9b;
+        padding: 0.3em;
+        border-radius: 0.2em;
 
-      &:last-child{
-          color: $darker-grey;
-      }
-  }
+        .item {
+            text-align: center;
+            margin: 0 0.2em;
+            border-radius: 0.2em;
+        }
+        .active {
+            background: $cloud;
+            color: $black;
+        }
+    }
+    a {
+        text-decoration: none;
+        color: $black;
+        span {
+            margin: 0;
+            font-size: 1em;
+            left: 1em;
+            top: 0.1em;
+        }
+
+        &:last-child {
+            color: $darker-grey;
+        }
+    }
 }

@@ -1,8 +1,14 @@
 <div class="bread" *ngIf="items">
-  <a [routerLink]="item.Link" *ngFor="let item of items; let i = index">
-    {{item.Name}}
-    <i *ngIf="i < items.length-1">
-    /
-    </i>
-  </a>
+  <h6 class="heading">
+    {{heading}}
+    <span class="_back" (click)="goBack()">
+      <i class="fas fa-chevron-left"></i> Back
+    </span>
+  </h6>
+  <div class="items">
+    <div class="item" *ngFor="let item of items; let i = index" [ngClass]="item.Class" (click)="tab(item)">
+      {{item.Name}}
+    </div>
+  </div>
+
 </div>

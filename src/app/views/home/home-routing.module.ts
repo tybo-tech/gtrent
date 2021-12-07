@@ -37,7 +37,7 @@ import { HomeToolbarNavigationComponent } from './home-toolbar-navigation/home-t
 import { HomeComponent } from './home.component';
 import { ProductSectionCardComponent, ProductSectionComponent, ProductSectionDetailComponent } from './product-section';
 import { AllCollectionsComponent } from './product-section/collections/all-collections/all-collections.component';
-import { BreadComponent } from './product-section/collections/bread/bread.component';
+// import { BreadComponent } from './product-section/collections/bread/bread.component';
 import { ChatComponent } from './product-section/collections/chat/chat.component';
 import { MessagesComponent } from './product-section/collections/chat/messages/messages.component';
 import { CollectionsComponent } from './product-section/collections/collections.component';
@@ -146,7 +146,7 @@ export const declarations = [
   ViewOrderComponent,
   ViewMyOrderComponent,
   DepartmentComponent,
-  BreadComponent,
+  // BreadComponent,
   ChatComponent,
   MessagesComponent,
   TextarealinebreakpipePipe,
