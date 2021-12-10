@@ -1,0 +1,28 @@
+// component css goes here
+@import "../../../../../assets/styles/color";
+
+._main {
+    padding: 1em;
+    ._header{
+        font-weight: 800;
+        text-align: left;
+    }
+}
+
+
+
+.qty-btn {
+    padding: 0.4em .8em !important;
+    font-size: 0.65em !important;
+}
+
+.a_text {
+    padding: 0.5em;
+}
+
+.items {
+    .item {
+        padding: 0.5em 0;
+        border-bottom: 1px solid $cloud;
+    }
+}

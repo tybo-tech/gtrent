@@ -1,0 +1,145 @@
+<div class="row" *ngIf="service">
+    <div class="col">
+
+
+        <div class="card">
+            <div class="card-header bg-dark text-white"><i class="fas fa-wrench"></i> Parts used
+            </div>
+            <div class="card-body">
+                <div class="items">
+                    <div class="item d-flex justify-content-between"
+                        *ngFor="let item of service.Orderproducts; let i = index">
+                        <div class="name">{{item.ProductType}}
+                            <div id="emailHelp" class="form-text">{{item.ProductName}}</div>
+
+                            <div class="qty__">
+                                <a class="btn btn-primary qty-btn" (click)="changeQty(-1,item)">
+                                    <i class="fas fa-minus"></i>
+                                </a>
+                                <a class="a_text">{{item.Quantity}}</a>
+                                <a class="btn btn-primary qty-btn" (click)="changeQty(1,item)">
+                                    <i class="fas fa-plus"></i>
+                                </a>
+                            </div>
+
+                        </div>
+                        <div class="actions__">
+                            <button class="btn btn-danger qty-btn" (click)="deletePart(item, i)">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <br><br>
+                <div class="mx-auto">
+                    <a (click)="selectingParts = true" class="btn btn-primary" style="margin-right: 1em;">Select
+                        parts</a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+<div class="smart-overlay" *ngIf="selectingParts"  (click)="selectingParts = false">
+
+</div>
+
+<div class="smart-modal" *ngIf="selectingParts">
+    <div class="smart-close">
+        <i class="far fa-window-close" (click)="selectingParts = false"></i>
+    </div>
+
+    <div class="_main" *ngIf="service">
+        <h6 class="_header">
+            Select / Add parts used
+        </h6>
+        <hr>
+
+        <div class="items" *ngIf="service.Machine && service.Machine.Parts">
+            <div class="item d-flex justify-content-between" *ngFor="let item of service.Machine.Parts">
+                <div class="name">{{item.ProductName}}
+                    <div class="text-muted text-small">
+                        {{item.ProductType}}
+                    </div>
+
+                </div>
+                <div class="actions__" >
+                    <button class="btn btn-primary qty-btn" *ngIf="!item.Selected" (click)="addPartsUsedToService(item)">
+                        Select
+                    </button>
+                    <button class="btn btn-danger qty-btn" *ngIf="item.Selected" (click)="removePartsUsedToService(item)">
+                        Remove
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <br><br>
+        <h6 class="_header">
+            Link from parts libraly.
+        </h6>
+
+        <input type="search" class="search-input" [(ngModel)]="searchString" placeholder="🔎 Filter by name">
+        <br>
+        <button class="btn btn-success qty-btn" style="font-size: .8em !important;" (click)="addProduct()">Not in
+            the list? create new</button>
+
+        <div *ngIf="newProduct" class="add-form">
+            <br>
+            <div class="card">
+                <div class="card-header bg-dark text-white"><i class="fas fa-plus"></i> Add new part
+                </div>
+                <div class="card-body">
+
+
+                    <div class="form-item">
+                        <label for="">Part name</label>
+                        <input type="text"  class="from-control"  [(ngModel)]="newProduct.Name"
+                            placeholder="Enter Part name.">
+                    </div>
+                    <div class="form-item">
+                        <label for="">Part Type</label>
+                        <select name="" class="from-control" [(ngModel)]="newProduct.ProductType" id="">
+                            <option [value]="item.Name" *ngFor="let item of categories">{{item.Name}}</option>
+                        </select>
+                    </div>
+
+                    <br><br>
+                    <div class="mx-auto">
+                        <a (click)="selectingParts = true" class="btn btn-primary" (click)="saveProduct()" style="margin-right: 1em;">Save
+                            part</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <hr>
+        <div class="items" *ngIf="products">
+            <div class="item d-flex justify-content-between"
+                *ngFor="let item of products| searchproduct: searchString; let i = index">
+                <div class="name">{{item.Name}}
+                    <div class="text-muted text-small">
+                        {{item.ProductType}}
+                    </div>
+
+                </div>
+                <div class="actions__">
+                    <button class="btn btn-primary qty-btn" (click)="linkPart(item)">
+                        Link part
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,132 @@
+<div class="card">
+    <div class="card-header bg-dark text-white"><i class="fas fa-building"></i> Labour
+    </div>
+    <div class="card-body">
+        <div class="items">
+            <div class="item d-flex justify-content-between" *ngFor="let item of [0,0,0]">
+                <div class="name">Lorem, ipsum dolor.
+                    <div class="qty__">
+                        <a class="btn btn-primary qty-btn">
+                            <i class="fas fa-minus"></i>
+                        </a>
+                        <a class="a_text">10</a>
+                        <a class="btn btn-primary qty-btn">
+                            <i class="fas fa-plus"></i>
+                        </a>
+                    </div>
+
+                </div>
+                <div class="actions__">
+                    <button class="btn btn-danger qty-btn">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <div class="mx-auto">
+            <a (click)="selectingItems = true" class="btn btn-primary" style="margin-right: 1em;">Select
+                Labour</a>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="card">
+    <div class="card-header bg-dark text-white"><i class="fas fa-list-alt"></i> Consumables
+    </div>
+    <div class="card-body">
+        <div>
+            <div class="card-text">
+
+            </div>
+
+
+
+
+            <br>
+            <div class="mx-auto">
+                <a (click)="selectingItems = true" class="btn btn-primary" style="margin-right: 1em;">Select
+                    Consumables</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="smart-overlay" *ngIf="selectingItems"  (click)="selectingItems = false">
+
+</div>
+
+<div class="smart-modal" *ngIf="selectingItems">
+    <div class="smart-close">
+        <i class="far fa-window-close" (click)="selectingItems = false"></i>
+    </div>
+
+    <div class="_main" *ngIf="service">
+        <h6 class="_header">
+            Select / Add parts used
+        </h6>
+        <hr>
+
+        <div class="items" *ngIf="service.Machine && service.Machine.Parts">
+            <div class="item d-flex justify-content-between" *ngFor="let item of service.Machine.Parts">
+                <div class="name">{{item.ProductName}}
+                    <div class="text-muted text-small">
+                        {{item.ProductType}}
+                    </div>
+
+                </div>
+                <div class="actions__" >
+                    <button class="btn btn-primary qty-btn" *ngIf="!item.Selected" (click)="addItemsUsedToService(item)">
+                        Select
+                    </button>
+                    <button class="btn btn-danger qty-btn" *ngIf="item.Selected" (click)="removeItemsUsedToService(item)">
+                        Remove
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <br><br>
+        <h6 class="_header">
+            Link from parts libraly.
+        </h6>
+
+        <br>
+  
+
+        <div *ngIf="item" class="add-form">
+            <br>
+            <div class="card">
+                <div class="card-header bg-dark text-white"><i class="fas fa-plus"></i> Add new part
+                </div>
+                <div class="card-body">
+
+
+                    <div class="form-item">
+                        <label for="">Part name</label>
+                        <input type="text"  class="from-control"  [(ngModel)]="item.Name"
+                            placeholder="Enter Part name.">
+                    </div>
+                
+
+                    <br><br>
+                    <div class="mx-auto">
+                        <a (click)="selectingItems = true" class="btn btn-primary" (click)="save()" style="margin-right: 1em;">Save
+                            part</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <hr>
+    
+    </div>
+</div>

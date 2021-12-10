@@ -77,17 +77,17 @@ export class ServiceComponent implements OnInit {
       {
         Name: 'Basic',
         Link: 'admin/dashboard/fsr/add/basic',
-        Class: ['active']
+        Class: this.step === 'basic' ? ['active'] : []
       },
       {
         Name: 'Work',
         Link: 'admin/dashboard/fsr/add/work',
-        Class: []
+        Class: this.step === 'work' ? ['active'] : []
       },
       {
         Name: 'Report',
         Link: 'admin/dashboard/fsr/add/report',
-        Class: []
+        Class: this.step === 'report' ? ['active'] : []
       }
     ];
   }

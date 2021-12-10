@@ -102,3 +102,27 @@ export const PART_TYPES = [
 
 
 
+export const ITEM_TYPES = {
+    PARTS_USED: {
+        Name: 'PartsUsered'
+    },
+    LABOUR: {
+        Name: 'Labour'
+    },
+    CONSUMABLES: {
+        Name: 'Consumable'
+    },
+    TRAVEL_CHARGE: {
+        Name: 'TravelRates'
+    },
+
+    BANNER: {
+        Name: 'Banner'
+    },
+
+    SETTINGS: {
+        Name: 'Settings'
+    }
+}
+
+

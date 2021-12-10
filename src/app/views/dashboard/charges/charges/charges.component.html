@@ -1,0 +1,140 @@
+<app-bread [heading]="' Settings'" [back]="'/admin/dashboard'"></app-bread>
+
+
+<div class="container">
+
+    <h3 class="heading">
+
+    </h3>
+
+    <div class="row">
+        <div class="col-lg-6">
+
+            <div class="card">
+                <div class="card-header bg-dark text-white"><i class="fas fa-wrench"></i> Labour
+                </div>
+                <div class="card-body">
+                    <div class="items" *ngIf="labourItems && labourItems.length">
+                        <div class="item d-flex justify-content-between"
+                            *ngFor="let item of labourItems; let i = index">
+                            <div class="name" (click)="view(item)"> <b>{{item.Name}}</b> <br>
+                                <b class="muted-text">{{item.Price | currency: 'R'}}</b>
+                                <div id="emailHelp" class="form-text">{{item.ItemSubCategory}}</div>
+
+
+                            </div>
+                            <div class="actions__">
+                                <button class="btn btn-danger qty-btn" (click)="delete(item)">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" *ngIf="!labourItems || !labourItems.length">
+                        <div class="grid-margin stretch-card">
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                <b>Note:</b> <br>
+                                No Labour configured on the system
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <br>
+                    <div class="mx-auto">
+                        <button class="btn btn-primary" (click)="add()">Add a new Labours</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+
+            <div class="card">
+                <div class="card-header bg-dark text-white"><i class="fas fa-stream"></i> Consumables
+                </div>
+                <div class="card-body">
+                    <div class="items" *ngIf="consumables  && consumables .length">
+                        <div class="item d-flex justify-content-between"
+                            *ngFor="let item of consumables ; let i = index">
+                            <div class="name" (click)="view(item)"> <b>{{item.Name}}</b> <br>
+                                <b class="muted-text">{{item.Price | currency: 'R'}}</b>
+                                <div id="emailHelp" class="form-text">{{item.ItemSubCategory}}</div>
+
+
+                            </div>
+                            <div class="actions__">
+                                <button class="btn btn-danger qty-btn" (click)="delete(item)">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" *ngIf="!consumables  || !consumables.length">
+                        <div class="grid-margin stretch-card">
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                <b>Note:</b> <br>
+                                No consumables configured on the system
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <br>
+                    <div class="mx-auto">
+                        <button class="btn btn-primary" (click)="add(ITEM_TYPES.CONSUMABLES.Name)">Add a new consumable</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+</div>
+
+
+
+
+<div class="quick-add" *ngIf="item">
+    <div class="form">
+        <h5 class="_heading">
+          {{heading}}
+        </h5>
+
+
+        <div class="form-item">
+            <label for="">{{item.ItemType}} name</label>
+            <input type="text" class="form-control" name="" id="" [(ngModel)]="item.Name">
+        </div>
+
+
+        <div class="form-item">
+            <label for=""> {{item.ItemType}} Type</label>
+            <select class="form-control" [(ngModel)]="item.ItemSubCategory">
+                <option value="Rate per hour">Rate per hour</option>
+                <option value="Fixed">Fixed</option>
+            </select>
+        </div>
+
+
+
+
+        <div class="form-item">
+            <label for="">Price<strong>(ZAR)</strong></label>
+            <input class="form-control" type="tel" name="" id="" [(ngModel)]="item.Price">
+        </div>
+
+
+        <div class="form-item">
+            <button class="btn btn-secondary" (click)="item = null" style="margin-right: 1em;">Cancel</button>
+            <button (click)="save()" class="btn btn-primary" [disabled]="!item.Name">Save {{item.ItemType}}</button>
+        </div>
+    </div>
+</div>

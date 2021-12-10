@@ -82,6 +82,9 @@ import { ServiceCompressorComponent } from './services/service-compressor/servic
 import { BreadComponent } from '../home/product-section/collections/bread/bread.component';
 import { ServiceReportComponent } from './services/service-report/service-report.component';
 import { ServiceWorkComponent } from './services/service-work/service-work.component';
+import { ServicePartsComponent } from './services/service-parts/service-parts.component';
+import { ChargesComponent } from './charges/charges/charges.component';
+import { ServiceItemComponent } from './services/service-item/service-item.component';
 
 const routes: Routes = [
   {
@@ -131,6 +134,7 @@ const routes: Routes = [
       { path: 'all-users', component: AllUsersComponent },
       { path: 'super-products-picks', component: SuperProductsPicksComponent },
       { path: 'machines', component: MachinesComponent },
+      { path: 'charges', component: ChargesComponent },
       { path: 'questions', component: QuestionsComponent },
       { path: 'testing-reports', component: TestingreportsComponent },
       { path: 'add-machine/:id/:customerId', component: AddMachineComponent },
@@ -224,7 +228,10 @@ export const declarations: Array<any> = [
   ServiceCompressorComponent,
   BreadComponent,
   ServiceWorkComponent,
-  ServiceReportComponent
+  ServiceReportComponent,
+  ServicePartsComponent,
+  ChargesComponent,
+  ServiceItemComponent
 
 ];
 @NgModule({
