@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BreadModel } from 'src/models/UxModel.model';
+import { OrderService } from '../../../../../../services/order.service';
 
 @Component({
   selector: 'app-bread',
@@ -11,9 +12,16 @@ export class BreadComponent implements OnInit {
   @Input() items: BreadModel[]
   @Input() heading: string;
   @Input() back: string;
-  constructor(private router: Router) { }
+  status: string = '';
+  constructor(private router: Router, private orderService: OrderService) { }
 
   ngOnInit() {
+    this.orderService.OrderObservable.subscribe(data => {
+      if (data)
+        this.status = data.Status
+      else
+        this.status = ''
+    })
   }
   goBack() {
     this.router.navigate([this.back])

@@ -4,6 +4,7 @@ import { User, Order, Product, Orderproduct, Category } from 'src/models';
 import { MachineParts } from 'src/models/machineparts.model';
 import { CompanyCategoryService, OrderService, ProductService } from 'src/services';
 import { MachinePartsService } from 'src/services/machineparts.service';
+import { OrderProductsService } from 'src/services/order.products.service';
 import { PRODUCT_TYPE_STOCK, STATUS_ACTIIVE_STRING } from 'src/shared/constants';
 
 @Component({
@@ -30,13 +31,14 @@ export class ServicePartsComponent {
         private machinePartsService: MachinePartsService,
         private messageService: MessageService,
         private companyCategoryService: CompanyCategoryService,
+        private orderProductsService: OrderProductsService,
 
     ) { }
 
     ngOnInit() {
         this.orderService.OrderObservable.subscribe(data => {
             this.service = data;
-            if (this.service && this.service.Orderproducts  && this.service.Machine && this.service.Machine.Parts) {
+            if (this.service && this.service.Orderproducts && this.service.Machine && this.service.Machine.Parts) {
                 this.service.Machine.Parts.forEach(item => {
                     if (this.service.Orderproducts.find(x => x.ProductId === item.MachinePartId))
                         item.Selected = true;
@@ -73,7 +75,12 @@ export class ServicePartsComponent {
             const product = this.service.Orderproducts.find(x => x.ProductId === machinepart.MachinePartId);
 
             if (!product) {
-                this.service.Orderproducts.push(this.mapOrderproduct(machinepart));
+                this.orderProductsService.add(this.mapOrderproduct(machinepart)).subscribe(data => {
+                    if (data && data.OrdersId) {
+                        this.service = data;
+                        this.orderService.updateOrderState(this.service);
+                    }
+                })
             }
 
             if (product) {
@@ -83,7 +90,6 @@ export class ServicePartsComponent {
 
         }
 
-        this.orderService.updateOrderState(this.service);
     }
 
 
@@ -96,12 +102,19 @@ export class ServicePartsComponent {
             if (!orderproduct)
                 return;
 
-            const index = this.service.Orderproducts.indexOf(orderproduct);
+            // const index = this.service.Orderproducts.indexOf(orderproduct);
+            orderproduct.StatusId = 99;
+            this.orderProductsService.update(orderproduct).subscribe(data => {
+                if (data && data.OrdersId) {
+                    this.service = data;
+                    this.orderService.updateOrderState(this.service);
+                }
+            })
 
-            if (index >= 0) {
-                this.service.Orderproducts.splice(index, 1);
-                this.orderService.updateOrderState(this.service);
-            }
+            // if (index >= 0) {
+            //     this.service.Orderproducts.splice(index, 1);
+            //     this.orderService.updateOrderState(this.service);
+            // }
 
         }
 
@@ -112,7 +125,7 @@ export class ServicePartsComponent {
     mapOrderproduct(machinepart: MachineParts): Orderproduct {
         return {
             Id: ``,
-            OrderId: ``,
+            OrderId: this.service.OrdersId,
             ProductId: machinepart.MachinePartId,
             CompanyId: this.user.CompanyId,
             ProductName: machinepart.ProductName,
@@ -130,16 +143,28 @@ export class ServicePartsComponent {
         };
     }
 
-    changeQty(qty: number, item: Orderproduct) {
-        if (qty < 0 && item.Quantity <= 1)
+    changeQty(qty: number, orderproduct: Orderproduct) {
+        if (qty < 0 && Number(orderproduct.Quantity) <= 1)
             return;
 
-        item.Quantity += qty;
-        this.orderService.updateOrderState(this.service);
+        orderproduct.Quantity = Number(orderproduct.Quantity) + qty;
+        this.orderProductsService.update(orderproduct).subscribe(data => {
+            if (data && data.OrdersId) {
+                this.service = data;
+                this.orderService.updateOrderState(this.service);
+            }
+        })
     }
 
     deletePart(orderproduct: Orderproduct, index) {
-        this.service.Orderproducts.splice(index, 1);
+        // this.service.Orderproducts.splice(index, 1);
+        orderproduct.StatusId = 99;
+        this.orderProductsService.update(orderproduct).subscribe(data => {
+            if (data && data.OrdersId) {
+                this.service = data;
+                this.orderService.updateOrderState(this.service);
+            }
+        })
     }
     linkPart(product: Product) {
         const item: MachineParts = {

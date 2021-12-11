@@ -1,17 +1,15 @@
 @import "../../../../../assets/styles/color";
 
 ._main {
-    padding: 1em;
-    ._header{
+    padding: .1em .5em;
+    ._header {
         font-weight: 800;
         text-align: left;
     }
 }
 
-
-
 .qty-btn {
-    padding: 0.4em .8em !important;
+    padding: 0.4em 0.8em !important;
     font-size: 0.65em !important;
 }
 
@@ -24,4 +22,19 @@
         padding: 0.5em 0;
         border-bottom: 1px solid $cloud;
     }
+}
+
+.my-badge {
+    background: $black;
+    color: $white;
+    margin: 0.5em 0;
+    font-size: 0.75em;
+    padding: 0.25em 0.7em;
+    border-radius: 0.33em;
+    display: block;
+    width: fit-content;
+}
+
+.form-item{
+    padding: .1em;
 }

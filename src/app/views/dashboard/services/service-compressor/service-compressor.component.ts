@@ -45,7 +45,7 @@ export class ServiceCompressorComponent {
             }
         }
     }
-    selectItem(item) {
+    selectItem(item, saveService = false) {
         this.machine = item;
         if (this.machine && this.service) {
             this.service.Machine = this.machine;
@@ -56,7 +56,9 @@ export class ServiceCompressorComponent {
             this.orderService.updateOrderState(this.service);
             this.viewing = true;
             this.editing = false;
-            this.heading = 'Selected compressor'
+            this.heading = 'Selected compressor';
+            if (saveService)
+                this.orderService.saveServiceVoid(this.service);
 
         }
     }

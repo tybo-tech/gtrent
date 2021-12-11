@@ -14,7 +14,7 @@
 
         <app-service-item *ngIf="user" [user]="user"></app-service-item>
 
-   
+
 
 
 
@@ -22,22 +22,16 @@
             <div class="card-header bg-dark text-white"><i class="fas fa-route"></i> Distance travelled
             </div>
             <div class="card-body">
-                <div>
-                    <div class="card-text">
 
-                    </div>
-
-
-
-
-                    <div class="mx-auto">
-                        <a (click)="editing = true; viewing = false" class="link link-dark"
-                            style="margin-right: 1em;">Edit</a>
-
-                        <a (click)="editing = false; editing = false" class="link link-secondary">Change customer</a>
-                    </div>
-                </div>
+                <input name="" class="from-control" [(ngModel)]="service.ShippingPrice" (change)="orederChanged()" />
             </div>
         </div>
     </div>
+
+    
+
+</div>
+
+<div class="__actions">
+    <button class="btn btn-primary" (click)="next()">Next</button>
 </div>

@@ -103,6 +103,12 @@ export const PART_TYPES = [
 
 
 export const ITEM_TYPES = {
+    SERVICE_LABOUR: {
+        Name: 'ServiceLabour'
+    },
+    SERVICE_CONSUMABLES: {
+        Name: 'ServiceConsumable'
+    },
     PARTS_USED: {
         Name: 'PartsUsered'
     },
@@ -126,3 +132,17 @@ export const ITEM_TYPES = {
 }
 
 
+export const SERVICE_STATUS = {
+    DRAFT_NOT_SAVED: {
+        Name: 'Draft not saved'
+    },
+    DRAFT_SAVED: {
+        Name: 'Draft saved'
+    },
+    ACTIVE: {
+        Name: 'Active'
+    },
+    INVOICED: {
+        Name: 'Invoiced'
+    }
+}

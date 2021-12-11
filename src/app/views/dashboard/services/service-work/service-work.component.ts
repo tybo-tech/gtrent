@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { User, Order, Orderproduct } from 'src/models';
 import { OrderService } from 'src/services';
 
@@ -15,6 +16,7 @@ export class ServiceWorkComponent {
     service: Order;
     constructor(
         private orderService: OrderService,
+        private router: Router,
     ) { }
 
     ngOnInit() {
@@ -24,8 +26,12 @@ export class ServiceWorkComponent {
     }
     orederChanged() {
         this.orderService.updateOrderState(this.service);
+        this.orderService.saveServiceVoid(this.service);
+
         console.log(this.service)
     }
 
-
+    next() {
+        this.router.navigate([`/admin/dashboard/fsr/${this.service.OrdersId}/report`])
+    }
 }

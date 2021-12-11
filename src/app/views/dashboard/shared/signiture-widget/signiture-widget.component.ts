@@ -1,7 +1,5 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { SignaturePad } from 'angular2-signaturepad';
-import { fromEvent } from 'rxjs';
-import { switchMap, takeUntil, pairwise } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { User } from 'src/models';
 import { Images } from 'src/models/images.model';
@@ -16,14 +14,16 @@ export class SignitureWidgetComponent implements AfterViewInit {
   @ViewChild(SignaturePad) signaturePad: SignaturePad;
   @Input() user: User;
   @Input() useBase64: boolean;
+  @Input() imageSig: string;
+  @Input() sigName: string;
+  @Input() roleLabel: string;
   @Output() onUploadFinished: EventEmitter<Images> = new EventEmitter();
-
+  showSig = true;
   signaturePadOptions: Object = { // passed through to szimek/signature_pad constructor
-    'minWidth': 5,
+    'minWidth': 1,
     'canvasWidth': 300,
     'canvasHeight': 150
   };
-  sigName: string;
   dataUrl: string;
 
   constructor(private uploadService: UploadService) {
@@ -32,8 +32,13 @@ export class SignitureWidgetComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     // this.signaturePad is now available
-    this.signaturePad.set('minWidth', 1); // set szimek/signature_pad options at runtime
-    this.signaturePad.clear(); // invoke functions from szimek/signature_pad API
+    if (!this.imageSig)
+      this.showSig = false;
+    if (this.signaturePad) {
+      this.signaturePad.set('minWidth', 1); // set szimek/signature_pad options at runtime
+      this.signaturePad.clear(); // invoke functions from szimek/signature_pad API
+    }
+
   }
 
   drawComplete() {
@@ -49,7 +54,7 @@ export class SignitureWidgetComponent implements AfterViewInit {
     const resizedImage = this.dataURLToBlob(this.dataUrl);
     let fileOfBlob = new File([resizedImage], 'sig.png');
     console.log(this.dataUrl);
-   
+
 
     if (this.useBase64) {
       const image: Images = {

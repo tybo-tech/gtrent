@@ -3,6 +3,7 @@ import { AccountService, OrderService } from 'src/services';
 import { Order, User } from 'src/models';
 import { ActivatedRoute } from '@angular/router';
 import { BreadModel } from 'src/models/UxModel.model';
+import { SERVICE_STATUS } from '../../../../../shared/constants';
 
 @Component({
   selector: 'app-service',
@@ -27,6 +28,9 @@ export class ServiceComponent implements OnInit {
       this.user = this.accountService.currentUserValue;
       this.orderId = r.id;
       this.step = r.step;
+      this.loadBread();
+      
+
       if (this.orderId === 'add')
         this.initNewService();
       else
@@ -35,7 +39,6 @@ export class ServiceComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadBread();
   }
   getOrder() {
     this.orderService.getOrderSync(this.orderId).subscribe(data => {
@@ -47,7 +50,7 @@ export class ServiceComponent implements OnInit {
     const service = this.orderService.currentOrderValue;
     if (!service) {
       this.service = {
-        OrdersId: '',
+        OrdersId: this.orderId,
         OrderNo: 'Shop',
         CompanyId: this.user.CompanyId,
         Company: this.user.Company,
@@ -62,7 +65,7 @@ export class ServiceComponent implements OnInit {
         DueDate: '',
         CreateUserId: 'shop',
         ModifyUserId: 'shop',
-        Status: 'Active',
+        Status: SERVICE_STATUS.DRAFT_NOT_SAVED.Name,
         StatusId: 1,
         ShippingPrice: 0
       };
@@ -76,17 +79,17 @@ export class ServiceComponent implements OnInit {
     this.items = [
       {
         Name: 'Basic',
-        Link: 'admin/dashboard/fsr/add/basic',
+        Link: `admin/dashboard/fsr/${this.orderId}/basic`,
         Class: this.step === 'basic' ? ['active'] : []
       },
       {
         Name: 'Work',
-        Link: 'admin/dashboard/fsr/add/work',
+        Link: `admin/dashboard/fsr/${this.orderId}/work`,
         Class: this.step === 'work' ? ['active'] : []
       },
       {
         Name: 'Report',
-        Link: 'admin/dashboard/fsr/add/report',
+        Link: `admin/dashboard/fsr/${this.orderId}/report`,
         Class: this.step === 'report' ? ['active'] : []
       }
     ];

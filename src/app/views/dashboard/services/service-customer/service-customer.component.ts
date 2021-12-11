@@ -36,6 +36,10 @@ export class ServiceCustomerComponent {
     ngOnInit() {
         this.orderService.OrderObservable.subscribe(data => {
             this.service = data;
+
+            if (this.service && this.service.Customer && this.service.CompanyId) {
+                this.selectItem(this.service.Customer);
+            }
         })
         this.customerService.customersListObservable.subscribe(data => {
             this.customers = data || [];
@@ -49,14 +53,11 @@ export class ServiceCustomerComponent {
 
             });
 
-            if (this.service && this.service.Customer && this.service.CompanyId) {
-                this.selectItem(this.service.Customer);
-            }
         });
         this.customerService.getCustomers(this.user.CompanyId, CUSTOMER);
 
     }
-    selectItem(item: Customer) {
+    selectItem(item: Customer, saveService = false) {
         this.uxService.showLoader();
         this.customerService.getCustomerSync(item.CustomerId).subscribe(data => {
             this.uxService.hideLoader();
@@ -75,7 +76,15 @@ export class ServiceCustomerComponent {
                 this.service.Customer = this.customer;
                 this.service.CustomerId = this.customer.CustomerId;
                 this.service.Shipping = this.customer.Name;
-                this.orderService.updateOrderState(this.service);
+                if (saveService) {
+                    this.orderService.saveService(this.service).subscribe(data => {
+                        if (data && data.OrdersId) {
+                            this.service.OrdersId = data.OrdersId;
+                            this.orderService.updateOrderState(this.service);
+                            this.router.navigate([`/admin/dashboard/fsr/${this.service.OrdersId}/basic`])
+                        }
+                    });
+                }
             }
         });
     }
@@ -148,5 +157,7 @@ export class ServiceCustomerComponent {
 
         }
     }
-
+    next() {
+        this.router.navigate([`/admin/dashboard/fsr/${this.service.OrdersId}/work`])
+    }
 }

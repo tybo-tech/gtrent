@@ -26,7 +26,7 @@
             </div>
             <div class="col-lg-8">
                 <div class="list list-row block">
-                    <div class="list-item" *ngFor="let item of customer.Machines" (click)="selectItem(item)">
+                    <div class="list-item" *ngFor="let item of customer.Machines" (click)="selectItem(item, true)">
                         <!-- <div><a href="#" data-abc="true"><span class="w-48 avatar gd-info">{{item.Dp}}</span></a>
                         </div> -->
                         <div class="flex"> <a class="item-author text-color" data-abc="true"><b>

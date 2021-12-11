@@ -1,1 +1,85 @@
-component html goes here
+<div class="row" *ngIf="service">
+    <div class="col">
+
+        <div class="card">
+            <div class="card-header bg-dark text-white"><i class="fa fa-chart-bar"></i> Report
+            </div>
+            <div class="card-body">
+                <div class="card-text">
+                    Customer Name :
+                    <b>{{service.Customer.Name || '----'}}</b>
+                    <br>
+
+                    Contact person :
+                    <b>{{service.Customer.Surname || '----'}}</b>
+                    <br>
+
+                    Phone No :
+                    <b>{{service.Customer.PhoneNumber || '----'}}</b>
+                    <br>
+
+                    Email address :
+                    <b>{{service.Customer.Email || '----'}}</b>
+                    <br>
+                    Customer address :
+                    <b>{{service.Customer.AddressLineHome || '----'}}</b> <br>
+                    <hr>
+                    Compressor Model : <b>{{service.Model|| "---"}} </b> <br>
+                    Compressor Serial : <b>{{service.Serial || "---"}} </b> <br>
+                    Compressor Reading : <b>{{service.Hours || "---"}} </b> <br>
+                    <br>
+                    <hr>
+                    Work done: <br>
+                    <b>
+                        {{service.Notes}}
+                    </b>
+                    <hr>
+
+
+                    <h5 class="__heading">Parts used</h5>
+
+                    <span *ngFor="let item of service.Orderproducts; let i = index">
+                        <b> {{item.Quantity}}</b> X <b> {{item.ProductType}} </b><br>
+                        <!-- {{item.ProductName}} -->
+                    </span>
+                    <br>
+                    <hr>
+                    <app-signiture-widget (onUploadFinished)="onUploadFinished($event, 'Customer')"
+                     [imageSig]="service.CustomerSigniture" 
+                     [sigName]="service.CustomerSignitureName" 
+                     [roleLabel]="'Customer'" 
+                     [user]="user">
+                    </app-signiture-widget>
+
+                    <hr>
+                    <app-signiture-widget (onUploadFinished)="onUploadFinished($event, 'Technician')"
+                     [imageSig]="service.TechnicainSigniture" 
+                     [sigName]="service.TechnicainName" 
+                     [roleLabel]="'Technician'" 
+                     [user]="user">
+                    </app-signiture-widget>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- 
+        <div class="card">
+            <div class="card-header bg-dark text-white"><i class="fa fa-chart-bar"></i> Customer signiture
+            </div>
+            <div class="card-body">
+                 <app-signiture-widget (onUploadFinished)="onUploadFinished($event)" [user]="user"></app-signiture-widget>
+
+            </div>
+        </div> -->
+
+
+    </div>
+
+
+
+</div>
+
+<div class="__actions" *ngIf="service && service.Status ==  SERVICE_STATUS.DRAFT_SAVED.Name">
+    <button class="btn btn-primary" (click)="next()">Publish service</button>
+</div>

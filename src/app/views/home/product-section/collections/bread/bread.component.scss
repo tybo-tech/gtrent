@@ -14,10 +14,10 @@
         text-align: center;
         width: 100%;
         position: relative;
-        padding: .75em;
+        padding: 0.5em;
         ._back {
             position: absolute;
-            top: .75em;
+            top: 0.75em;
             left: 0.4em;
             font-weight: 400;
         }
@@ -53,4 +53,12 @@
             color: $darker-grey;
         }
     }
+}
+
+._status {
+    display: block;
+    text-align: center;
+    font-size: 0.8em;
+    padding: 0.25em;
+    font-weight: 400;
 }

@@ -2,22 +2,18 @@
     <div class="card-header bg-dark text-white"><i class="fas fa-building"></i> Labour
     </div>
     <div class="card-body">
-        <div class="items">
-            <div class="item d-flex justify-content-between" *ngFor="let item of [0,0,0]">
-                <div class="name">Lorem, ipsum dolor.
-                    <div class="qty__">
-                        <a class="btn btn-primary qty-btn">
-                            <i class="fas fa-minus"></i>
-                        </a>
-                        <a class="a_text">10</a>
-                        <a class="btn btn-primary qty-btn">
-                            <i class="fas fa-plus"></i>
-                        </a>
-                    </div>
+        <div class="items" *ngIf="serviceLabourItems">
+            <div class="item d-flex justify-content-between" *ngFor="let item of serviceLabourItems">
+                <div class="name"> {{item.Name}}
+                    <p>
+                        <strong>
+                            {{item.LimitValue}} hours
+                        </strong>
+                    </p>
 
                 </div>
                 <div class="actions__">
-                    <button class="btn btn-danger qty-btn">
+                    <button class="btn  btn-danger qty-btn" (click)="removeItem(item)">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
@@ -26,7 +22,7 @@
 
         <br>
         <div class="mx-auto">
-            <a (click)="selectingItems = true" class="btn btn-primary" style="margin-right: 1em;">Select
+            <a (click)="addItem(ITEM_TYPES.LABOUR.Name)" class="btn btn-primary" style="margin-right: 1em;">Select
                 Labour</a>
         </div>
     </div>
@@ -41,16 +37,31 @@
     </div>
     <div class="card-body">
         <div>
-            <div class="card-text">
 
+
+
+            <div class="items" *ngIf="serviceConsumables">
+                <div class="item d-flex justify-content-between" *ngFor="let item of serviceConsumables">
+                    <div class="name"> {{item.Name}}
+                        <p>
+                            <strong>
+                                Price: {{item.Price | currency : 'R'}}
+                            </strong>
+                        </p>
+
+                    </div>
+                    <div class="actions__">
+                        <button class="btn  btn-danger qty-btn" (click)="removeItem(item)">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
-
-
-
 
             <br>
             <div class="mx-auto">
-                <a (click)="selectingItems = true" class="btn btn-primary" style="margin-right: 1em;">Select
+                <a (click)="addItem(ITEM_TYPES.CONSUMABLES.Name)" class="btn btn-primary"
+                    style="margin-right: 1em;">Select
                     Consumables</a>
             </div>
         </div>
@@ -60,7 +71,7 @@
 
 
 
-<div class="smart-overlay" *ngIf="selectingItems"  (click)="selectingItems = false">
+<div class="smart-overlay" *ngIf="selectingItems" (click)="selectingItems = false">
 
 </div>
 
@@ -70,16 +81,16 @@
     </div>
 
     <div class="_main" *ngIf="service">
-        <h6 class="_header">
-            Select / Add parts used
+        <!-- <h6 class="_header">
+           {{heading}}
         </h6>
-        <hr>
-
-        <div class="items" *ngIf="service.Machine && service.Machine.Parts">
-            <div class="item d-flex justify-content-between" *ngFor="let item of service.Machine.Parts">
-                <div class="name">{{item.ProductName}}
-                    <div class="text-muted text-small">
-                        {{item.ProductType}}
+        <hr> -->
+        <!-- 
+        <div class="items" *ngIf="selectedItems && selectedItems">
+            <div class="item d-flex justify-content-between" *ngFor="let item of selectedItems">
+                <div class="name">{{item.Name}}
+                    <div class="text-muted text-small" *ngIf="item.Price">
+                        {{item.Price | currency: 'R'}} <span *ngIf="item.ItemSubCategory"> - {{item.ItemSubCategory}}</span>
                     </div>
 
                 </div>
@@ -92,41 +103,62 @@
                     </button>
                 </div>
             </div>
-        </div>
+        </div> -->
 
-        <br><br>
-        <h6 class="_header">
-            Link from parts libraly.
-        </h6>
-
-        <br>
-  
-
-        <div *ngIf="item" class="add-form">
-            <br>
-            <div class="card">
-                <div class="card-header bg-dark text-white"><i class="fas fa-plus"></i> Add new part
-                </div>
-                <div class="card-body">
+        <!-- <br><br> -->
 
 
-                    <div class="form-item">
-                        <label for="">Part name</label>
-                        <input type="text"  class="from-control"  [(ngModel)]="item.Name"
-                            placeholder="Enter Part name.">
+        <div class="" *ngIf="item">
+
+            <div *ngIf="item" class="add-form">
+                <br>
+                <div class="card">
+                    <div class="card-header bg-dark text-white"><i class="fas fa-plus"></i> {{heading}}
                     </div>
-                
+                    <div class="card-body">
 
-                    <br><br>
-                    <div class="mx-auto">
-                        <a (click)="selectingItems = true" class="btn btn-primary" (click)="save()" style="margin-right: 1em;">Save
-                            part</a>
+
+                        <div class="form-item">
+                            <label for="">Choose Rate</label>
+
+                            <div class="">
+                                <a *ngFor="let _item of selectedItems" class="my-badge"
+                                    (click)="useItem(_item)">{{_item.Name}} {{_item.Price |
+                                    currency: 'R'}} <span *ngIf="_item.ItemSubCategory"> -
+                                        {{_item.ItemSubCategory}}</span></a>
+
+                            </div>
+                        </div>
+
+                        <div class="form-item">
+                            <label for="">{{item.ItemType}} Name</label>
+                            <input type="search" class="from-control" [(ngModel)]="item.Name">
+                        </div>
+
+                        <div class="form-item" *ngIf="item.ItemType == ITEM_TYPES.LABOUR.Name">
+                            <label for="">Total {{item.ItemType}} hours</label>
+                            <input type="tel" class="from-control" [(ngModel)]="item.LimitValue">
+                        </div>
+
+
+                        <div class="form-item" *ngIf="item.ItemType == ITEM_TYPES.CONSUMABLES.Name">
+                            <label for="">{{item.ItemType}} price</label>
+                            <input type="tel" class="from-control" [(ngModel)]="item.Price">
+                        </div>
+
+
+                        <div class="mx-auto">
+                            <a class="btn btn-primary" (click)="saveItem()" style="margin-right: 1em;">Save
+                                {{item.ItemType}} </a>
+                        </div>
                     </div>
-                </div>
 
+                </div>
             </div>
         </div>
-        <hr>
-    
+
+        <br>
+
+
     </div>
 </div>

@@ -1,4 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,531;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,531;1,600;1,700;1,800;1,900&family=Metal+Mania&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Corinthia:wght@400;700&display=swap');
+
 @import "./assets/styles/color";
 @import "./assets/styles/main";
 @import "./assets/styles/button";
@@ -34,14 +36,13 @@
 html,
 body {
   height: 100%;
-  background: $grey;
 }
 
 body {
   margin: 0;
   font-family: "Jost" !important;
   font-size: 15px;
-  background: $cloud !important;
+  background: #bbbbbb !important;
 
   @media only screen and (max-width: 600px) {
     font-size: 13px;
@@ -120,5 +121,11 @@ button {
     text-align: right;
     font-size: 1.5em;
     color: red;
+  }
+}
+.__actions {
+  padding: 1em;
+  button {
+      width: 100%;
   }
 }

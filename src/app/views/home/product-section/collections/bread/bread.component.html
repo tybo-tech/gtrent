@@ -1,6 +1,7 @@
 <div class="bread">
   <h6 class="heading">
     {{heading}}
+    <span class="_status" *ngIf="status">{{status}}</span>
     <span class="_back" (click)="goBack()">
       <i class="fas fa-chevron-left"></i> Back
     </span>

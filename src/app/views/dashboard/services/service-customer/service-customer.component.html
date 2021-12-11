@@ -1,9 +1,7 @@
-
-<div class="page-content page-container" id="page-content"
-    *ngIf="customers && !editing  && !viewing">
+<div class="page-content page-container" id="page-content" *ngIf="customers && !editing  && !viewing">
     <div class="">
         <h5>
-           Select/Add Customer 
+            Select/Add Customer
         </h5>
         <div class="row">
             <div class="col-lg-8">
@@ -23,7 +21,7 @@
             <div class="col-lg-8">
                 <div class="list list-row block">
                     <div class="list-item" *ngFor="let item of customers | searchCustomer: searchString; let i = index"
-                        (click)="selectItem(item)">
+                        (click)="selectItem(item, true)">
                         <div><a href="#" data-abc="true"><span class="w-48 avatar gd-info">{{item.Dp}}</span></a>
                         </div>
                         <div class="flex"> <a class="item-author text-color" data-abc="true"><b>
@@ -83,12 +81,11 @@
                     <div class="mx-auto">
 
 
-                        <button  style="margin-right: 2em;" (click)="editing = false; viewing = true"
+                        <button style="margin-right: 2em;" (click)="editing = false; viewing = true"
                             class="btn btn-dark">Cancel Edit</button>
 
 
-                        <button  [disabled]="!customer.Name" (click)="save()"
-                            class="btn btn-primary">Save</button>
+                        <button [disabled]="!customer.Name" (click)="save()" class="btn btn-primary">Save</button>
                     </div>
                 </div>
             </div>
@@ -130,11 +127,10 @@
 
 
                     <div class="mx-auto">
-                        <a  (click)="editing = true; viewing = false"
-                            class="link link-dark" style="margin-right: 1em;">Edit</a>
+                        <a (click)="editing = true; viewing = false" class="link link-dark"
+                            style="margin-right: 1em;">Edit</a>
 
-                            <a  (click)="editing = false; viewing = false"
-                            class="link link-secondary">Change customer</a>
+                        <a (click)="editing = false; viewing = false" class="link link-secondary">Change customer</a>
                     </div>
                 </div>
             </div>
@@ -143,4 +139,10 @@
 </div>
 
 
-<app-service-compressor *ngIf="customer && customer.Machines" [customer]="customer" [user]="user"></app-service-compressor>
+<app-service-compressor *ngIf="customer && customer.Machines" [customer]="customer" [user]="user">
+</app-service-compressor>
+
+
+<div class="__actions">
+    <button class="btn btn-primary" (click)="next()">Next</button>
+</div>

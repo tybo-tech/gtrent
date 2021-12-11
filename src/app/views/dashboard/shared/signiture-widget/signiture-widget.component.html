@@ -1,19 +1,26 @@
+<div class="__main">
 
-<div class="form-item">
-  <label>Sign here. </label>
-  <signature-pad [options]="signaturePadOptions" (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete()"></signature-pad>
+  <div class="form-item">
+    <label><b>{{roleLabel}} Signature.</b> </label>
+    <div class="" *ngIf="imageSig && showSig" (click)="showSig = !showSig">
+      <img [src]="imageSig" style="width: 12em;" alt="">
+    </div>
+    <signature-pad *ngIf="!showSig" [options]="signaturePadOptions" (onBeginEvent)="drawStart()"
+      (onEndEvent)="drawComplete()"></signature-pad>
 
-</div>
-
-<div class="form-item">
-  <label>Your name here </label>
-  <div class="sign">
-   <input type="text" [(ngModel)]="sigName" name="" id="">
   </div>
+
+  <div class="form-item">
+    <label><b>{{roleLabel}} Name.</b> </label>
+    <div class="sign">
+      <input type="text" [(ngModel)]="sigName" name="" id="">
+    </div>
+  </div>
+
+
+  <div class="form-item" *ngIf="!showSig">
+    <button (click)="saveImage()" class="btn btn-primary" [disabled]="!dataUrl || !sigName">Confirm Signature</button>
+  </div>
+
+
 </div>
-
-
-<div class="form-item">
-  <button (click)="saveImage()" [disabled]="!dataUrl || !sigName">Confirm Signature</button>
-</div>
-
