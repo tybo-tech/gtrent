@@ -1,4 +1,23 @@
-<div class="container" *ngIf="test">
+<!-- <div class="container">
+  <div class="row">
+    <div class="col-lg-4">
+      <div class="card">
+        <div class="card-header  bg-dark text-white">
+          Featured
+        </div>
+        <img src="..." class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+ <div class="container" *ngIf="test">
   <div class="module-actions">
     <button class="tertiary" (click)="back()">Back to test reports</button>
     <button class="tertiary" *ngIf="test.CreateDate && test.CreateDate.length" (click)="generatePdf()">Print
@@ -6,8 +25,6 @@
   </div>
 
   <div class="cards">
-    <!-- <app-images></app-images> -->
-
     <div class="card">
       <div class="top">
         <h3>
@@ -241,7 +258,6 @@
                 (change)="saveRemark(newRemark)" id="" cols="30" rows="10"></textarea>
             </div>
           </div>
-          <!-- <button class="tertiary">Add Remark</button> -->
         </div>
       </div>
     </div>
@@ -332,7 +348,4 @@
       <div class="link" (click)="showSign = false">Cancel</div>
     </div>
   </div>
-</div>
-
-
-<!-- <app-user-feedback *ngIf="modalModel && modalModel.heading" [modalModel]="modalModel"></app-user-feedback> -->
+</div> 

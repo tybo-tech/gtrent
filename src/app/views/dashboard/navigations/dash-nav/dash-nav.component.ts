@@ -48,5 +48,7 @@ export class DashNavComponent implements OnInit {
     this.router.navigate(['']);
   }
 
-
+  navClicked(e = true){
+    this.showNav = false;
+  }
 }

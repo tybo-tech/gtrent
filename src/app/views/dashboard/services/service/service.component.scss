@@ -1,5 +1,10 @@
 @import "../../../../../assets/styles/color";
 
 .container {
-    padding: 10em 0.5em;
+    padding: 0.5em;
+    max-width: 30em !important;
+    margin: 1em !important;
+    @media only screen and (max-width: 600px) {
+        padding: 0.5em;
+    }
 }

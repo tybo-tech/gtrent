@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { Product, User } from 'src/models';
 import { Customer } from 'src/models/customer.model';
 import { Machine } from 'src/models/machine.model';
@@ -23,6 +24,7 @@ export class CustomersComponent implements OnInit {
   showLoader: boolean;
   users: Customer[] = [];
   modalHeading = 'Add customer';
+  primaryAction = 'Add customer';
   user: User;
   oldCustomers: Customer[];
   CUSTOMERS = CUSTOMERS;
@@ -37,12 +39,13 @@ export class CustomersComponent implements OnInit {
   customer: Customer;
   heading = 'Adding a new customer';
   custmersItems: SliderWidgetModel[]
-
+  items = [];
   constructor(
     private accountService: AccountService,
     private customerService: CustomerService,
     private machineService: MachineService,
     private productService: ProductService,
+    private messageService: MessageService,
     private router: Router,
   ) { }
 
@@ -53,10 +56,12 @@ export class CustomersComponent implements OnInit {
       this.custmersItems = [];
       this.users.forEach(item => {
         this.custmersItems.push({
+          Id: item.CustomerId,
           Name: `${item.Name}`,
           Description: `${item.Machines} Compressors`,
           Link: `admin/dashboard/view-customer/${item.CustomerId}`,
-          Icon: `assets/images/icon-customer.svg`
+          Icon: `assets/images/icon-customer.svg`,
+          CanDelete: true
         })
 
 
@@ -82,11 +87,16 @@ export class CustomersComponent implements OnInit {
     this.showModal = false;
     this.showAddCustomer = false;
   }
-  view(user: Customer) {
-    this.customerService.updateCustomerState(user);
-    this.router.navigate(['admin/dashboard/view-customer', user.CustomerId]);
+  view(customer: Customer) {
+    this.router.navigate(['admin/dashboard/view-customer', customer.CustomerId]);
   }
-  add() {
+  doneEddingCustomer(customer: Customer) {
+    if (customer && customer.CustomerId) {
+      this.messageService.add({ severity: 'success', summary: 'Order deleted', detail: '' });
+      this.view(customer);
+    }
+  }
+  add(e= true) {
     // this.router.navigate(['admin/dashboard/customer', 'add']);
     this.customer = {
       CustomerId: '',
@@ -168,6 +178,23 @@ export class CustomersComponent implements OnInit {
 
   }
 
+  itemDeleteEvent(item: SliderWidgetModel) {
+    const customer = this.users.find(x => x.CustomerId === item.Id);
+    if (!customer)
+      return;
+
+      this.customerService.getCustomerSync(customer.CustomerId).subscribe(data=>{
+        if(data && data.CustomerId){
+          data.StatusId = 99;
+          this.customerService.updateCustomerSync(data).subscribe(data_ => {
+            this.ngOnInit();
+            this.messageService.add({ severity: 'error', summary: 'Customer deleted', detail: '' });
+          })
+        }
+      })
+
+  
+  }
 }
 
 

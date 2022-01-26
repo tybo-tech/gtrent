@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { environment } from 'src/environments/environment';
 import { User } from 'src/models/user.model';
 import { SliderWidgetModel } from 'src/models/UxModel.model';
@@ -19,11 +20,14 @@ export class AllUsersComponent implements OnInit {
   loggedInUSer: User;
   usersItems: SliderWidgetModel[]
   showFilter = true;
+  items = [];
+  primaryAction = 'New user'
   constructor(
     private userService: UserService,
     private router: Router,
     private accountService: AccountService,
     private uxService: UxService,
+    private messageService: MessageService
   ) { }
 
   ngOnInit() {
@@ -42,7 +46,8 @@ export class AllUsersComponent implements OnInit {
             Name: `${item.Name} - ${item.UserType}`,
             Description: `${item.Email}`,
             Link: `event`,
-            Icon: `assets/images/icon-customer.svg`
+            Icon: `assets/images/icon-customer.svg`,
+            CanDelete: true
           })
 
 
@@ -54,7 +59,7 @@ export class AllUsersComponent implements OnInit {
   back() {
     this.router.navigate(['admin/dashboard']);
   }
-  add() {
+  add(e = true) {
     this.user = {
       UserId: '',
       CompanyId: this.loggedInUSer.CompanyId,
@@ -80,6 +85,19 @@ export class AllUsersComponent implements OnInit {
   }
 
 
+  itemDeleteEvent(item: SliderWidgetModel) {
+    const user = this.users.find(x => x.UserId === item.Id);
+    if (!user)
+      return;
+
+    user.StatusId = 99;
+    this.userService.updateUserSync(user).subscribe(data_ => {
+      this.ngOnInit();
+      this.messageService.add({ severity: 'error', summary: 'User deleted', detail: '' });
+    })
+
+
+  }
   onitemSelected(item: SliderWidgetModel) {
     this.user = this.users.find(x => x.UserId === item.Id);
   }

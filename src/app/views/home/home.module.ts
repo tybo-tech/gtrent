@@ -13,6 +13,8 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 import {ClipboardModule} from '@angular/cdk/clipboard';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   imports: [
@@ -27,12 +29,14 @@ import {ClipboardModule} from '@angular/cdk/clipboard';
     MatBadgeModule,
     MatProgressSpinnerModule,
     ClipboardModule,
+    ToastModule
 
 
     // QuillModule.forRoot()
 
   ],
-  declarations: [...declarations]
+  declarations: [...declarations],
+  providers:[MessageService]
 })
 export class HomeModule { }
 

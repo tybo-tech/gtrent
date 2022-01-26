@@ -1,43 +1,18 @@
-  
-  <div class="nav">
-    <ul (click)="toggleNav()">
-      <li>
-        <a routerLink="/admin/dashboard" (click)="toggleNav()" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
-          <span class="material-icons">
-            dashboard
-          </span>
-          Dashboard
-        </a>
-      </li>
-      <li>
-        <a routerLink="/admin/dashboard/products" (click)="toggleNav()" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
-          <span class="material-icons">
-            list
-          </span>
-          Parts
-        </a>
-      </li>
+<div class="__nav _pc-nav">
+  <app-nav-items></app-nav-items>
+</div>
 
-      <li>
-        <a routerLink="/admin/dashboard/customers" (click)="toggleNav()" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
-          <span class="material-icons">
-            supervisor_account
-          </span>
-          Customers
-        </a>
-      </li>
+<div class="_phone-nav">
 
- 
-
-      <li>
-        <a (click)="logout()" style="display: block;top: 2em; color: rgb(146, 146, 146);cursor: pointer;">
-          <span class="material-icons">
-            logout
-          </span>
-        Logout
-        </a>
-      </li>
-
-
-    </ul>
+  <div class="menu-bar">
+    <button class="btn btn-light" (click)="showNav = !showNav">
+      <i *ngIf="!showNav" class="fas fa-bars"></i>
+      <i *ngIf="showNav" class="fas fa-times"></i>
+    </button>
   </div>
+
+
+  <div class="menu __nav" *ngIf="showNav">
+    <app-nav-items (doneSelectingItem)="navClicked($event)"></app-nav-items>
+  </div>
+</div>

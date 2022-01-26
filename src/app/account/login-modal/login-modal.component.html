@@ -30,7 +30,7 @@
         <a routerLink="/forgot-password" class="link">forgot password ?</a>
       </div>
       <div class="action">
-        <button mat-button color="primary" (click)="Login()" [disabled]="!rForm.valid">
+        <button class="btn btn-primary" (click)="Login()" [disabled]="!rForm.valid">
           Login
         </button>
         <h5 class="error">{{error}}</h5>

@@ -1,0 +1,15 @@
+<app-services-bread [items]="items" [heading]="'Test report'" [back]="'/admin/dashboard'" *ngIf="items">
+</app-services-bread>
+<div class="card" *ngIf="testingreport">
+    <div class="card-header  bg-dark text-white">
+        TEST INFORMATION
+    </div>
+    <div class="card-body">
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Customer Name</label>
+            <input type="text" class="form-control" [(ngModel)]="testingreport.CustomerName">
+        </div>
+        <a class="btn btn-secondary" (click)="previousPage()">Back to list</a>
+        <a class="btn btn-primary" (click)="nextPage()">Next</a>
+    </div>
+</div>

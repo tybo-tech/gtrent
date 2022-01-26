@@ -1,0 +1,94 @@
+<app-services-bread [items]="items" [heading]="'Test report'" [back]="'/admin/dashboard'" *ngIf="items">
+</app-services-bread>
+<div class="card" *ngIf="testingreport">
+    <div class="card-header  bg-dark text-white">
+        CUSTOMER & BASIC INFO
+    </div>
+    <div class="card-body">
+        <div class="mb-3">
+            <label>Dol</label>
+            <input type="text" class="form-control" [(ngModel)]="testingreport.Dol">
+        </div>
+
+        <div class="mb-3">
+            <label>Certificate Number</label>
+            <input type="text" class="form-control" [(ngModel)]="testingreport.CertNo">
+        </div>
+
+
+
+        <div class="input-group mb-3">
+            <div>
+                <label>Date Of Test</label>
+                <input type="date" class="form-control" [(ngModel)]="testingreport.DateOfTest">
+            </div>
+
+            <div>
+                <label>Start Time</label>
+
+                <input type="time" class="form-control" [(ngModel)]="testingreport.StartTime">
+            </div>
+
+            <div>
+                <label>End Time</label>
+
+                <input type="time" class="form-control" [(ngModel)]="testingreport.EndTime">
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Customer Name</label>
+            <input type="text" class="form-control" [(ngModel)]="testingreport.CustomerName">
+        </div>
+
+        <div class="mb-3">
+            <label>Vessel Location</label>
+            <input type="text" class="form-control" [(ngModel)]="testingreport.Location">
+        </div>
+        <br><br>
+
+
+        <div class="mb-3">
+            <label>Reason For Test</label>
+            <select type="text" class="form-control" [(ngModel)]="testingreport.ReasonForTest">
+                <option value="Statutory">Statutory</option>
+                <option value="installation">Installation</option>
+                <option value="visual">Visual</option>
+            </select>
+        </div>
+
+
+
+
+
+
+
+        <div class="mb-3">
+            <label>Next inspection date</label>
+            <div class="input-group mb-3">
+                <select type="text" class="form-control" [(ngModel)]="day">
+                    <option value="">Day</option>
+                    <option [value]="d" *ngFor="let d of days">{{d}} </option>
+                </select>
+
+
+                <select type="text" class="form-control" [(ngModel)]="month">
+                    <option value="">Month</option>
+                    <option [value]="m" *ngFor="let  m of months">{{m}} </option>
+                </select>
+
+
+                <select type="text" class="form-control" [(ngModel)]="year">
+                    <option value="">Year</option>
+                    <option [value]="y" *ngFor="let  y of years">{{y}} </option>
+                </select>
+            </div>
+        </div>
+
+
+
+        <br>
+        <a class="btn btn-secondary" (click)="previousPage()">Back to list</a>
+        <a class="btn btn-primary" (click)="nextPage()">Next</a>
+    </div>
+</div>

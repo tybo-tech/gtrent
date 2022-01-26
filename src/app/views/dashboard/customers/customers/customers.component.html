@@ -1,17 +1,35 @@
-<div class="subjects container" *ngIf="custmersItems && custmersItems.length">
-  <h3>
-    <span>
-      Customer List <br> <br>
-    </span>
-  </h3>
+<app-loader *ngIf="!custmersItems || !custmersItems.length"></app-loader>
 
-  <div class="module-actions">
-    <button class="tertiary" (click)="back()">Back to dashboard</button>
-    <button class="secondary" (click)="add()">New Customer</button>
-  </div>
-  <app-card-list-widget *ngIf="custmersItems && custmersItems.length" [showFilter]="showFilter" [items]="custmersItems"></app-card-list-widget>
+<app-services-bread [items]="items" [heading]="'Customer List'" [back]="'/admin/dashboard'"></app-services-bread>
+
+<div class="subjects container" *ngIf="custmersItems && custmersItems.length">
+
+  <app-card-list-widget *ngIf="custmersItems && custmersItems.length" [primaryAction]="primaryAction" (primaryActionEvent)="add($event)"  (itemDeleteEvent)="itemDeleteEvent($event)"  [showFilter]="showFilter" [items]="custmersItems">
+  </app-card-list-widget>
 
 </div>
 
 
-<app-add-customer *ngIf="customer" [customer]="customer" [heading]="heading"></app-add-customer>
+
+
+
+
+
+
+
+
+
+
+
+<div class="smart-overlay" *ngIf="customer" (click)="customer = null">
+
+</div>
+
+<div class="smart-modal" *ngIf="customer">
+  <div class="smart-close">
+    <i class="far fa-window-close" (click)="customer = null"></i>
+  </div>
+  <div class="___cus">
+    <app-add-customer *ngIf="customer" (doneEddingCustomer)="doneEddingCustomer($event)" [customer]="customer" [heading]="heading"></app-add-customer>
+  </div>
+</div>

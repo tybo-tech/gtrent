@@ -26,12 +26,53 @@
                 <input name="" class="from-control" [(ngModel)]="service.ShippingPrice" (change)="orederChanged()" />
             </div>
         </div>
+
+        <div class="card">
+            <div class="card-header bg-dark text-white"><i class="fas fa-asterisk"></i> Reference
+            </div>
+            <div class="card-body">
+
+                <input name="" class="from-control" [(ngModel)]="service.OrderSource" (change)="orederChanged()" />
+            </div>
+        </div>
     </div>
 
-    
+
 
 </div>
 
 <div class="__actions">
     <button class="btn btn-primary" (click)="next()">Next</button>
+</div>
+
+
+
+
+
+<div class="smart-overlay" *ngIf="errors && errors.length" (click)="errors = []">
+
+</div>
+
+<div class="smart-modal" *ngIf="errors && errors.length">
+    <div class="smart-close">
+        <i class="far fa-window-close" (click)="errors = []"></i>
+    </div>
+    <h5 style="padding: 0 1em;">
+        You have {{errors.length}} errors.
+    </h5>
+    <div class="errors" *ngFor="let error of errors; let i = index">
+        <div class="alert alert-danger" role="alert">
+            {{i+1}}. {{error}}
+        </div>
+    </div>
+
+    <div class="errors">
+        <button class="btn btn-primary" (click)="backToBasic()"><i class="fas fa-arrow-left"></i> Complete
+            details</button>
+        <br>
+        <br>
+        <br>
+        <button class="btn btn-link" (click)="backToBasic()"><i class="fas fa-trash"></i> Cancel service</button>
+
+    </div>
 </div>

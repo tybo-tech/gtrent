@@ -1,5 +1,5 @@
-// export const NOTIFY_EMAILS = 'mrnnmthembu@gmail.com, Info@trentcompressors.com';
-export const NOTIFY_EMAILS = 'mrnnmthembu@gmail.com';
+export const NOTIFY_EMAILS = 'mrnnmthembu@gmail.com, Info@trentcompressors.com';
+// export const NOTIFY_EMAILS = 'mrnnmthembu@gmail.com';
 export const CUSTOMER = 'Customer';
 export const DRAFT = 55;
 export const TECHNICIAN = 'Technician';
@@ -79,23 +79,23 @@ export const MAX_PAGE_SIZE = 20;
 export const PART_TYPES = [
     'Original Air Filter 1',
     `Equivalent Air Filter 1`
-    ,`Original Air Filter 2`
-    ,`Equivalent Air Filter 2`
-    ,`Original Oil Filter`
-    ,`Equivalent Oil Filter`
-    ,`Original Seperator Element`
-    ,`Equivalent Seperator Element`
-    ,`Original V-Belt`
-    ,`Equivalent V-Belt`
-    ,`Line Filter Housing`
-    ,`Original Line Filter`
-    ,`Equivalent Line Filter`
-    ,`Original Engine Diesel Filter`
-    ,`Equivalent Engine Diesel Filter`
-    ,`Original Engine Oil Filter`
-    ,`Equivalent Engine Oil Filter`
-    ,`Original Engine Air Filter`
-    ,`Equivalent Engine Air Filter`
+    , `Original Air Filter 2`
+    , `Equivalent Air Filter 2`
+    , `Original Oil Filter`
+    , `Equivalent Oil Filter`
+    , `Original Seperator Element`
+    , `Equivalent Seperator Element`
+    , `Original V-Belt`
+    , `Equivalent V-Belt`
+    , `Line Filter Housing`
+    , `Original Line Filter`
+    , `Equivalent Line Filter`
+    , `Original Engine Diesel Filter`
+    , `Equivalent Engine Diesel Filter`
+    , `Original Engine Oil Filter`
+    , `Equivalent Engine Oil Filter`
+    , `Original Engine Air Filter`
+    , `Equivalent Engine Air Filter`
 ];
 
 
@@ -134,15 +134,39 @@ export const ITEM_TYPES = {
 
 export const SERVICE_STATUS = {
     DRAFT_NOT_SAVED: {
-        Name: 'Draft not saved'
+        Name: 'Draft not saved',
+        Id: 0
     },
     DRAFT_SAVED: {
-        Name: 'Draft saved'
+        Name: 'Draft saved',
+        Id: 55
     },
-    ACTIVE: {
-        Name: 'Active'
+    PENDING_INVOICE: {
+        Name: 'Pending',
+        Id: 1
     },
     INVOICED: {
-        Name: 'Invoiced'
+        Name: 'Invoiced',
+        Id: 2
+    },
+    PUBLISHED: {
+        Name: 'Published'
+    }
+}
+
+
+
+export const TEST_REPORT_PAGES = {
+    CUSTOMER: {
+        Name: 'customer',
+        Id: 0
+    },
+    VESSEL: {
+        Name: 'vessel',
+        Id: 55
+    },
+    TEST_INFO: {
+        Name: 'test-info',
+        Id: 0
     }
 }

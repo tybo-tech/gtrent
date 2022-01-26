@@ -1460,3 +1460,48 @@ del {
   color: $black;
   text-decoration: none;
 }
+
+
+
+  
+@media (min-width : 300px) {
+  .phone-only {
+    display: block;
+  }
+
+  .pc-only {
+    display: none;
+  }
+
+  .tab-only {
+    display: none;
+  }
+}
+
+@media (min-width : 800px) {
+  .phone-only {
+    display: none;
+  }
+
+  .pc-only {
+    display: none;
+  }
+
+  .tab-only {
+    display: block;
+  }
+}
+
+@media (min-width : 1400px) {
+  .phone-only {
+    display: none;
+  }
+
+  .pc-only {
+    display: block;
+  }
+
+  .tab-only {
+    display: none;
+  }
+}

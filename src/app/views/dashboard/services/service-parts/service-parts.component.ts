@@ -32,6 +32,7 @@ export class ServicePartsComponent {
         private messageService: MessageService,
         private companyCategoryService: CompanyCategoryService,
         private orderProductsService: OrderProductsService,
+        
 
     ) { }
 
@@ -40,10 +41,15 @@ export class ServicePartsComponent {
             this.service = data;
             if (this.service && this.service.Orderproducts && this.service.Machine && this.service.Machine.Parts) {
                 this.service.Machine.Parts.forEach(item => {
-                    if (this.service.Orderproducts.find(x => x.ProductId === item.MachinePartId))
+                    const orderProduct = this.service.Orderproducts.find(x => x.ProductId === item.MachinePartId)
+                    if (orderProduct) {
                         item.Selected = true;
-                    else
+                        item.Qty = orderProduct.Quantity;
+                    }
+                    else {
                         item.Selected = false;
+                        item.Qty = 1;
+                    }
                 })
             }
         });
@@ -134,7 +140,7 @@ export class ServicePartsComponent {
             FeaturedImageUrl: ``,
             Colour: ``,
             Size: ``,
-            Quantity: 1,
+            Quantity: machinepart.Qty || 0,
             SubTotal: 0,
             CreateUserId: '',
             ModifyUserId: '',
@@ -154,6 +160,12 @@ export class ServicePartsComponent {
                 this.orderService.updateOrderState(this.service);
             }
         })
+    }
+
+    changeBeforeQty(qty: number, machinePart: MachineParts) {
+        if (qty < 0 && Number(machinePart.Qty) <= 1)
+            return;
+        machinePart.Qty = Number(machinePart.Qty) + qty;
     }
 
     deletePart(orderproduct: Orderproduct, index) {
@@ -262,6 +274,14 @@ export class ServicePartsComponent {
 
     }
 
+    updateProduct(){
+        
+    }
+
+    updateMachinePart(machineparts: MachineParts) {
+        this.machinePartsService.updateMachinePartsSync(machineparts).subscribe(data => {
+        })
+      }
     showMessage(detail, summary = 'Success', severity = 'success') {
         this.messageService.add({ severity: severity, summary: summary, detail: detail });
     }

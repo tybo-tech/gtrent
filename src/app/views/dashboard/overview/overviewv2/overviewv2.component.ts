@@ -70,7 +70,7 @@ export class Overviewv2Component implements OnInit {
         },
         {
           Name: `Draft Services`,
-          Description: `${this.adminStat.ActiveOrders} items`,
+          Description: `${this.adminStat.DraftOrders} items`,
           Link: `admin/dashboard/services/55`,
           Icon: `assets/images/icon-waiting.svg`
         },
@@ -116,7 +116,7 @@ export class Overviewv2Component implements OnInit {
       ,
       {
         Name: `Draft Services`,
-        Description: `${this.adminStat.ActiveOrders} items`,
+        Description: `${this.adminStat.DraftOrders} items`,
         Link: `admin/dashboard/services/55`,
         Icon: `assets/images/icon-waiting.svg`
       })
@@ -133,7 +133,7 @@ export class Overviewv2Component implements OnInit {
         ,
         {
           Name: `Draft Services`,
-          Description: `${this.adminStat.ActiveOrders} items`,
+          Description: `${this.adminStat.DraftOrders} items`,
           Link: `admin/dashboard/services/55`,
           Icon: `assets/images/icon-waiting.svg`
         }
@@ -180,30 +180,7 @@ export class Overviewv2Component implements OnInit {
   onItemSelectedEvent(event: SliderWidgetModel) {
     console.log(event);
     if (event.Id === 'add-service') {
-      const order = {
-        OrdersId: '',
-        OrderNo: 'Shop',
-        CompanyId: this.user.CompanyId,
-        Company: this.user.Company,
-        CustomerId: '',
-        AddressId: '',
-        Notes: '',
-        OrderType: ORDER_TYPE_SALES,
-        Total: 0,
-        Paid: 0,
-        Due: 0,
-        InvoiceDate: new Date(),
-        DueDate: '',
-        $EstimatedDeliveryDate: '',
-        CreateUserId: 'shop',
-        ModifyUserId: 'shop',
-        Status: 'Active',
-        StatusId: 1,
-        ShippingPrice: 0,
-        Orderproducts: []
-      }
-      this.orderService.updateOrderState(order);
-      this.goto(`service/add`);
+      this.goto(`fsr/add/basic`);
     }
 
 

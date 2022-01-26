@@ -6,7 +6,7 @@ import { Orderproduct } from './order.product.model';
 
 
 export interface Order {
-
+  
   OrdersId: string;
   OrderNo: string;
   CompanyId: string;
@@ -35,7 +35,7 @@ export interface Order {
   Company?: Company;
   GoBackToCreateOrder?: boolean;
   Machine?: Machine;
-
+  
   CustomerSigniture?: string;
   CustomerSignitureName?: string;
   TechnicainSigniture?: string;
@@ -44,4 +44,5 @@ export interface Order {
   Model?: string;
   Serial?: string;
   Items?: Item[];
+  Heading?: string;
 }

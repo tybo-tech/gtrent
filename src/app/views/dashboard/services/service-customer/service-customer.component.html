@@ -1,37 +1,36 @@
 <div class="page-content page-container" id="page-content" *ngIf="customers && !editing  && !viewing">
-    <div class="">
-        <h5>
-            Select/Add Customer
-        </h5>
-        <div class="row">
-            <div class="col-lg-8">
-                <div class="row">
-                    <div class="col-lg-8">
-                        <input type="search" class="form-control" [(ngModel)]="searchString"
-                            placeholder="🔎 Filter by name">
-                    </div>
-
-                    <div class="col-lg-4">
-                        <button class="btn btn-primary" (click)="addNewCustomer()"> Add new customer</button>
-                    </div>
+    <h5>
+        Select/Add Customer
+    </h5>
+    <div class="row" style="margin: 0;">
+   
+        <div class="col-lg-8">
+            <div class="row" style="margin: 0;">
+                <div class="col-lg-8">
+                    <input type="search" class="form-control" [(ngModel)]="searchString"
+                        placeholder="🔎 Filter by name">
                 </div>
-                <br><br>
 
+                <div class="col-lg-4">
+                    <button class="btn btn-primary" (click)="addNewCustomer()"> Add new customer</button>
+                </div>
             </div>
-            <div class="col-lg-8">
-                <div class="list list-row block">
-                    <div class="list-item" *ngFor="let item of customers | searchCustomer: searchString; let i = index"
-                        (click)="selectItem(item, true)">
-                        <div><a href="#" data-abc="true"><span class="w-48 avatar gd-info">{{item.Dp}}</span></a>
-                        </div>
-                        <div class="flex"> <a class="item-author text-color" data-abc="true"><b>
-                                    {{item.Name}}</b></a>
-                            <div class="item-except text-muted text-sm h-1x">{{item.Machines}} Compressors</div>
-                        </div>
+            <br><br>
 
+        </div>
+        <div class="col-lg-8">
+            <div class="list list-row block">
+                <div class="list-item" *ngFor="let item of customers | searchCustomer: searchString; let i = index"
+                    (click)="selectItem(item, true)">
+                    <div><a href="#" data-abc="true"><span class="w-48 avatar gd-info">{{item.Dp}}</span></a>
+                    </div>
+                    <div class="flex"> <a class="item-author text-color" data-abc="true"><b>
+                                {{item.Name}}</b></a>
+                        <div class="item-except text-muted text-sm h-1x">{{item.Machines}} Compressors</div>
                     </div>
 
                 </div>
+
             </div>
         </div>
     </div>

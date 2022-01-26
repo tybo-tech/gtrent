@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { Category, Product, User } from 'src/models';
 import { SliderWidgetModel } from 'src/models/UxModel.model';
 import { ProductService, AccountService, CompanyCategoryService } from 'src/services';
@@ -13,11 +14,12 @@ import { OLD_DATA } from 'src/shared/old-data';
   styleUrls: ['./product-list-cards.component.scss']
 })
 export class ProductListCardsComponent implements OnInit {
-
+  items = [];
   products: Product[];
   allProducts: Product[];
   user: User;
   showAdd: boolean;
+  loading: boolean;
   newProduct: Product;
   searchString: string;
   PRODUCT_ORDER_LIMIT_MAX = PRODUCT_ORDER_LIMIT_MAX;
@@ -26,6 +28,7 @@ export class ProductListCardsComponent implements OnInit {
   activeProducts: Product[];
   productItems: SliderWidgetModel[]
   heading = ' Add new part.';
+  primaryAction = ' Add new part';
   showSuccess: boolean;
   showFilter = true;
   categories: Category[];
@@ -35,47 +38,58 @@ export class ProductListCardsComponent implements OnInit {
     private companyCategoryService: CompanyCategoryService,
     private router: Router,
     private uxService: UxService,
+    private messageService: MessageService,
   ) { }
 
   ngOnInit() {
     this.user = this.accountService.currentUserValue;
-    this.uxService.updateLoadingState({ Loading: true, Message: 'Loading parts, please wait.' })
-    this.productService.getProductsSync(this.user.CompanyId).subscribe(data => {
-      this.uxService.updateLoadingState({ Loading: false, Message: undefined });
-      this.allProducts = data || [];
-      console.log(this.allProducts);
-
-      this.initProductItems();
-
-
-    })
+    this.initProductItems();
     // this.proccessOldData();
   }
 
-  
+
 
   goto(url) {
     this.router.navigate([`admin/dashboard/${url}`]);
   }
+  itemDeleteEvent(item: SliderWidgetModel) {
+    const order = this.allProducts.find(x => x.ProductId === item.Id);
+    if (!order)
+      return;
 
-  initProductItems() {
-    this.productItems = [];
-    this.products = this.allProducts.filter(product => product.ProductStatus === STATUS_ACTIIVE_STRING);
-    this.loadPartyTypesList();
-    this.products.forEach(item => {
-      this.productItems.push({
-        Id: item.ProductId,
-        Name: `${item.Name}`,
-        Description: `${item.ProductType}`,
-        Description2: `${item.Customers.map(x => x.CustomerName).toString()}`,
-        Link: `event`,
-        Icon: `assets/images/icon.svg`,
-        RegularPrice: item.RegularPrice,
-      })
+    order.StatusId = 99;
+    this.productService.update(order).subscribe(data => {
+      this.initProductItems();
+      this.messageService.add({ severity: 'error', summary: 'Product deleted', detail: '' });
     })
   }
+  initProductItems() {
+    this.loading = true;
+    this.productService.getProductsSync(this.user.CompanyId).subscribe(data => {
+      this.allProducts = data || [];
+      this.productItems = [];
+      this.products = this.allProducts.filter(product => product.ProductStatus === STATUS_ACTIIVE_STRING);
+      this.loadPartyTypesList();
+      this.products.forEach(item => {
+        this.productItems.push({
+          Id: item.ProductId,
+          Name: `${item.Name}`,
+          Description: `${item.ProductType}`,
+          Description2: `${item.Customers.map(x => x.CustomerName).toString()}`,
+          Link: `event`,
+          Icon: `assets/images/icon.svg`,
+          CanDelete: true
+          // RegularPrice: item.RegularPrice,
+        })
+        this.loading = false;
+      })
 
-  addProduct() {
+
+    })
+
+  }
+
+  addProduct(e = true) {
     this.productService.updateProductState(null);
     this.showAdd = true;
     this.showSuccess = false;
@@ -254,8 +268,8 @@ export class ProductListCardsComponent implements OnInit {
       else
         this.categories = [];
 
-      
+
     });
- 
+
   }
 }

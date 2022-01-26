@@ -19,7 +19,7 @@
         z-index: 1000;
         background: none;
         position: relative;
-        top: 35%;
+        top: 10em;
         max-width: 28em;
         margin: 1em auto;
         input{
@@ -45,47 +45,7 @@
       animation-fill-mode: backwards;
   }
 
-
-  
-@media (min-width : 300px) {
-    .phone-only {
-      display: block;
-    }
-  
-    .pc-only {
-      display: none;
-    }
-  
-    .tab-only {
-      display: none;
-    }
+  .btn{
+      width: 15em;
+      color: $white !important;
   }
-  
-  @media (min-width : 800px) {
-    .phone-only {
-      display: none;
-    }
-  
-    .pc-only {
-      display: none;
-    }
-  
-    .tab-only {
-      display: block;
-    }
-  }
-  
-  @media (min-width : 1400px) {
-    .phone-only {
-      display: none;
-    }
-  
-    .pc-only {
-      display: block;
-    }
-  
-    .tab-only {
-      display: none;
-    }
-  }
-  

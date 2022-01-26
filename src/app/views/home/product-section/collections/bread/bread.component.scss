@@ -1,14 +1,14 @@
 @import "../../../../../../assets/styles/color";
 
 .bread {
-    position: fixed;
     width: 100%;
-    background: $pop;
+    background: $primary;
     padding: 1em;
-    z-index: 1000;
-    top: 0;
-    left: 0;
     color: $white;
+    border-radius: .5em;
+    margin-bottom: 2em;
+    
+
     .heading {
         font-weight: 800;
         text-align: center;

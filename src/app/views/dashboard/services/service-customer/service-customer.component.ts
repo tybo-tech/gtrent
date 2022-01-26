@@ -34,6 +34,7 @@ export class ServiceCustomerComponent {
     ) { }
 
     ngOnInit() {
+      
         this.orderService.OrderObservable.subscribe(data => {
             this.service = data;
 
@@ -55,6 +56,7 @@ export class ServiceCustomerComponent {
 
         });
         this.customerService.getCustomers(this.user.CompanyId, CUSTOMER);
+
 
     }
     selectItem(item: Customer, saveService = false) {

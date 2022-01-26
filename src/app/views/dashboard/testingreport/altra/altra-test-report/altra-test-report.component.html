@@ -1,0 +1,14 @@
+<div class="container" *ngIf="testingreport">
+    <div class="row">
+        <div class="col-lg-12">
+            <app-altra-testing-customer [testingreport]="testingreport"
+                *ngIf="pageId == TEST_REPORT_PAGES.CUSTOMER.Name"></app-altra-testing-customer>
+            <app-altra-testing-vessel [testingreport]="testingreport" *ngIf="pageId == TEST_REPORT_PAGES.VESSEL.Name">
+            </app-altra-testing-vessel>
+            <app-altra-testing-testing-proccess [testingreport]="testingreport"
+                *ngIf="pageId == TEST_REPORT_PAGES.TEST_INFO.Name">
+            </app-altra-testing-testing-proccess>
+
+        </div>
+    </div>
+</div>

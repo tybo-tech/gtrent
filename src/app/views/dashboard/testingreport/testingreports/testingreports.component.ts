@@ -52,7 +52,7 @@ export class TestingreportsComponent implements OnInit {
 
   add() {
     this.heading = 'Adding  new  question.';
-    this.router.navigate(['admin/dashboard/testingreport/add']);
+    this.router.navigate(['admin/dashboard/test-report/add/customer']);
 
   }
   back() {

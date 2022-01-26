@@ -1,4 +1,5 @@
 <div class="row" *ngIf="service">
+
     <div class="col">
 
         <div class="card">
@@ -31,32 +32,50 @@
                     <hr>
                     Work done: <br>
                     <b>
-                        {{service.Notes}}
+                        {{service.Notes || '___________'}}
                     </b>
                     <hr>
 
 
-                    <h5 class="__heading">Parts used</h5>
+                    <!-- <h5 class="__heading">Parts used</h5>
 
                     <span *ngFor="let item of service.Orderproducts; let i = index">
                         <b> {{item.Quantity}}</b> X <b> {{item.ProductType}} </b><br>
-                        <!-- {{item.ProductName}} -->
+                        <p class="card-text text-muted" *ngIf="user && user.UserType === 'Admin'">{{item.ProductName}}
+                        </p>
+                        <hr>
                     </span>
-                    <br>
+                    <br> -->
                     <hr>
+
+                    <span *ngIf="user && user.UserType === 'Admin' && serviceLabourItems">
+
+                        <h5 class="__heading">Labour</h5>
+
+                        <span *ngFor="let item of serviceLabourItems; let i = index">
+                            <b> {{item.Name}}</b> ..... <b> {{item.LimitValue}} hours </b><br>
+                        </span>
+                        <br>
+                        <hr>
+
+
+                        <h5 class="__heading">Consumables</h5>
+
+                        <span *ngFor="let item of serviceConsumables; let i = index">
+                            <b> {{item.Name}}</b> .... <b> {{item.Price | currency :'R'}} </b><br>
+                        </span>
+                        <br>
+                        <hr>
+                    </span>
                     <app-signiture-widget (onUploadFinished)="onUploadFinished($event, 'Customer')"
-                     [imageSig]="service.CustomerSigniture" 
-                     [sigName]="service.CustomerSignitureName" 
-                     [roleLabel]="'Customer'" 
-                     [user]="user">
+                        [imageSig]="service.CustomerSigniture" [sigName]="service.CustomerSignitureName"
+                        [roleLabel]="'Customer'" [user]="user">
                     </app-signiture-widget>
 
                     <hr>
                     <app-signiture-widget (onUploadFinished)="onUploadFinished($event, 'Technician')"
-                     [imageSig]="service.TechnicainSigniture" 
-                     [sigName]="service.TechnicainName" 
-                     [roleLabel]="'Technician'" 
-                     [user]="user">
+                        [imageSig]="service.TechnicainSigniture" [sigName]="service.TechnicainName"
+                        [roleLabel]="'Technician'" [user]="user">
                     </app-signiture-widget>
 
                 </div>
@@ -82,4 +101,41 @@
 
 <div class="__actions" *ngIf="service && service.Status ==  SERVICE_STATUS.DRAFT_SAVED.Name">
     <button class="btn btn-primary" (click)="next()">Publish service</button>
+</div>
+<div class="__actions"
+    *ngIf="user && user.UserType == 'Admin' && service && service.Status ==  SERVICE_STATUS.PENDING_INVOICE.Name">
+    <button class="btn btn-primary" (click)="invoiced()">Mark as invoiced</button>
+</div>
+<div class="__actions"
+    *ngIf="user && user.UserType == 'Admin' && service && service.Status ==  SERVICE_STATUS.INVOICED.Name">
+    <button class="btn btn-primary" (click)="resend()">Resend Report</button>
+</div>
+
+
+
+<div class="smart-overlay" *ngIf="errors && errors.length" (click)="errors = []">
+
+</div>
+
+<div class="smart-modal" *ngIf="errors && errors.length">
+    <div class="smart-close">
+        <i class="far fa-window-close" (click)="errors = []"></i>
+    </div>
+    <h5 style="padding: 0 1em;">
+        You have {{errors.length}} errors.
+    </h5>
+    <div class="errors" *ngFor="let error of errors; let i = index">
+        <div class="alert alert-danger" role="alert">
+            {{i+1}}. {{error}}
+        </div>
+    </div>
+
+    <div class="errors">
+        <button class="btn btn-primary" (click)="errors = []"><i class="fas fa-arrow-left"></i> Complete
+            required info</button>
+        <br>
+        <br>
+        <br>
+
+    </div>
 </div>

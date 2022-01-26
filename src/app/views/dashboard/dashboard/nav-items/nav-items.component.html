@@ -1,0 +1,44 @@
+<ul class="list-group">
+
+    <li class="list-group-item">
+      <a routerLink="/admin/dashboard" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active-link" (click)="navClicked()" ><i
+          class="fas fa-th-large"></i> Dasboard</a>
+    </li>
+
+    <li class="list-group-item">
+      <a routerLink="/admin/dashboard/customers" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active-link" (click)="navClicked()" ><i
+          class="fas fa-users"></i> Customers</a>
+    </li>
+
+    <li class="list-group-item">
+      <a routerLink="/admin/dashboard/all-users" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active-link" (click)="navClicked()" ><i
+          class="fas fa-user"></i> System user</a>
+    </li>
+
+
+    <li class="list-group-item">
+      <a routerLink="/admin/dashboard/products" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active-link" (click)="navClicked()" ><i
+          class="fas fa-box"></i> Parts</a>
+    </li>
+
+    <li class="list-group-item">
+      <a routerLink="/admin/dashboard/part-types" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active-link" (click)="navClicked()" ><i
+          class="fas fa-layer-group"></i> Part Types</a>
+    </li>
+    <li class="list-group-item">
+      <a routerLink="/admin/dashboard/charges" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active-link" (click)="navClicked()" ><i
+          class="fas fa-cogs"></i> Settings</a>
+    </li>
+
+    <li class="list-group-item">
+      <a routerLink="/admin/dashboard/services/1" routerLinkActive="active-link" (click)="navClicked()" ><i
+          class="fas fa-wrench"></i> Services</a>
+    </li>
+
+    <li class="list-group-item">
+      <a (click)="logout()"><i
+          class="fas fa-power-off"></i> Logout</a>
+    </li>
+
+
+  </ul>

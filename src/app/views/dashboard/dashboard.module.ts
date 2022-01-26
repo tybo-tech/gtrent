@@ -21,9 +21,14 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { SignaturePadModule } from 'angular2-signaturepad';
-import {AccordionModule} from 'primeng/accordion';     //accordion and accordion tab
-import {ToastModule} from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import { AccordionModule } from 'primeng/accordion';     //accordion and accordion tab
+import { ToastModule } from 'primeng/toast';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { NavItemsComponent } from './dashboard/nav-items/nav-items.component';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { AltraTestingCustomerComponent } from './testingreport/altra/altra-testing-customer/altra-testing-customer.component';
+import { AltraTestingVesselComponent } from './testingreport/altra/altra-testing-vessel/altra-testing-vessel.component';
+import { AltraTestingTestingProccessComponent } from './testingreport/altra/altra-testing-testing-proccess/altra-testing-testing-proccess.component';
 
 
 @NgModule({
@@ -53,9 +58,10 @@ import { MessageService } from 'primeng/api';
     SignaturePadModule,
     AccordionModule,
     QuillModule.forRoot(),
-    ToastModule
+    ToastModule,
+    ConfirmPopupModule
   ],
-  declarations: [...declarations],
-  providers: [MessageService]
+  declarations: [...declarations, NavItemsComponent, AltraTestingCustomerComponent, AltraTestingVesselComponent, AltraTestingTestingProccessComponent],
+  providers: [MessageService, ConfirmationService]
 })
 export class DashboardModule { }

@@ -17,6 +17,8 @@ export class ServiceComponent implements OnInit {
   orderId: any;
   step = 'customer';
   items: BreadModel[];
+  backid: any;
+  backTo: string = '/admin/dashboard';
 
   constructor(
     private accountService: AccountService,
@@ -28,8 +30,11 @@ export class ServiceComponent implements OnInit {
       this.user = this.accountService.currentUserValue;
       this.orderId = r.id;
       this.step = r.step;
+      this.backid = r.backid;
+      if (this.backid && !isNaN(this.backid))
+        this.backTo = `/admin/dashboard/services/${this.backid}`
       this.loadBread();
-      
+
 
       if (this.orderId === 'add')
         this.initNewService();
@@ -43,15 +48,16 @@ export class ServiceComponent implements OnInit {
   getOrder() {
     this.orderService.getOrderSync(this.orderId).subscribe(data => {
       this.service = data;
+      if (this.service)
+        this.service.Heading = `${this.service.OrderType}${this.service.OrderNo}`
       this.orderService.updateOrderState(this.service);
     })
   }
   initNewService() {
-    const service = this.orderService.currentOrderValue;
-    if (!service) {
+    this.orderService.getMax().subscribe(data => {
       this.service = {
         OrdersId: this.orderId,
-        OrderNo: 'Shop',
+        OrderNo: '',
         CompanyId: this.user.CompanyId,
         Company: this.user.Company,
         CustomerId: '',
@@ -69,8 +75,14 @@ export class ServiceComponent implements OnInit {
         StatusId: 1,
         ShippingPrice: 0
       };
+      if (data && data.LargestOrderNumber && !this.service.OrderNo) {
+        this.service.OrderNo = `${Number(data.LargestOrderNumber) + 1}`
+      }
+      this.service.Heading = `${this.service.OrderType}${this.service.OrderNo}`
       this.orderService.updateOrderState(this.service);
-    }
+    })
+
+
 
   }
   loadBread() {

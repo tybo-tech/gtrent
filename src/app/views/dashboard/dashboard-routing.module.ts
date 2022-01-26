@@ -85,6 +85,9 @@ import { ServiceWorkComponent } from './services/service-work/service-work.compo
 import { ServicePartsComponent } from './services/service-parts/service-parts.component';
 import { ChargesComponent } from './charges/charges/charges.component';
 import { ServiceItemComponent } from './services/service-item/service-item.component';
+import { NavItemsComponent } from './dashboard/nav-items/nav-items.component';
+import { ServicesBreadComponent } from '../home/product-section/collections/bread/services-bread/services-bread.component';
+import { AltraTestReportComponent } from './testingreport/altra/altra-test-report/altra-test-report.component';
 
 const routes: Routes = [
   {
@@ -100,6 +103,7 @@ const routes: Routes = [
       { path: 'service/:id', component: AddVeiwServiceComponent },
       { path: 'fsr/:id', component: ServiceComponent },
       { path: 'fsr/:id/:step', component: ServiceComponent },
+      { path: 'fsr/:id/:step/:backid', component: ServiceComponent },
       { path: 'products', component: ListProductsComponent },
       { path: 'customers', component: CustomersComponent },
       { path: 'services/:status', component: ListOrdersComponent },
@@ -139,6 +143,7 @@ const routes: Routes = [
       { path: 'testing-reports', component: TestingreportsComponent },
       { path: 'add-machine/:id/:customerId', component: AddMachineComponent },
       { path: 'testingreport/:id', component: AddViewGetTestingreportComponent },
+      { path: 'test-report/:id/:page', component: AltraTestReportComponent },
     ]
   }
 ];
@@ -231,7 +236,10 @@ export const declarations: Array<any> = [
   ServiceReportComponent,
   ServicePartsComponent,
   ChargesComponent,
-  ServiceItemComponent
+  ServiceItemComponent,
+  NavItemsComponent,
+  ServicesBreadComponent,
+  AltraTestReportComponent
 
 ];
 @NgModule({

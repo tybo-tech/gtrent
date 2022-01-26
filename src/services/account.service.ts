@@ -73,7 +73,7 @@ export class AccountService {
   }
 
   generateForgotPasswordReturnLink(token: string) {
-    return `${environment.BASE_URL}/#/reset-password?token=${token}`;
+    return `${environment.BASE_URL}/home/reset-password/${token}`;
   }
 
   getUserByToken(data: TokenModel): Observable<User> {

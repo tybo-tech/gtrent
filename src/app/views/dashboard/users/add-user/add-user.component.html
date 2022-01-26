@@ -20,8 +20,13 @@
 
 
     <div class="form-item">
+      <label for="">Password</label>
+      <input type="password" name="" id="" [(ngModel)]="user.Password" placeholder="*******">
+    </div>
+
+    <div class="form-item">
       <label for="">User Type</label>
-      <select [(ngModel)]="user.UserType">
+      <select class="form-control" [(ngModel)]="user.UserType">
         <option value="Admin">Admin</option>
         <option value="Technician">Technician</option>
       </select>

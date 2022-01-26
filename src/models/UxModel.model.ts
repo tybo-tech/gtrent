@@ -37,9 +37,12 @@ export interface SliderWidgetModel {
   Selected?: boolean;
   Qty?: number;
   RegularPrice?: number;
+  CanDelete?: boolean;
+
 }
 
 export interface AdminStatModel {
+  DraftOrders?: string;
   Customers?: string;
   Products?: string;
   Users?: string;

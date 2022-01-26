@@ -1,32 +1,43 @@
 <div class="cards" *ngIf="items">
   <div class="card" style="margin-bottom: 2em; cursor: default;" *ngIf="showFilter">
     <input type="search" class="search-input" [(ngModel)]="searchString" placeholder="🔎 Filter by name">
-    <button class="primary" *ngIf="primaryAction"> {{primaryAction}} </button>
+    <button class="btn btn-primary" *ngIf="primaryAction" (click)="primaryActionClicked()"> {{primaryAction}} </button>
   </div>
-  <div class="card" *ngFor="let item of items | sliderwidgetpipe: searchString;" >
-    <div class="card-grid" style="cursor: pointer;" (click)="goto(item.Link, item)">
-      <div class="col">
-        <img [src]="item.Icon" alt="">
-      </div>
-      <div class="col">
-        <h3>
-          {{item.Name}}
-        </h3>
+  <span *ngIf="items && items.length">
+    <div class="card" *ngFor="let item of items | sliderwidgetpipe: searchString;">
+      <div class="card-grid" style="cursor: pointer;">
+        <div class="col">
+          <img [src]="item.Icon "  (click)="goto(item.Link, item)" alt="">
+        </div>
+        <div class="col">
+          <h3 class="link"  (click)="goto(item.Link, item)">
+            {{item.Name}}
+          </h3>
 
-        <p>
-          {{item.Description}}
-        </p>
-        <p *ngIf="item.RegularPrice">
-          Labour:   <b>{{item.RegularPrice | currency: 'R'}}</b>
-         
-        </p>
+          <p>
+            {{item.Description}}
+          </p>
+          <p *ngIf="item.RegularPrice">
+            Labour: <b>{{item.RegularPrice | currency: 'R'}}</b>
 
-        <a *ngIf="item.Description2 && item.Description2.length"  class="abn">
-          {{item.Description2}}
-        </a>
+          </p>
+
+          <a *ngIf="item.Description2 && item.Description2.length" class="abn">
+            {{item.Description2}}
+          </a>
+
+          <small *ngIf="item.CanDelete" class="_delete text-muted"><a (click)="confirm($event, item)" class="link-danger">Delete</a></small>
+
+        </div>
       </div>
+
+
     </div>
+  </span>
 
-
-  </div>
+  <span *ngIf="!items || !items.length">
+    <div class="alert alert-warning" role="alert">
+      No items found at the moment.
+    </div>
+  </span>
 </div>

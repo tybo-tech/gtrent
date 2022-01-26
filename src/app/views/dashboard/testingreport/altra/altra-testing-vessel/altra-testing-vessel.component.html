@@ -1,0 +1,121 @@
+<app-services-bread [items]="items" [heading]="'Test report'" [back]="'/admin/dashboard'" *ngIf="items">
+</app-services-bread>
+<div class="card" *ngIf="testingreport">
+    <div class="card-header  bg-dark text-white">
+        DETAILS ON NAMEPLATE
+    </div>
+    <div class="card-body">
+        <div class="mb-3">
+            <label class="form-label">New Name Plate Fitted By Client</label>
+            <select type="text" class="form-control" [(ngModel)]="testingreport.IsNamePlateFittedByClient">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+            <br>
+        </div>
+
+
+        <div class="mb-3">
+            <label>Manufacturer</label>
+            <input type="text" class="form-control" [(ngModel)]="testingreport.Manufacturer">
+        </div>
+        <div class="mb-3">
+            <label>Country Of Origin</label>
+            <input type="text" class="form-control" [(ngModel)]="testingreport.CountryOfOrigin">
+        </div>
+
+        <div class="mb-3">
+            <label>Year Of Manufacture</label>
+            <input type="text" class="form-control" [(ngModel)]="testingreport.YearOfManufacture">
+        </div>
+
+        <div class="mb-3">
+            <label>Serial No</label>
+            <input type="text" class="form-control" [(ngModel)]="testingreport.SerialNo">
+        </div>
+
+        <div class="mb-3">
+            <label>Capacity</label>
+            <input type="text" class="form-control" [(ngModel)]="testingreport.Capacity">
+        </div>
+
+        <div class="mb-3">
+            <label>Mark of AIA</label>
+            <select type="text" class="form-control" [(ngModel)]="testingreport.MarkOfApprovedInspectionAuth">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+        <br>
+
+        <div class="mb-3">
+            <label>Name, number and date of standard of design</label>
+            <input type="text" class="form-control" [(ngModel)]="testingreport.StandardOfDesign">
+        </div>
+
+        <label>Operating Temperature</label> <br>
+
+        <div class="input-group mb-3">
+            <div class="max_w">
+                <label for="">Min</label>
+                <input type="tel" class="form-control" [(ngModel)]="testingreport.MinOperatingTemperature">
+            </div>
+
+            <div class="max_w">
+                <label for="">Max</label>
+                <input type="tel" class="form-control" [(ngModel)]="testingreport.MaxOperatingTemperature">
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label>Class Or Category</label>
+            <input type="text" class="form-control" [(ngModel)]="testingreport.ClassOrCategory">
+        </div>
+
+        <div class="mb-3">
+            <label>Design Pressure</label>
+            <input type="text" class="form-control" [(ngModel)]="testingreport.DesignPressure">
+        </div>
+
+        <div class="mb-3">
+            <label>Maximum Working Pressure</label>
+            <input type="text" class="form-control" [(ngModel)]="testingreport.MaximumWorkingPressure">
+        </div>
+
+        <h6>
+            <u> SIZE AND PARTICULARS OF OPENINGS:</u>
+        </h6>
+        <br>
+
+        <div class="input-group mb-3">
+            <div class="max_w">
+                <label>Test Pressure <br> Gauge</label>
+                <input type="text" class="form-control" [(ngModel)]="testingreport.TestPressureGauge">
+            </div>
+
+            <div class="max_w">
+                <label>Test <br> Pump</label>
+                <input type="text" class="form-control" [(ngModel)]="testingreport.TestPump">
+            </div>
+        </div>
+
+
+        <div class="input-group mb-3">
+            <div class="max_w">
+                <label for=""> Test temperature <br> gauge s/n</label>
+                <input type="text" class="form-control" [(ngModel)]="testingreport.TestTemperatureGauge">
+            </div>
+
+            <div class="max_w">
+                <label for="">Thickness <br> tester</label>
+                <input type="text" class="form-control" [(ngModel)]="testingreport.ThicknessTester">
+            </div>
+        </div>
+
+
+
+
+        <a class="btn btn-secondary" (click)="previousPage()">Back to basic</a>
+        <a class="btn btn-primary" (click)="nextPage()">Next</a>
+    </div>
+</div>

@@ -1,41 +1,19 @@
-@import '../../../../assets/styles/color';
+@import "../../../../assets/styles/color";
+.__main {
+  display: grid;
+  grid-template-columns: 15em auto;
 
-.slide-nav {
-  height: 100vh;
-  background: $primary;
-  position: fixed;
-  width: 15em;
+  @media only screen and (max-width: 600px) {
+    grid-template-columns: 100%;
+  }
+  .__nav {
+  }
+  .__router-outlet {
+    //  background: red;
+    padding: 1em 2em;
 
-  .list-group {
-    background: none;
-
-    .list-group-item {
-      background: none;
-
-      a {
-        color: $white;
-        display: block;
-        padding: .4em 1em;
-        border-radius: 2em;
-
-        .fas {
-          position: relative;
-          margin-right: 1em;
-        }
-      }
-
-      .active-link {
-        background: #545454 !important;
-      }
+    @media only screen and (max-width: 600px) {
+      padding:6em .5em;
     }
   }
-}
-
-.container-fluid {
-  margin: 0;
-  padding: 0;
-  max-height: 100vh;
-  overflow-y: scroll;
-  position: relative;
-  overflow-x: hidden;
 }

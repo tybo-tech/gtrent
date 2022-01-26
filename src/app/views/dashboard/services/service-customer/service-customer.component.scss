@@ -1,4 +1,11 @@
 @import "../../../../../assets/styles/color";
+.row {
+    margin-top: 4em;
+}
+.page-container {
+    background: $white;
+    padding: 0.4em;
+}
 #page-content {
     margin-top: 30px;
 }
@@ -355,5 +362,3 @@ a:link {
     font-weight: 500;
     border-radius: 0.5em;
 }
-
-

@@ -51,7 +51,7 @@
 
 
 
-<div class="smart-overlay" *ngIf="selectingParts"  (click)="selectingParts = false">
+<div class="smart-overlay" *ngIf="selectingParts" (click)="selectingParts = false">
 
 </div>
 
@@ -70,15 +70,33 @@
             <div class="item d-flex justify-content-between" *ngFor="let item of service.Machine.Parts">
                 <div class="name">{{item.ProductName}}
                     <div class="text-muted text-small">
-                        {{item.ProductType}}
-                    </div>
+                        <!-- {{item.ProductType}} -->
 
+                        <select name="" class="form-control my-select" (change)="updateMachinePart(item)" [ngClass]="item.ProductType ? 'cool' : 'bad'" [(ngModel)]="item.ProductType" id="">
+                            <option [value]="__item.Name" *ngFor="let __item of categories">{{__item.Name}}</option>
+                        </select>
+
+                        <p *ngIf="!item.ProductType">
+                        <small style="color: red;">Item Type is required.</small>
+                        </p>
+                    </div>
+                    <div class="qty__">
+                        <a class="btn btn-primary qty-btn" (click)="changeBeforeQty(-1,item)">
+                            <i class="fas fa-minus"></i>
+                        </a>
+                        <a class="a_text">{{item.Qty}}</a>
+                        <a class="btn btn-primary qty-btn" (click)="changeBeforeQty(1,item)">
+                            <i class="fas fa-plus"></i>
+                        </a>
+                    </div>
                 </div>
-                <div class="actions__" >
-                    <button class="btn btn-primary qty-btn" *ngIf="!item.Selected" (click)="addPartsUsedToService(item)">
+                <div class="actions__">
+                    <button class="btn btn-primary qty-btn" *ngIf="!item.Selected"
+                        (click)="addPartsUsedToService(item)" [disabled]="!item.ProductType">
                         Select
                     </button>
-                    <button class="btn btn-danger qty-btn" *ngIf="item.Selected" (click)="removePartsUsedToService(item)">
+                    <button class="btn btn-danger qty-btn" *ngIf="item.Selected"
+                        (click)="removePartsUsedToService(item)">
                         Remove
                     </button>
                 </div>
@@ -105,7 +123,7 @@
 
                     <div class="form-item">
                         <label for="">Part name</label>
-                        <input type="text"  class="from-control"  [(ngModel)]="newProduct.Name"
+                        <input type="text" class="from-control" [(ngModel)]="newProduct.Name"
                             placeholder="Enter Part name.">
                     </div>
                     <div class="form-item">
@@ -117,7 +135,8 @@
 
                     <br><br>
                     <div class="mx-auto">
-                        <a (click)="selectingParts = true" class="btn btn-primary" (click)="saveProduct()" style="margin-right: 1em;">Save
+                        <a (click)="selectingParts = true" class="btn btn-primary" (click)="saveProduct()"
+                            style="margin-right: 1em;">Save
                             part</a>
                     </div>
                 </div>

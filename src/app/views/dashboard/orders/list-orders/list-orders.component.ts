@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { Observable } from 'rxjs';
 import { Order } from 'src/models/order.model';
 import { User } from 'src/models/user.model';
-import { SliderWidgetModel, TabsUxModel } from 'src/models/UxModel.model';
+import { BreadModel, SliderWidgetModel, TabsUxModel } from 'src/models/UxModel.model';
 import { AccountService } from 'src/services/account.service';
 import { OrderService } from 'src/services/order.service';
 import { UserService } from 'src/services/user.service';
-import { ORDER_TYPE_SALES } from 'src/shared/constants';
+import { ORDER_TYPE_SALES, SERVICE_STATUS } from 'src/shared/constants';
 
 @Component({
   selector: 'app-list-orders',
@@ -24,31 +25,16 @@ export class ListOrdersComponent implements OnInit {
   orderStatus: any;
   custmersItems: SliderWidgetModel[]
   showFilter = true;
-  tabs: TabsUxModel[] = [
-    {
-      Id: 1,
-      Name: 'Active',
-      Url: 'admin/dashboard/services/1',
-      Class: []
-    },
-    {
-      Id: 55,
-      Name: 'Draft',
-      Url: 'admin/dashboard/services/55',
-      Class: []
-    },
-    {
-      Id: 2,
-      Name: 'History',
-      Url: 'admin/dashboard/services/2',
-      Class: []
-    }
-  ];;
+  SERVICE_STATUS = SERVICE_STATUS;
+  items: BreadModel[];
+
+
   constructor(
     private orderService: OrderService,
     private accountService: AccountService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
+    private messageService: MessageService,
 
   ) {
     this.activatedRoute.params.subscribe(r => {
@@ -64,21 +50,23 @@ export class ListOrdersComponent implements OnInit {
 
   getOrders() {
     this.orderService.OrderListObservable.subscribe(data => {
-      this.allOrders = data;
+      this.allOrders = data || [];
+      this.loadBread();
       this.custmersItems = [];
       this.allOrders.forEach(item => {
         this.custmersItems.push({
-          Name: `${item.Shipping} - ${item.AddressId}  ${item.OrderSource}`,
+          Id: item.OrdersId,
+          Name: `${item.OrderType}${item.OrderNo} | ${item?.Customer?.Name} - ${item.Model}`,
           Description: `${item.Orderproducts && item.Orderproducts.length || 0} Parts used`,
-          Link: `admin/dashboard/service/${item.OrdersId}`,
-          Icon: `assets/images/icon-parts.svg`
+          Link: `admin/dashboard/fsr/${item.OrdersId}/report/${this.orderStatus}`,
+          Icon: `assets/images/icon-parts.svg`,
+          CanDelete: item.Status === SERVICE_STATUS.DRAFT_SAVED.Name
         })
 
 
       })
     });
-    const tab = this.tabs.find(x=>x.Id ===  Number(this.orderStatus));
-    this.tabClicked(tab);
+
     this.orderService.getOrders(this.user.CompanyId, Number(this.orderStatus));
   }
   view(order: Order) {
@@ -88,6 +76,17 @@ export class ListOrdersComponent implements OnInit {
   closeModal() {
     this.showModal = false;
     this.showAddCustomer = false;
+  }
+  itemDeleteEvent(item: SliderWidgetModel) {
+    const order = this.allOrders.find(x => x.OrdersId === item.Id);
+    if (!order)
+      return;
+
+    order.StatusId = 99;
+    this.orderService.update(order).subscribe(data => {
+      this.getOrders();
+      this.messageService.add({ severity: 'error', summary: 'Order deleted', detail: '' });
+    })
   }
   add() {
     this.orderService.updateOrderState({
@@ -115,12 +114,30 @@ export class ListOrdersComponent implements OnInit {
   back() {
     this.router.navigate(['admin/dashboard']);
   }
-  tabClicked(tab: TabsUxModel) {
-    this.tabs.map(x => x.Class = []);
-    tab.Class = ['active']
-    this.goto(tab.Url);
-  }
+
   goto(url) {
     this.router.navigate([url]);
+  }
+
+  loadBread() {
+
+
+    this.items = [
+      {
+        Name: SERVICE_STATUS.PENDING_INVOICE.Name,
+        Link: `admin/dashboard/services/${SERVICE_STATUS.PENDING_INVOICE.Id}`,
+        Class: Number(this.orderStatus) === SERVICE_STATUS.PENDING_INVOICE.Id ? ['active'] : []
+      },
+      {
+        Name: SERVICE_STATUS.DRAFT_SAVED.Name,
+        Link: `admin/dashboard/services/${SERVICE_STATUS.DRAFT_SAVED.Id}`,
+        Class: Number(this.orderStatus) === SERVICE_STATUS.DRAFT_SAVED.Id ? ['active'] : []
+      },
+      {
+        Name: SERVICE_STATUS.INVOICED.Name,
+        Link: `admin/dashboard/services/${SERVICE_STATUS.INVOICED.Id}`,
+        Class: Number(this.orderStatus) === SERVICE_STATUS.INVOICED.Id ? ['active'] : []
+      }
+    ];
   }
 }

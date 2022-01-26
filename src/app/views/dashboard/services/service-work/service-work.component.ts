@@ -14,6 +14,7 @@ export class ServiceWorkComponent {
     viewing: boolean;
     selectingParts: boolean;
     service: Order;
+    errors: string[];
     constructor(
         private orderService: OrderService,
         private router: Router,
@@ -22,7 +23,18 @@ export class ServiceWorkComponent {
     ngOnInit() {
         this.orderService.OrderObservable.subscribe(data => {
             this.service = data;
+            this.errors = [];
+            if (this.service && !this.service.Customer) {
+                this.errors.push('Please select the customer first before you can continue.')
+            }
+            if (this.service && !this.service.Machine) {
+                this.errors.push('Please select the customer compressor first before you can continue.')
+            }
         });
+    }
+
+    backToBasic() {
+        this.router.navigate([`/admin/dashboard/fsr/${this.service.OrdersId}/basic`])
     }
     orederChanged() {
         this.orderService.updateOrderState(this.service);

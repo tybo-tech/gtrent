@@ -22,6 +22,8 @@ export class AddCustomerComponent implements OnInit {
   @Input() customer: Customer;
   @Input() heading: string;
   @ViewChild('places') places: GooglePlaceDirective;
+  @Output() doneEddingCustomer: EventEmitter<Customer> = new EventEmitter<Customer>();
+
   showAdd = true;
   options = {
     types: [],
@@ -82,7 +84,7 @@ export class AddCustomerComponent implements OnInit {
     if (this.customer.CustomerId && this.customer.CustomerId.length > 5) {
       this.customerService.updateCustomerSync(this.customer).subscribe(data => {
         if (data && data.CustomerId) {
-          this.addingUserFinished(data);
+          this.doneEddingCustomer.emit(data);
         }
       })
     }
@@ -94,7 +96,7 @@ export class AddCustomerComponent implements OnInit {
       }
       this.customerService.add(this.customer).subscribe(data => {
         if (data && data.CustomerId) {
-          this.addingUserFinished(data);
+          this.doneEddingCustomer.emit(data);
           // this.sendEmail(data, 'Add-New-Customer');
         }
       });
@@ -108,7 +110,6 @@ export class AddCustomerComponent implements OnInit {
       this.emailToSend.Email = user.Email;
       this.emailService.sendGeneralTextEmail(this.emailToSend).subscribe(data => {
         if (data > 0) {
-          this.addingUserFinished(user);
         } else {
           alert('Something went wrong');
         }
@@ -177,25 +178,4 @@ export class AddCustomerComponent implements OnInit {
     this.router.navigate([`admin//dashboard/customers`]);
   }
 
-
-  addingUserFinished(user: Customer) {
-    if (user && user.CustomerId) {
-      if (this.userId === 'add') {
-        this.userId = user.CustomerId;
-      }
-      const order = this.orderService.currentOrderValue;
-      if (order && order.GoBackToCreateOrder) {
-        order.GoBackToCreateOrder = false;
-        order.Customer = user;
-        order.CustomerId = user.CustomerId;
-        this.orderService.updateOrderState(order);
-      }
-      // this.customerService.getCustomerSync(user.CustomerId).subscribe(data => {
-      //   if (data) {
-        
-      //   }
-      // });
-
-    }
-  }
 }

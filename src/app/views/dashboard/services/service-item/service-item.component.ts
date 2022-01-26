@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Order, User } from 'src/models';
-import { Item } from 'src/models/item.model';
+import { item, Item } from 'src/models/item.model';
 import { OrderService } from 'src/services';
 import { ItemService } from 'src/services/item.service';
 import { ITEM_TYPES } from 'src/shared/constants';
@@ -72,8 +72,7 @@ export class ServiceItemComponent {
         this.heading = `Add  ${_itemType}(s)`;
         this.selectingItems = true;
 
-        if (_itemType === ITEM_TYPES.LABOUR.Name)
-            this.selectedItems = this.labourItems;
+
 
         if (_itemType === ITEM_TYPES.CONSUMABLES.Name)
             this.selectedItems = this.consumables;
@@ -83,7 +82,7 @@ export class ServiceItemComponent {
             ItemId: '',
             RelatedId: '',
             RelatedParentId: '',
-            Name: 'Labour',
+            Name: '',
             ParentId: this.service.OrdersId,
             ItemType: _itemType,
             CompanyId: this.user.CompanyId,
@@ -101,6 +100,11 @@ export class ServiceItemComponent {
             CreateUserId: '',
             ModifyUserId: '',
             StatusId: 1
+        }
+
+        if (_itemType === ITEM_TYPES.LABOUR.Name) {
+            this.selectedItems = this.labourItems;
+            item.Name = 'Labour'
         }
     }
 

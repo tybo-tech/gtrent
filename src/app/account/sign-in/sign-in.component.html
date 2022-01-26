@@ -1,13 +1,23 @@
-<div class="main">
-  <img src="assets/images/home-iphne-bg.png" class="phone-only" alt="">
-  <img src="assets/images/home-tab-bg.svg" class="tab-only" alt="">
-  <img src="assets/images/home-pc-bg.svg" class="pc-only" alt="">
 
-  <div class="form">
-    <input type="email" [(ngModel)]="email" placeholder="Username">
-    <input type="password" [(ngModel)]="password" placeholder="Password">
-    <button class="primary" mat-button color="primary" *ngIf="!loading" (click)="Login()">Login</button>
-    <button class="primary" mat-button color="primary"  *ngIf="loading">Logging in ...</button>
+
+<div class="__form">
+
+  <div>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Email address</label>
+      <input type="email" [(ngModel)]="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    </div>
+    <br>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Password</label>
+      <input type="password" [(ngModel)]="password" class="form-control" id="exampleInputPassword1">
+    </div>
+
+    <button  class="btn btn-primary" *ngIf="!loading" (click)="Login()">Login</button>
+    <button class="btn btn-primary" *ngIf="loading">Logging in ...</button>
+
+    <br><br>
+    <a routerLink="/home/forgot-password">Forgot password?</a>
     <h5 *ngIf="error" class="error">{{error}}</h5>
   </div>
 </div>

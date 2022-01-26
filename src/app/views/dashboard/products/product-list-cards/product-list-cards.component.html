@@ -1,16 +1,10 @@
+<app-loader *ngIf="loading"></app-loader>
 <div class="subjects container" *ngIf="productItems && productItems.length">
-  <h3>
-    <span>
-      Parts List <br> <br>
-    </span>
-  </h3>
 
-  <div class="module-actions">
-    <button class="tertiary" (click)="back()">Back to dashboard</button> <br>
-    <button class="secondary" (click)="addProduct()">New Part</button>
-  </div>
-  <app-card-list-widget *ngIf="productItems && productItems.length" [showFilter]="showFilter"
-    (itemSelectedEvent)="onitemSelected($event)" [items]="productItems"></app-card-list-widget>
+  <app-services-bread [items]="items" [heading]="' Parts List'" [back]="'/admin/dashboard'">
+  </app-services-bread>
+  <app-card-list-widget  *ngIf="productItems && productItems.length" [showFilter]="showFilter" [primaryAction]="primaryAction"
+  (itemDeleteEvent)="itemDeleteEvent($event)" (primaryActionEvent)="addProduct($event)"  (itemSelectedEvent)="onitemSelected($event)" [items]="productItems"></app-card-list-widget>
 
 </div>
 
@@ -34,10 +28,10 @@
     </div>
 
     
-    <div class="form-item">
+    <!-- <div class="form-item">
       <label for="">Labour</label>
       <input type="text" name="" class="form-control" id="" [(ngModel)]="newProduct.RegularPrice" >
-    </div>
+    </div> -->
 
 
     <div class="form-item" *ngIf="newProduct.Customers && newProduct.Customers.length">

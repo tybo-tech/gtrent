@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { ConfirmationService } from 'primeng/api';
 import { SliderWidgetModel } from 'src/models/UxModel.model';
 
 @Component({
@@ -13,8 +14,10 @@ export class CardListWidgetComponent implements OnInit {
   @Input() showQty: boolean;
   @Input() primaryAction: string;
   @Output() itemSelectedEvent: EventEmitter<SliderWidgetModel> = new EventEmitter<SliderWidgetModel>();
+  @Output() itemDeleteEvent: EventEmitter<SliderWidgetModel> = new EventEmitter<SliderWidgetModel>();
+  @Output() primaryActionEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
   searchString: string;
-  constructor(private router: Router) { }
+  constructor(private router: Router, private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
   }
@@ -35,5 +38,23 @@ export class CardListWidgetComponent implements OnInit {
       this.itemSelectedEvent.emit(item)
     }
   }
+  confirm(event: Event, item) {
+    this.confirmationService.confirm({
+      target: event.target,
+      message: 'Item will be deleted, Are you sure that you want to proceed?',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        //confirm action
+      this.itemDeleteEvent.emit(item)
 
+      },
+      reject: () => {
+        //reject action
+      }
+    });
+  }
+
+  primaryActionClicked(){
+    this.primaryActionEvent.emit(true)
+  }
 }

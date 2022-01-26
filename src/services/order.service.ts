@@ -77,6 +77,9 @@ export class OrderService {
   getOrderSync(OrderId: string) {
     return this.http.get<Order>(`${this.url}/${GET_ORDER_URL}?OrderId=${OrderId}`);
   }
+  getMax() {
+    return this.http.get<any>(`${this.url}/api/orders/get-max-id.php`);
+  }
 
   register(model: Order) {
     return this.http.post<Order>(`${this.url}/api/account/register.php`, model).pipe(map(Order => {
@@ -96,6 +99,7 @@ export class OrderService {
     } else {
       if (service.Status === SERVICE_STATUS.DRAFT_NOT_SAVED.Name)
         service.Status = SERVICE_STATUS.DRAFT_SAVED.Name;
+      service.StatusId = SERVICE_STATUS.DRAFT_SAVED.Id;
       return this.create(service)
     }
 
