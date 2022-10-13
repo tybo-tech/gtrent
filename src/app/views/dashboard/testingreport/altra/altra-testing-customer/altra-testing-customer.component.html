@@ -19,7 +19,7 @@
 
         <div class="input-group mb-3">
             <div>
-                <label>Date Of Test</label>
+                <label>Inspection date</label>
                 <input type="date" class="form-control" [(ngModel)]="testingreport.DateOfTest">
             </div>
 
@@ -35,30 +35,6 @@
                 <input type="time" class="form-control" [(ngModel)]="testingreport.EndTime">
             </div>
         </div>
-
-        <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Customer Name</label>
-            <input type="text" class="form-control" [(ngModel)]="testingreport.CustomerName">
-        </div>
-
-        <div class="mb-3">
-            <label>Vessel Location</label>
-            <input type="text" class="form-control" [(ngModel)]="testingreport.Location">
-        </div>
-        <br><br>
-
-
-        <div class="mb-3">
-            <label>Reason For Test</label>
-            <select type="text" class="form-control" [(ngModel)]="testingreport.ReasonForTest">
-                <option value="Statutory">Statutory</option>
-                <option value="installation">Installation</option>
-                <option value="visual">Visual</option>
-            </select>
-        </div>
-
-
-
 
 
 
@@ -84,6 +60,42 @@
                 </select>
             </div>
         </div>
+
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Customer Name</label>
+            <input type="text" class="form-control" [(ngModel)]="testingreport.CustomerName">
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">User Name</label>
+            <input type="text" class="form-control" [(ngModel)]="testingreport.UserName">
+        </div>
+
+        <div class="mb-3">
+            <label>Vessel Location</label>
+            <input type="text" class="form-control" [(ngModel)]="testingreport.Location">
+        </div>
+
+        <div class="mb-3">
+            <label>Vessel description</label>
+            <textarea class="form-control" [(ngModel)]="testingreport.VesselDescription"></textarea>
+        </div>
+        <br><br>
+
+        <!-- 
+        <div class="mb-3">
+            <label>Reason For Test</label>
+            <select type="text" class="form-control" [(ngModel)]="testingreport.ReasonForTest">
+                <option value="Statutory">Statutory</option>
+                <option value="installation">Installation</option>
+                <option value="visual">Visual</option>
+            </select>
+        </div> -->
+
+
+
+
+
+
 
 
 

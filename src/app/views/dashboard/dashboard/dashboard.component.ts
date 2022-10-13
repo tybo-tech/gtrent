@@ -28,13 +28,16 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.user = this.accountService.currentUserValue;
     this.uxService.uxMessagePopObservable.subscribe(data => {
-      this.message = data;
+      const id1 = setTimeout(() => {
+        this.message = data;
+      }, 0);
       const id = setTimeout(() => {
         this.message = null;
       }, 3000);
     });
-    this.uxService.uxLoadingPopObservable.subscribe(data => {
 
+
+    this.uxService.uxLoadingPopObservable.subscribe(data => {
       const id = setTimeout(() => {
         this.loadingUx = data;
       }, 0);
@@ -54,7 +57,7 @@ export class DashboardComponent implements OnInit {
     this.router.navigate([`admin/dashboard/${item}`]);
   }
 
-  logout(){
+  logout() {
     this.accountService.logout();
   }
   @HostListener('window:scroll', ['$event']) onScrollEvent($event) {

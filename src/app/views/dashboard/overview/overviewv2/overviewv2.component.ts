@@ -6,7 +6,7 @@ import { AdminStatModel, SliderWidgetModel } from 'src/models/UxModel.model';
 import { ProductService, AccountService, CompanyCategoryService, OrderService } from 'src/services';
 import { CompanyService } from 'src/services/company.service';
 import { UxService } from 'src/services/ux.service';
-import { ADMIN, ORDER_TYPE_SALES, SUPER, TECHNICIAN } from 'src/shared/constants';
+import { ADMIN, ORDER_TYPE_SALES, REPORT_MANAGER, SUPER, TECHNICIAN } from 'src/shared/constants';
 
 @Component({
   selector: 'app-overviewv2',
@@ -40,9 +40,14 @@ export class Overviewv2Component implements OnInit {
         this.router.navigate(['home/sign-in'])
         return
       }
+      
+      if(this.user && this.user.UserType === REPORT_MANAGER){
+        this.router.navigate(['/admin/dashboard/testing-reports'])
+      }
       this.companyService.getAdminStat().subscribe(data => {
         if (data && data.Customers) {
           this.adminStat = data;
+          localStorage.setItem('__reports', this.adminStat.Testingreports || '0')
           this.buidleActions();
         }
 
@@ -91,35 +96,35 @@ export class Overviewv2Component implements OnInit {
         Link: `admin/dashboard/all-users`,
         Icon: `assets/images/icon-customer.svg`
       }
-        , {
-          Name: `Testing report questions`,
-          Description: `${this.adminStat.Questions}  questions`,
-          Link: `admin/dashboard/questions`,
-          Icon: `assets/images/icon.svg`
-        }
+        // , {
+        //   Name: `Testing report questions`,
+        //   Description: `${this.adminStat.Questions}  questions`,
+        //   Link: `admin/dashboard/questions`,
+        //   Icon: `assets/images/icon.svg`
+        // }
         , {
           Name: `Test reports`,
-          Description: `${this.adminStat.Testingreports}  questions`,
+          Description: `${this.adminStat.Testingreports}  reports`,
           Link: `admin/dashboard/testing-reports`,
           Icon: `assets/images/icon.svg`
         }
 
       )
 
-      this.actions.push(  {
+      this.actions.push({
         Id: 'add-service',
         Name: `Add New  Services`,
         Description: `Click here to log a new service`,
         Link: `event`,
         Icon: `assets/images/icon-add-service.svg`
       }
-      ,
-      {
-        Name: `Draft Services`,
-        Description: `${this.adminStat.DraftOrders} items`,
-        Link: `admin/dashboard/services/55`,
-        Icon: `assets/images/icon-waiting.svg`
-      })
+        ,
+        {
+          Name: `Draft Services`,
+          Description: `${this.adminStat.DraftOrders} items`,
+          Link: `admin/dashboard/services/55`,
+          Icon: `assets/images/icon-waiting.svg`
+        })
     }
     if (this.user && this.user.UserType === TECHNICIAN) {
       this.actions.push(
@@ -137,7 +142,7 @@ export class Overviewv2Component implements OnInit {
           Link: `admin/dashboard/services/55`,
           Icon: `assets/images/icon-waiting.svg`
         }
-       
+
         ,
 
         {
@@ -152,15 +157,15 @@ export class Overviewv2Component implements OnInit {
           Link: `admin/dashboard/products`,
           Icon: `assets/images/icon.svg`
         }
-        , {
-          Name: `Testing report questions`,
-          Description: `${this.adminStat.Questions}  questions`,
-          Link: `admin/dashboard/questions`,
-          Icon: `assets/images/icon.svg`
-        }
+        // , {
+        //   Name: `Testing report questions`,
+        //   Description: `${this.adminStat.Questions}  questions`,
+        //   Link: `admin/dashboard/questions`,
+        //   Icon: `assets/images/icon.svg`
+        // }
         , {
           Name: `Test reports`,
-          Description: `${this.adminStat.Testingreports}  questions`,
+          Description: `${this.adminStat.Testingreports}  reports`,
           Link: `admin/dashboard/testing-reports`,
           Icon: `assets/images/icon.svg`
         },

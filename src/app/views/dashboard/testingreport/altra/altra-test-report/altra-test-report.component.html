@@ -6,9 +6,18 @@
             <app-altra-testing-vessel [testingreport]="testingreport" *ngIf="pageId == TEST_REPORT_PAGES.VESSEL.Name">
             </app-altra-testing-vessel>
             <app-altra-testing-testing-proccess [testingreport]="testingreport"
-                *ngIf="pageId == TEST_REPORT_PAGES.TEST_INFO.Name">
+                *ngIf="pageId == TEST_REPORT_PAGES.TEST_INFO.Name && testingreport">
             </app-altra-testing-testing-proccess>
 
+            <app-altra-service-report-sammary [testingreport]="testingreport"
+                *ngIf="pageId == TEST_REPORT_PAGES.TEST_SUMMARY.Name && testingreport">
+            </app-altra-service-report-sammary>
+
+            <button *ngIf="testingreport && testingreport.TestingReportId && pageId != TEST_REPORT_PAGES.TEST_SUMMARY.Name" (click)="viewSummary()"
+                class="btn btn-info view-btn">View report</button>
+
+                <button *ngIf="testingreport && testingreport.TestingReportId && pageId == TEST_REPORT_PAGES.TEST_SUMMARY.Name" (click)="viewSummary(true)"
+                class="btn btn-info view-btn">Back</button>
         </div>
     </div>
 </div>

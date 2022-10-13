@@ -55,3 +55,21 @@ button,
 .a_text {
   padding: 0.5em;
 }
+
+
+
+.link-primary{
+  color: rgb(21, 87, 23);
+  font-weight: 400;
+  padding: .25rem 1rem;
+  font-size: .8rem;
+  border-radius: .45rem;
+  border: 1px solid rgb(21, 87, 23);
+  background: rgb(229, 250, 229);
+}
+
+.btn-secondary{
+  background: $white !important;
+  border: 2px solid #000 !important;
+  color: #000 !important;
+}

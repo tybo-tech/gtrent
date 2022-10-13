@@ -1,0 +1,16 @@
+<div class="input-group mb-3">
+    <select class="form-control form-control-sm" (change)="selectChanged()"  [(ngModel)]="day">
+        <option value="">Day</option>
+        <option [value]="item" *ngFor="let item of days">{{item}}</option>
+    </select>
+
+    <select class="form-control form-control-sm" (change)="selectChanged()"  [(ngModel)]="month">
+        <option value="">Month</option>
+        <option [value]="item" *ngFor="let item of months">{{item}}</option>
+    </select>
+
+    <select class="form-control form-control-sm" (change)="selectChanged()"  [(ngModel)]="year">
+        <option value="">Year</option>
+        <option [value]="item" *ngFor="let item of years">{{item}}</option>
+    </select>
+</div>

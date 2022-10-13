@@ -1,0 +1,5 @@
+<div class="sketch" *ngIf="src">
+    <canvas id="myCanvas" #myCanvas crossorigin="anonymous"></canvas>
+    <img [src]="src" alt="" id="editing" style="width: .001px;">
+    <a class="btn btn-primary" (click)="done()">Finish</a>
+</div>

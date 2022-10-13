@@ -75,7 +75,6 @@ import { SignitureWidgetComponent } from './shared/signiture-widget/signiture-wi
 import { AddVeiwServiceComponent } from './orders/order/add-veiw-service/add-veiw-service.component';
 import { QuestionsComponent } from './question/questions/questions.component';
 import { TestingreportsComponent } from './testingreport/testingreports/testingreports.component';
-import { AddViewGetTestingreportComponent } from './testingreport/add-view-get-testingreport/add-view-get-testingreport.component';
 import { ServiceComponent } from './services/service/service.component';
 import { ServiceCustomerComponent } from './services/service-customer/service-customer.component';
 import { ServiceCompressorComponent } from './services/service-compressor/service-compressor.component';
@@ -88,6 +87,10 @@ import { ServiceItemComponent } from './services/service-item/service-item.compo
 import { NavItemsComponent } from './dashboard/nav-items/nav-items.component';
 import { ServicesBreadComponent } from '../home/product-section/collections/bread/services-bread/services-bread.component';
 import { AltraTestReportComponent } from './testingreport/altra/altra-test-report/altra-test-report.component';
+import { ImageWidgetComponent } from 'src/app/shared_components/image-widget/image-widget.component';
+import { ReportV2Component } from './testingreport/_v2/report-v2/report-v2.component';
+import { TestReportTemplateComponent } from './testingreport/_v2/test-report-template/test-report-template.component';
+import { RowsPipe } from 'src/app/_pipes/rows.pipe';
 
 const routes: Routes = [
   {
@@ -142,8 +145,10 @@ const routes: Routes = [
       { path: 'questions', component: QuestionsComponent },
       { path: 'testing-reports', component: TestingreportsComponent },
       { path: 'add-machine/:id/:customerId', component: AddMachineComponent },
-      { path: 'testingreport/:id', component: AddViewGetTestingreportComponent },
       { path: 'test-report/:id/:page', component: AltraTestReportComponent },
+      { path: 'test-report-pro', component: ReportV2Component },
+      { path: 'test-report-pro/:id', component: ReportV2Component },
+      { path: 'test-report-template/:id', component: TestReportTemplateComponent },
     ]
   }
 ];
@@ -207,7 +212,7 @@ export const declarations: Array<any> = [
   SuperPickDetailsComponent,
   QuestionsComponent,
   TestingreportsComponent,
-  AddViewGetTestingreportComponent,
+  ImageWidgetComponent,
   // pipes
   SearchProductPipe,
   Overviewv2Component,
@@ -239,7 +244,8 @@ export const declarations: Array<any> = [
   ServiceItemComponent,
   NavItemsComponent,
   ServicesBreadComponent,
-  AltraTestReportComponent
+  AltraTestReportComponent,
+  RowsPipe
 
 ];
 @NgModule({

@@ -27,9 +27,15 @@ export class QuestiontestService {
     );
   }
 
-  add(company: Questiontest) {
+  add(questiontest: Questiontest) {
     return this.http.post<Questiontest>(
-      `${this.url}/api/questiontest/add-questiontest.php`, company
+      `${this.url}/api/questiontest/add-questiontest.php`, questiontest
+    );
+  }
+
+  addRange(questiontests: Questiontest[]) {
+    return this.http.post<Questiontest[]>(
+      `${this.url}/api/questiontest/add-questiontest-range.php`, questiontests
     );
   }
 

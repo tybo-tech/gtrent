@@ -1,4 +1,5 @@
 import { Customer } from "./customer.model";
+import { Images } from "./images.model";
 import { Machine } from "./machine.model";
 import { Questiontest } from "./questiontest.model";
 
@@ -58,5 +59,11 @@ export interface Testingreport {
   Machine?: Machine;
   Questiontests?: Questiontest[];
   Remarks?: Questiontest[];
+  Images?: Images[];
+  
+  // New 
+  VesselDescription?: string;
+  UserName?: string;
+
 
 }

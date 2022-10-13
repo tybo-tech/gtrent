@@ -1,0 +1,56 @@
+<div *ngIf="parent && parent.Children">
+  <ul class="list-group">
+    <li *ngFor="let child of parent.Children" class="list-group-item list-group-item-dark pointer"
+      (click)="question = child">
+      <b> {{child.Question}}</b>
+      <br>
+      <small>
+        {{child.QuestionOptions}}
+      </small>
+    </li>
+    <li class="list-group-item list-group-item-dark">
+      <a class="btn btn-info" (click)="add()">Add sub question</a>
+    </li>
+  </ul>
+
+
+  <div class="card-body" *ngIf="question">
+    <div>
+      <div class="input-group mb-3">
+        <div class="max_w">
+          <label for="">Question Number</label>
+          <input type="text" name="" id="" class="form-control" [(ngModel)]="question.QuestionNumber">
+        </div>
+
+        <div class="max_w">
+          <label for="">Question Type</label>
+          <select type="text" name="" id="" class="form-control" [(ngModel)]="question.QuestionType">
+            <option value="Dropdown Answer">Dropdown Answer</option>
+            <option value="Text">Text</option>
+            <option value="Date">Date</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group" *ngIf="question.QuestionType == 'Dropdown Answer'">
+        <label for="">Question</label>
+        <textarea [(ngModel)]="question.Question" class="form-control"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="">Question Options</label>
+        <textarea [(ngModel)]="question.QuestionOptions" class="form-control"></textarea>
+      </div>
+
+
+      <div class="mx-auto">
+        <button type="submit" type="button" (click)="question = null" class="btn btn-secondary">Cancel</button>
+        <button type="submit" [disabled]="!question.Question" type="button" (click)="save()"
+          class="btn btn-primary">Save question</button>
+
+
+
+      </div>
+
+    </div>
+  </div>
+
+</div>

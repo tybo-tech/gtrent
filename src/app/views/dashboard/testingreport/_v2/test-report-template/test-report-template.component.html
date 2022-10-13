@@ -1,0 +1,231 @@
+<div class="_top--bar" *ngIf="column && row">
+    <div class="input-group">
+
+        <select class="form-control form-select-sm" [(ngModel)]="column.MoreInfo2" aria-label=".form-select-sm example">
+            <option value="" selected>Border</option>
+            <option value="1">1</option>
+            <option value="0">0</option>
+            <option value="R">Right</option>
+            <option value="B">Bottom</option>
+            <option value="B,R">Bottom Right</option>
+            <option value="B,L">Bottom Left</option>
+            <option value="T,R">Top Right</option>
+            <option value="T,L">Top Left</option>
+            <option value="L,T,R">Left Top Right</option>
+            <option value="L,B,R">Left Bottom Right</option>
+        </select>
+        <select class="form-control form-select-sm" [(ngModel)]="row.SelectedClass" (change)="classSelcted()" aria-label=".form-select-sm example">
+            <option value="" selected>Type</option>
+            <option value="grid-1">grid-1</option>
+            <option value="grid-2">grid-2</option>
+            <option value="grid-3">grid-3</option>
+            <option value="grid-4">grid-4</option>
+        </select>
+
+        <select class="form-control form-select-sm" [(ngModel)]="row.DisplayMode" (change)="classSelcted()" aria-label=".form-select-sm example">
+            <option value="" selected>Display row</option>
+            <option value="All">Report & Certificate</option>
+            <option value="Report">Report only</option>
+            <option value="Certificate">Certificate only</option>
+        </select>
+
+        <select class="form-control form-select-sm" [(ngModel)]="column.Type" aria-label=".form-select-sm example">
+            <option value="" selected>Type</option>
+            <option value="Customer">Customer</option>
+            <option value="Signiture">Signiture</option>
+            <option value="Inspector Signiture">Inspector Signiture</option>
+            <option value="Heading">Heading</option>
+            <option value="Select">Select</option>
+            <option value="Text">Text</option>
+            <option value="Date">Date</option>
+            <option value="Time">Time</option>
+            <option value="Image">Top Image</option>
+            <option value="Image-2">Secondary Image</option>
+            <option value="Question">Question</option>
+            <option value="Question">Empty Cell</option>
+        </select>
+
+        <input class="form-control form-select-sm" [(ngModel)]="column.Units" placeholder="Item Units" />
+        <input class="form-control form-select-sm" [(ngModel)]="column.MoreInfo1" placeholder="Item Name" />
+        <input class="form-control form-select-sm" [(ngModel)]="row.OrderingNo" (input)="orderChanged()" placeholder="Item Name" />
+
+        <div class="form-control form-select-sm pointer" (click)="column.ShowOptions = true"
+            style="display:flex; align-items: center; justify-content: center;">
+            Options({{column.Options?.length || 0}})
+        </div>
+
+
+
+        <div class="form-control form-select-sm pointer" (click)="moveRowUp()"
+            style="display:flex; align-items: center; justify-content: center;">
+            <i class="fas fa-arrow-up"></i>
+        </div>
+
+        <div class="form-control form-select-sm pointer" (click)="moveRowDown()"
+            style="display:flex; align-items: center; justify-content: center;">
+            <i class="fas fa-arrow-down"></i>
+        </div>
+
+        <div class="form-control form-select-sm pointer" (click)="addCol()"
+            style="display:flex; align-items: center; justify-content: center;">
+            <i class="fas fa-plus"></i>
+        </div>
+
+
+        <div class="form-control form-select-sm pointer" (click)="deleteCol()"
+            style="display:flex; align-items: center; justify-content: center;">
+            <i class="fas fa-trash"></i>
+        </div>
+        <div class="form-control form-select-sm pointer" (click)="duplicate()"
+            style="display:flex; align-items: center; justify-content: center;">
+            <i class="fas fa-clone"></i>
+        </div>
+        <div style="display:flex; align-items: center; justify-content: center;" (click)="column = undefined"
+            class="form-control form-select-sm pointer">
+            <i class="fa fa-times"></i>
+        </div>
+        <!-- <div style="display:flex; align-items: center; justify-content: center;">
+            <textarea name="" [(ngModel)]="column.Options" id="" cols="30" rows="10"></textarea>
+        </div> -->
+    </div>
+</div>
+
+<ul class="_top--bar--options list-group" *ngIf="column && column.ShowOptions">
+    <li class="list-group-item d-flex justify-content-between">
+        <h5>
+            Options
+        </h5>
+        <button (click)="column.ShowOptions = false" class="btn btn-light">
+            <i class="fa fa-times"></i>
+        </button>
+
+
+    </li>
+    <li class="list-group-item" *ngFor="let item of column.Options; let i = index">
+        {{item}} <br>
+        <a class="link-danger" (click)="deleteOption(i)">Delete</a>
+    </li>
+    <li class="list-group-item">
+        <button *ngIf="!addingAction" (click)="addingAction = true" class="btn btn-primary">Add
+            option</button>
+
+        <div class="" *ngIf="addingAction">
+            <div class="mb-3">
+                <textarea placeholder="Enter option here" [(ngModel)]="optionName"></textarea>
+            </div>
+            <div class="mb-3">
+                <button (click)="addOption()" class="btn btn-primary">Save option</button>
+
+            </div>
+        </div>
+    </li>
+</ul>
+
+
+<div class="container">
+    <h3>
+        <span>
+            Test Report template<br> <br>
+        </span>
+    </h3>
+
+    <div class="module-actions">
+        <button class="btn btn-dark" (click)="back()">Back to test reports</button>
+        <a class="btn btn-primary" (click)="saveNewReport()">Save</a>
+    </div>
+</div>
+
+
+
+<div *ngIf="report && !loading" class="rows" id="report">
+    <div class="_row" *ngFor="let row of report.Rows; let i = index" [ngClass]="row.Classes">
+        <div class="column" *ngFor="let column of row.Columns; let j = index" [ngClass]="column.Classes">
+            <div class="grid-2222" *ngIf="!readOnly">
+                <div class="_question" *ngIf="column.Question" (click)="options(row, column, i, j)">
+                    <input class="_input" placeholder="Enter value here" [(ngModel)]="column.Question" type="text">
+                </div>
+                <div style="min-height: 1rem; background: rgba(237, 237, 237, 0.704);" class="_question"
+                    *ngIf="!column.Question && !column.Answer && !column.Options.length"
+                    (click)="options(row, column, i, j)">
+
+                </div>
+                <div class="_answer  d-flex" *ngIf="column.Type  === 'Text'" (click)="options(row, column, i, j)">
+                    <input class="_input" placeholder="Enter value here" [(ngModel)]="column.Answer" type="text">
+                    <span *ngIf="column.Units">
+                        {{column.Units}}
+                    </span>
+                </div>
+                <div class="_answer  d-flex" *ngIf="column.Type  === 'Customer'" (click)="options(row, column, i, j)">
+                    <input class="_input" placeholder="Enter value here" [(ngModel)]="column.Answer" type="text">
+                    <span *ngIf="column.Units">
+                        {{column.Units}}
+                    </span>
+                </div>
+                <div class="_answer  d-flex" *ngIf="column.Type  === 'Signiture'" (click)="options(row, column, i, j)">
+                    <input class="_input" placeholder="Enter value here" [(ngModel)]="column.Answer" type="text">
+                    <span *ngIf="column.Units">
+                        {{column.Units}}
+                    </span>
+                </div>
+                <div class="_answer  d-flex" *ngIf="column.Type  === 'Inspector Signiture'" (click)="options(row, column, i, j)">
+                    <input class="_input" placeholder="Enter value here" [(ngModel)]="column.Answer" type="text">
+                    <span *ngIf="column.Units">
+                        {{column.Units}}
+                    </span>
+                </div>
+                <div class="_answer  d-flex" *ngIf="column.Type  === 'Notes'" (click)="options(row, column, i, j)">
+                    <textarea class="_input" placeholder="Enter value here" [(ngModel)]="column.Answer"
+                        type="text"></textarea>
+                    <span *ngIf="column.Units">
+                        {{column.Units}}
+                    </span>
+                </div>
+                <div class="_answer" *ngIf="column.Type  === 'Date'" (click)="options(row, column, i, j)">
+                    <input class="_input" [(ngModel)]="column.Answer" type="date">
+                </div>
+                <div class="_answer" *ngIf="column.Type  === 'Image' || column.Type  === 'Image-2'" (click)="options(row, column, i, j)">
+                    <input class="_input" type="file">
+                </div>
+                <div class="_answer" *ngIf="column.Type  === 'Time'" (click)="options(row, column, i, j)">
+                    <input class="_input" [(ngModel)]="column.Answer" type="time">
+                </div>
+                <div class="_answer d-flex" *ngIf="column.Type  === 'Select'" (click)="options(row, column, i, j)">
+                    <select class="_input" [(ngModel)]="column.Answer">
+                        <option value="" selected>--Choose one--</option>
+                        <option [value]="option" *ngFor="let option of column.Options">
+                            {{option}}
+                        </option>
+                    </select>
+                    <input *ngIf="column.RequireSecondary" class="_input" placeholder="Enter value here."
+                        [(ngModel)]="column.SecondaryAnswer" />
+
+                    <span *ngIf="column.Units">
+                        {{column.Units}}
+                    </span>
+
+                </div>
+                <div class="_answer" *ngIf="column.Type  === 'h1'">
+                    <textarea class="_input" placeholder="Enter value here."  (click)="options(row, column, i, j)" [(ngModel)]="column.Answer"></textarea>
+                </div>
+            </div>
+
+            <div class="d-flex" *ngIf="readOnly">
+                <div class="_question" *ngIf="column.Question">
+                    {{column.Question}}
+                </div>
+                <div class="_answer  d-flex">
+                    {{column.Answer}}
+                    <span *ngIf="column.Units">
+                        {{column.Units}}
+                    </span>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<app-loader *ngIf="loading"></app-loader>

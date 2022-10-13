@@ -17,7 +17,10 @@
 
         <div class="mb-3">
             <label>Manufacturer</label>
-            <input type="text" class="form-control" [(ngModel)]="testingreport.Manufacturer">
+            <select type="text" class="form-control" [(ngModel)]="testingreport.Manufacturer">
+                <option *ngFor="let man of manufacturers" [value]="man">{{man}}</option>
+                <option value="No">No</option>
+            </select>
         </div>
         <div class="mb-3">
             <label>Country Of Origin</label>
@@ -88,28 +91,43 @@
         <br>
 
         <div class="input-group mb-3">
-            <div class="max_w">
+            <div class="max_w_full">
                 <label>Test Pressure <br> Gauge</label>
-                <input type="text" class="form-control" [(ngModel)]="testingreport.TestPressureGauge">
+                <select type="text" class="form-control" [(ngModel)]="testingreport.TestPressureGauge">
+                    <option [value]="i" *ngFor="let i of ['P2161-1', 'P4737-1']">{{i}}</option>
+                </select>
             </div>
 
-            <div class="max_w">
+            <div class="max_w_full">
                 <label>Test <br> Pump</label>
-                <input type="text" class="form-control" [(ngModel)]="testingreport.TestPump">
+                <select type="text" class="form-control" [(ngModel)]="testingreport.TestPump">
+                    <option [value]="i" *ngFor="let i of [1,2,3]">{{i}}</option>
+                </select>
             </div>
         </div>
 
 
         <div class="input-group mb-3">
-            <div class="max_w">
+            <div class="max_w_full">
                 <label for=""> Test temperature <br> gauge s/n</label>
-                <input type="text" class="form-control" [(ngModel)]="testingreport.TestTemperatureGauge">
+                <select type="text" class="form-control" [(ngModel)]="testingreport.TestTemperatureGauge">
+                    <option [value]="i" *ngFor="let i of ['20092', '96227']">{{i}}</option>
+                </select>
             </div>
 
-            <div class="max_w">
+            <div class="max_w_full">
                 <label for="">Thickness <br> tester</label>
-                <input type="text" class="form-control" [(ngModel)]="testingreport.ThicknessTester">
+                <select type="text" class="form-control" [(ngModel)]="testingreport.ThicknessTester">
+                    <option [value]="i" *ngFor="let i of ['56019957', '56013304']">{{i}}</option>
+                </select>
             </div>
+        </div>
+        <h6>
+            Images
+        </h6>
+        <div class="mb-3" *ngFor="let image of testingreport.Images">
+            <app-image-widget [image]="image.Url" (imageChangedEvent)="onImageChangedEvent($event,image)">
+            </app-image-widget>
         </div>
 
 

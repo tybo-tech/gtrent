@@ -1,0 +1,30 @@
+.form-control{
+    max-width: 100%;
+    margin: .4em 0;
+}
+
+.fill-blank{
+    padding: .5em;
+    background: rgb(236, 236, 236);
+    display: grid;
+    grid-template-columns: 4em 6em 4em auto;
+    font-size: .75em !important;
+    .form-control{
+        padding: 0 !important;
+    }
+    span{
+        padding: .5em .2em;
+        position: relative;
+        top: 1em;
+    }
+}
+.col2{
+    grid-template-columns: 6em auto;
+}
+input{
+    margin-bottom: 0 !important;
+}
+
+.input-group-text{
+    border-radius: 0 !important;
+}

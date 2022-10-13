@@ -1,0 +1,25 @@
+.sketch{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 100000000000;
+    background: #fff;
+    overflow: hidden;
+    text-align: center;
+}
+#myCanvas{
+    border: 1px solid rgb(89, 89, 89);
+    // height: 100vh;
+    // width: 100%;
+}
+
+.btn{
+    position: fixed;
+    z-index: 1000;
+    bottom: 1rem;
+    left: 44%;
+    min-width: 10rem;
+}

@@ -59,14 +59,15 @@ export class ServiceReportComponent {
 
     next() {
         this.errors = [];
-        // this.router.navigate([`/admin/dashboard/fsr/${this.service.OrdersId}/report`])ser
-        this.service.Status = SERVICE_STATUS.PENDING_INVOICE.Name;
-        this.service.StatusId = SERVICE_STATUS.PENDING_INVOICE.Id;
         if (!this.service.CustomerSigniture) {
             this.errors.push('Please let the customer sign the report before you publish');
         }
         if (this.errors.length)
             return false
+        // this.router.navigate([`/admin/dashboard/fsr/${this.service.OrdersId}/report`])ser
+        this.service.Status = SERVICE_STATUS.PENDING_INVOICE.Name;
+        this.service.StatusId = SERVICE_STATUS.PENDING_INVOICE.Id;
+
         this.orderService.saveService(this.service).subscribe(data => {
             this.orderService.updateOrderState(this.service);
             this.showMessage('SFR published, Email sent to the customer and the admim')
@@ -219,7 +220,6 @@ ${labour}
         </div>
     </div>
         `
-        const email = order.Customer.Email || NOTIFY_EMAILS;
         const emailToSend: Email = {
             Email: NOTIFY_EMAILS,
             Subject: 'New Service Report completed',
@@ -318,8 +318,8 @@ ${labour}
     </div>
         `
         const emailToSend: Email = {
-            Email: `${NOTIFY_EMAILS}, ${this.service.Customer.Email}`,
-            Subject: 'New Service Report  | Customer copy',
+            Email: `${this.service.Customer.Email}`,
+            Subject: 'New service report completed',
             Message: `${emailBody}`,
             UserFullName: userName,
             // Link: `${environment.BASE_URL}`,

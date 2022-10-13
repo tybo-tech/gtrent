@@ -6,6 +6,7 @@ import { SliderWidgetModel } from 'src/models/UxModel.model';
 import { AccountService } from 'src/services/account.service';
 import { QuestionService } from 'src/services/question.service';
 import { UxService } from 'src/services/ux.service';
+import { sectionTypes } from 'src/shared/constants';
 
 @Component({
   selector: 'app-questions',
@@ -19,6 +20,7 @@ export class QuestionsComponent implements OnInit {
   listItems: SliderWidgetModel[]
   heading: string;
   showFilter = true;
+  sectionTypes = sectionTypes;
 
   constructor(
     private accountService: AccountService,
@@ -33,15 +35,15 @@ export class QuestionsComponent implements OnInit {
   }
   getQuestions() {
     this.questionService.getQuestions(1).subscribe(data => {
-      this.questions = data;
+      this.questions = data || [];
       this.listItems = [];
       this.questions.forEach(item => {
         this.listItems.push({
           Id: item.QuestionId,
-          Name: `${item.Question}`,
-          Description: `${item.Option1}  ${item.Option2}   ${item.Option3} [P${item.Position}]`,
+          Name: `${item.QuestionNumber} ${item.Question}`,
+          Description: item.QuestionType,
           Link: `event`,
-          Icon: `assets/images/icon-customer.svg`
+          Icon: `assets/images/qs.png`
         })
 
 
@@ -54,13 +56,12 @@ export class QuestionsComponent implements OnInit {
 
     this.question = {
       QuestionId: '',
+      ParentId: '',
       Question: '',
       CertificateQuestion: '',
-      Position: 9000,
-      Option1: 'YES',
-      Option2: 'NO',
-      Option3: 'N/A',
-      Option4: '',
+      QuestionType: 'Sub Questions',
+      QuestionNumber: '',
+      QuestionOptions: '',
       CreateUserId: '',
       ModifyUserId: '',
       StatusId: 1

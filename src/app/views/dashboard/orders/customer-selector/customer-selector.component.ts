@@ -1,6 +1,7 @@
 import { EventEmitter, Input, Output } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { User } from 'src/models';
 import { Customer } from 'src/models/customer.model';
 import { OrderService } from 'src/services';
@@ -25,7 +26,8 @@ export class CustomerSelectorComponent implements OnInit {
     private router: Router,
     private orderService: OrderService,
     private customerService: CustomerService,
-    private uxService: UxService
+    private uxService: UxService,
+    private messageService: MessageService,
 
   ) { }
 
@@ -84,6 +86,8 @@ export class CustomerSelectorComponent implements OnInit {
     if (this.newCustomer.CustomerId && this.newCustomer.CustomerId.length > 5) {
       this.customerService.updateCustomerSync(this.newCustomer).subscribe(data => {
         if (data && data.CustomerId) {
+          this.messageService.add({ severity: 'success', summary: 'Customer details updated', detail: '' });
+          this.selectItem(data);
         }
       })
     }
@@ -92,6 +96,7 @@ export class CustomerSelectorComponent implements OnInit {
         if (data && data.CustomerId) {
           this.customers.push(data)
           this.newCustomer = null;
+          this.messageService.add({ severity: 'success', summary: 'Customer details saved', detail: '' });
           this.selectItem(data);
         }
       });

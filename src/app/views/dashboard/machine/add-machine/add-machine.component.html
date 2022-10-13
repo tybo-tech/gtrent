@@ -1,42 +1,47 @@
-<div class="quick-add" *ngIf="compressor">
-  <div class="form">
-    <h3>
-      {{heading}}
-    </h3>
+<div class="smart-overlay" *ngIf="compressor" (click)="close()">
 
-
-
-
-
-    <div class="form-item">
-      <label for="name">Compressor Model
-      </label>
-      <input type="text" [(ngModel)]="compressor.Model">
-    </div>
-
-    
-    <div class="form-item">
-      <label for="name">Compressor Serial
-      </label>
-      <input type="text" [(ngModel)]="compressor.Serial">
-    </div>
-
-    
-    <div class="form-item">
-      <label for="name">Compressor Mileage
-      </label>
-      <input type="text" [(ngModel)]="compressor.Hours">
-    </div>
-
-
-    <div class="form-item">
-      <button (click)="save()" [disabled]="!compressor.Model && !compressor.Serial">Save Compressor</button>
-      <div class="link" (click)="close()">Cancel</div>
-    </div>
-  </div>
 </div>
 
-<app-user-feedback *ngIf="modalModel && modalModel.heading" [modalModel]="modalModel"></app-user-feedback>
+<div class="smart-modal" *ngIf="compressor">
+  <div class="smart-close">
+    <i class="far fa-window-close" (click)="close()"></i>
+
+  </div>
+
+  <div class="__body">
+    <h5>
+      {{heading}}
+    </h5>
 
 
-<app-user-feedback *ngIf="modalModel && modalModel.heading" [modalModel]="modalModel"></app-user-feedback>
+    <div class="form-group">
+      <label for="name">Compressor Model
+      </label>
+      <input type="text" class="form-control" [(ngModel)]="compressor.Model">
+    </div>
+
+
+    <div class="form-group">
+      <label for="name">Compressor Serial
+      </label>
+      <input type="text" class="form-control" [(ngModel)]="compressor.Serial">
+    </div>
+
+
+    <div class="form-group">
+      <label for="name">Compressor hours
+      </label>
+      <input type="text" class="form-control" [(ngModel)]="compressor.Hours">
+    </div>
+
+
+    <div class="form-group">
+      <button class="btn btn-secondary" (click)="close()">Cancel</button>
+      <button (click)="save()" class="btn btn-primary" [disabled]="!compressor.Model && !compressor.Serial">Save
+        Compressor</button>
+    </div>
+  </div>
+
+
+
+</div>

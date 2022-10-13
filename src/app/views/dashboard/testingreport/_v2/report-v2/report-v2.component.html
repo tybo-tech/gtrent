@@ -1,0 +1,330 @@
+<app-services-bread [items]="items" [heading]="heading" [back]="'/admin/dashboard/testing-reports'">
+</app-services-bread>
+
+
+<div class="container">
+
+
+    <!-- <div class="module-actions">
+        <button class="btn btn-dark" (click)="back()">Back to test reports</button>
+        <a class="btn btn-primary" *ngIf="report && !loading" (click)="saveNewReport()">Save</a>
+        <a class="btn btn-primary" *ngIf="report && !loading" (click)="sendForAproval()">Send for aproval</a>
+        <a class="btn btn-primary" *ngIf="report && !loading" (click)="print()">Download report</a>
+    </div> -->
+
+
+    <div *ngIf="report && !loading" class="rows" id="report">
+        <div class="_row" *ngFor="let row of report.Rows | rowspipe" [ngClass]="row.Classes">
+            <div class="column" *ngFor="let column of row.Columns" [ngClass]="column.Classes">
+                <div class="" *ngIf="!readOnly">
+                    <div class="_question" *ngIf="column.Question">
+                        {{column.Question}}
+                    </div>
+                    <div class="_answer" *ngIf="column.Type  === 'Text'">
+                        <textarea [readonly]="report.StatusName === REPORT_STATUSES.SIGNED" class="_input"
+                            placeholder="Enter value here" [ngClass]="column.Classes" (input)="textChanged(row, column)"
+                            [(ngModel)]="column.Answer" type="text">
+                            </textarea>
+                        <span *ngIf="column.Units">
+                            {{column.Units}}
+                        </span>
+                        <div *ngIf="column.Required && !column.Answer">
+                            <div class="error-2">Required filed.</div>
+                        </div>
+                    </div>
+                    <div class="_answer  d-flex" *ngIf="column.Type  === 'Notes'">
+                        <textarea [readonly]="report.StatusName === REPORT_STATUSES.SIGNED" class="_input"
+                            placeholder="Enter value here" [(ngModel)]="column.Answer" type="text"></textarea>
+                        <span *ngIf="column.Units">
+                            {{column.Units}}
+                        </span>
+                    </div>
+
+                    <div class="_answer" *ngIf="column.Type  === 'Signiture'">
+                        <img [src]="column.Answer" *ngIf="column.Answer"
+                            style="width: 12rem; display: block; margin-bottom: 1rem;" alt="">
+                        <button class="btn btn-secondary" (click)="signReport = true; selectedColumn = column">Click
+                            here to sign</button>
+                    </div>
+
+                    <div class="_answer  d-flex" *ngIf="column.Type  === 'Inspector Signiture'">
+                        <textarea [readonly]="report.StatusName === REPORT_STATUSES.SIGNED" class="_input" disabled
+                            placeholder="Inspector Signiture Here" [(ngModel)]="column.Answer" type="text"></textarea>
+                        <span *ngIf="column.Units">
+                            {{column.Units}}
+                        </span>
+                    </div>
+
+                    <div class="_answer" *ngIf="column.Type  === 'Customer'">
+                        <input type="text" readonly class="_input" placeholder="Enter value here"
+                            [(ngModel)]="column.Answer" type="text" />
+                        <br>
+                        <button class="btn btn-secondary"
+                            (click)="chooseCustomer = true; selectedColumn = column">Choose / Add customer</button>
+
+                        <button class="btn btn-secondary" *ngIf="report && report.CustomerId"
+                            (click)="editCustomer(column); selectedColumn = column">Edit this customer</button>
+                    </div>
+                    <div class="_answer" *ngIf="column.Type  === 'Date'">
+                        <date-picker [fullDate]="column.Answer" [name]="column.MoreInfo1"
+                            (dateEvent)="dateEvent($event, column,row)"></date-picker>
+                        <!-- <div class="pointer" (click)="useNext3Years(row)"
+                            *ngIf="nextInpectionDateId && dateInThreeYears && column.MoreInfo1 === nextInpectionDateId">
+                            <b style="color: rgb(46, 56, 248)"> Use {{dateInThreeYears}}</b>
+                        </div> -->
+                    </div>
+                    <div class="_answer" *ngIf="column.Type  === 'Time'">
+                        <input class="_input" [(ngModel)]="column.Answer" type="time">
+                    </div>
+
+                    <div *ngIf="column.Type  === 'Image'">
+                        <app-image-widget [image]="column.Answer"
+                            (imageChangedEvent)="onImageChangedEvent($event, column)">
+                        </app-image-widget>
+                    </div>
+
+                    <div *ngIf="column.Type  === 'Image-2'">
+                        <app-image-widget [image]="column.Answer" [type]="column.Type"
+                            (imageChangedEvent)="onImageChangedEvent($event, column)">
+                        </app-image-widget>
+                    </div>
+                    <div class="_answer" *ngIf="column.Type  === 'Select'">
+                        <select [disabled]="report.StatusName === REPORT_STATUSES.SIGNED" class="_input"
+                            [(ngModel)]="column.Answer" (change)="selectChanged(column,row)">
+                            <option [value]="option" *ngFor="let option of column.Options">
+                                {{option}}
+                            </option>
+                        </select>
+
+                        <span style="display: block; margin-top: 1rem;"
+                            *ngIf="column.Answer === 'Other' || column.Answer === 'OTHER' || column.Answer === 'other'">
+                            <label for="" style="text-transform: Uppercase;">Specify other</label> <br>
+                            <textarea [readonly]="report.StatusName === REPORT_STATUSES.SIGNED" class="_input"
+                                placeholder="Specify value." [(ngModel)]="column.OtherAnswer"></textarea>
+                        </span>
+
+                        <textarea [readonly]="report.StatusName === REPORT_STATUSES.SIGNED"
+                            *ngIf="column.RequireSecondary" class="_input" placeholder="Enter value here."
+                            [(ngModel)]="column.SecondaryAnswer"></textarea>
+
+                        <span *ngIf="column.Units">
+                            {{column.Units}}
+                        </span>
+
+                    </div>
+                    <div class="_answer" *ngIf="column.Type  === 'h1'">
+                        {{column.Answer}}
+                    </div>
+                </div>
+
+                <div class="d-flex" *ngIf="readOnly">
+                    <div class="_question" *ngIf="column.Question">
+                        {{column.Question}}
+                    </div>
+                    <div class="_answer  d-flex">
+                        {{column.Answer}}
+                        <span *ngIf="column.Units">
+                            {{column.Units}}
+                        </span>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <input type="file" #SignedReport placeholder="Choose file" (change)="uploadFile(SignedReport.files)"
+        style="display:none;">
+
+
+    <div class="module-actions" *ngIf="report && user && user.UserType === TECHNICIAN && !loading">
+
+        <a class="btn btn-primary" *ngIf="report.StatusName === REPORT_STATUSES.DRAFT"
+            (click)="saveNewReport()">Save</a>
+        <a class="btn btn-primary" *ngIf="report.StatusName === REPORT_STATUSES.DRAFT"
+            (click)="sendForAproval()">Publish report</a>
+        <div class="alert alert-info tal" *ngIf="report.StatusName === REPORT_STATUSES.REVIEW" role="alert">
+            Report is being reviewed, please check again after some time. <br>
+            <a class="btn btn-secondary mt-2" (click)="back()">Go back</a>
+        </div>
+
+        <div class="alert alert-info tal" *ngIf="report.StatusName === REPORT_STATUSES.SIGNED" role="alert">
+            Report is reviewed and signed, no more updates needed here. <br>
+            <a class="btn btn-secondary mt-2" (click)="back()">Go back</a>
+        </div>
+    </div>
+
+    <div class="module-actions" *ngIf="report && user && user.UserType === REPORT_MANAGER  && !loading">
+
+        <a class="btn btn-primary" *ngIf="report.StatusName !==  REPORT_STATUSES.SIGNED" (click)="print()">Sign</a>
+
+        <a class="btn btn-primary" *ngIf="report.StatusName === REPORT_STATUSES.SIGNED" (click)="printSigned()">Download
+            Signed</a>
+
+        <a class="btn btn-primary" *ngIf="report.StatusName === REPORT_STATUSES.SIGNED" (click)="print()">Send
+            to customer</a>
+
+        <a class="btn btn-primary" *ngIf="report && report.StatusName !== REPORT_STATUSES.SIGNED"
+            (click)="SignedReport.click()">Upload signed</a>
+
+    </div>
+
+
+    <div class="module-actions" *ngIf="report && user && user.UserType === ADMIN  && !loading">
+
+        <a class="btn btn-primary"  (click)="print()">Download unsigned</a>
+        <a class="btn btn-primary" *ngIf="report.StatusName ===  REPORT_STATUSES.SIGNED" (click)="printSigned()">Download signed</a>
+
+        <!-- <a class="btn btn-primary" *ngIf="report.StatusName === REPORT_STATUSES.SIGNED" (click)="printSigned()">Download
+            Signed</a>
+
+        <a class="btn btn-primary" *ngIf="report.StatusName === REPORT_STATUSES.SIGNED" (click)="print()">Send
+            to customer</a>
+
+        <a class="btn btn-primary" *ngIf="report && report.StatusName !== REPORT_STATUSES.SIGNED"
+            (click)="SignedReport.click()">Upload signed</a> -->
+
+    </div>
+
+
+
+
+</div>
+
+
+
+<app-loader *ngIf="loading"></app-loader>
+
+
+
+
+
+<div class="smart-overlay" *ngIf="chooseCustomer && customers && selectedColumn" (click)="chooseCustomer = false">
+
+</div>
+
+<div class="smart-modal" *ngIf="chooseCustomer && customers && selectedColumn">
+    <div class="smart-close">
+        <i class="far fa-window-close" (click)="chooseCustomer = false"></i>
+    </div>
+
+    <div style="padding: 1rem;">
+        <input type="search" class="form-control" [(ngModel)]="searchString" placeholder="🔎 Filter by name">
+        <div class="list list-row block">
+
+            <div class="list-item" (click)="addNewCustomer()">
+                <div><a data-abc="true"><span class="w-48 avatar gd-info" style="background: #325d21;">
+                            <i class="fa fa-plus"></i>
+                        </span></a>
+                </div>
+                <div class="flex"> <a class="item-author text-color" data-abc="true"><b>
+                            Add new</b></a>
+                    <div class="item-except text-muted text-sm h-1x">Customer not on the list?</div>
+                </div>
+
+            </div>
+            <div class="list-item" *ngFor="let item of customers | searchCustomer: searchString; let i = index"
+                (click)="selectCustomer(item)">
+                <div><a data-abc="true"><span class="w-48 avatar gd-info">{{item.Dp}}</span></a>
+                </div>
+                <div class="flex"> <a class="item-author text-color" data-abc="true"><b>
+                            {{item.Name}}</b></a>
+                    <div class="item-except text-muted text-sm h-1x">{{item.Machines}} Compressors</div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="smart-overlay" *ngIf="editing && customer" (click)="editing = false">
+
+</div>
+
+<div class="smart-modal" *ngIf="editing && customer">
+    <div class="smart-close">
+        <i class="far fa-window-close" (click)="editing = false"></i>
+    </div>
+
+    <div style="padding: 1rem;">
+
+        <div class="row" *ngIf="customer && editing">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header bg-dark text-white"><i class="fas fa-user"></i> {{heading}}
+                    </div>
+                    <div class="card-body">
+                        <div>
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" [(ngModel)]="customer.Name" class="form-control" id="name"
+                                    aria-describedby="emailHelp" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="name">Contact person</label>
+                                <input type="text" [(ngModel)]="customer.Surname" class="form-control" id="name"
+                                    aria-describedby="emailHelp" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Phone No</label>
+                                <input type="tel" [(ngModel)]="customer.PhoneNumber" class="form-control" id="name"
+                                    aria-describedby="emailHelp" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email address</label>
+                                <input type="email" [(ngModel)]="customer.Email" class="form-control" id="email"
+                                    aria-describedby="emailHelp" required>
+
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="email">Customer address</label>
+                                <input type="email" [(ngModel)]="customer.AddressLineHome" class="form-control"
+                                    id="email" aria-describedby="emailHelp" required>
+
+                            </div>
+
+                            <div class="mx-auto">
+
+
+                                <button style="margin-right: 2em;" (click)="editing = false; chooseCustomer = true"
+                                    class="btn btn-dark">Cancel</button>
+
+
+                                <button [disabled]="!customer.Name" (click)="saveCustomer()"
+                                    class="btn btn-primary">Save customer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="smart-overlay" *ngIf="signReport && user" (click)="signReport = false">
+
+</div>
+
+<div class="smart-modal" *ngIf="signReport && user">
+    <div class="smart-close">
+        <i class="far fa-window-close" (click)="signReport = false"></i>
+    </div>
+
+    <div style="padding: 1rem;">
+
+        <div class="row" *ngIf="user && signReport">
+            <div class="col">
+                <app-signiture-widget (onUploadFinished)="onUploadFinished($event)" [imageSig]="user.AddressLineWork"
+                    [sigName]="user.Name" [roleLabel]="'Technician'" [user]="user">
+                </app-signiture-widget>
+
+            </div>
+        </div>
+    </div>
+</div>

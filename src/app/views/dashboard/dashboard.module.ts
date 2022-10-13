@@ -29,6 +29,14 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { AltraTestingCustomerComponent } from './testingreport/altra/altra-testing-customer/altra-testing-customer.component';
 import { AltraTestingVesselComponent } from './testingreport/altra/altra-testing-vessel/altra-testing-vessel.component';
 import { AltraTestingTestingProccessComponent } from './testingreport/altra/altra-testing-testing-proccess/altra-testing-testing-proccess.component';
+import { AltraSubQuestionComponent } from './question/altra-sub-question/altra-sub-question.component';
+import { AltraServiceReportSammaryComponent } from './testingreport/altra/altra-service-report-sammary/altra-service-report-sammary.component';
+import { ReportV2Component } from './testingreport/_v2/report-v2/report-v2.component';
+import { TestReportTemplateComponent } from './testingreport/_v2/test-report-template/test-report-template.component';
+import { SketchComponent } from './testingreport/_v2/report-v2/sketch/sketch.component';
+import * as $ from "jquery";
+import { DatePickerComponent } from './testingreport/_v2/report-v2/date-picker/date-picker.component';
+
 
 
 @NgModule({
@@ -61,7 +69,7 @@ import { AltraTestingTestingProccessComponent } from './testingreport/altra/altr
     ToastModule,
     ConfirmPopupModule
   ],
-  declarations: [...declarations, NavItemsComponent, AltraTestingCustomerComponent, AltraTestingVesselComponent, AltraTestingTestingProccessComponent],
+  declarations: [...declarations, NavItemsComponent, AltraTestingCustomerComponent, AltraTestingVesselComponent, AltraTestingTestingProccessComponent, AltraSubQuestionComponent, AltraServiceReportSammaryComponent, ReportV2Component, TestReportTemplateComponent, SketchComponent, DatePickerComponent],
   providers: [MessageService, ConfirmationService]
 })
 export class DashboardModule { }

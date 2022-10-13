@@ -1,0 +1,31 @@
+<!-- <app-dash-loader  *ngIf="loading"></app-dash-loader> -->
+
+
+<div class="imagew">
+
+  <input type="file" accept="image/png, image/jpeg" #file placeholder="Choose file" (change)="uploadFile(file.files)"
+    style="display:none;">
+  <div class="col-sm-12" *ngIf="!loading">
+    <div class="card text-center m-1 no-box-shadow">
+
+
+      <div class="card-body">
+        <div class="preview">
+          <img *ngIf="image && image.length" (click)="file.click()" [src]="image" alt="">
+          <a *ngIf="image && image.length" (click)="remove()" class="link-danger">Remove image</a>
+
+        </div>
+        <a *ngIf="!image || !image.length" (click)="file.click()" class="card-link">Click to upload.</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div *ngIf="type  === 'Image-2' && image">
+  <a class="btn btn-dark" style="margin:1rem auto ; display: block;" (click)="editImage()">Edit image</a>
+
+  <app-sketch [src]="image" *ngIf="image && showCanvas" (onDone)="onDoneEditing($event)">
+  </app-sketch>
+</div>

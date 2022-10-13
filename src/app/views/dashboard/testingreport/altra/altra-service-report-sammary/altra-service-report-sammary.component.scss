@@ -1,0 +1,45 @@
+.mb-3 {
+    border-bottom: 1px solid rgb(238, 238, 238);
+}
+.input-group {
+    div {
+        min-width: 6.5em;
+        border-right: 1px solid rgb(238, 238, 238);
+        padding: .4em;
+    }
+
+    .max_w-2{
+       max-width: 8em; 
+    }
+}
+
+
+._images{
+    display: grid;
+    grid-template-columns: 50% auto;
+   .image{
+       padding: 1em;
+       img{
+        width: 100%;
+        margin: 1em;
+    }
+   }
+}
+
+._view-image{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgb(255, 255, 255);
+    top: 0;
+    left: 0;
+    z-index: 9999900000000000000;
+    text-align: center;
+    
+    padding: 1em;
+    img{
+        width: 30%;
+        display: block;
+        margin: 2em auto;
+    }
+}

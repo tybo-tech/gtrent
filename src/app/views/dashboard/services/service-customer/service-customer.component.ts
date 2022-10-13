@@ -34,13 +34,20 @@ export class ServiceCustomerComponent {
     ) { }
 
     ngOnInit() {
-      
+
         this.orderService.OrderObservable.subscribe(data => {
             this.service = data;
-
-            if (this.service && this.service.Customer && this.service.CompanyId) {
-                this.selectItem(this.service.Customer);
+            if (data) {
+                if (this.service.Customer) {
+                    this.editing = false;
+                    this.viewing = true;
+                    this.customer = this.service.Customer;
+                }
             }
+
+            // if (this.service && this.service.Customer && this.service.CompanyId) {
+            //     this.selectItem(this.service.Customer);
+            // }
         })
         this.customerService.customersListObservable.subscribe(data => {
             this.customers = data || [];
@@ -74,7 +81,6 @@ export class ServiceCustomerComponent {
 
 
             if (this.customer && this.service) {
-                this.customer = this.customer;
                 this.service.Customer = this.customer;
                 this.service.CustomerId = this.customer.CustomerId;
                 this.service.Shipping = this.customer.Name;
@@ -130,7 +136,8 @@ export class ServiceCustomerComponent {
                 if (data && data.CustomerId) {
                     this.editing = false;
                     this.viewing = true;
-                    this.showSuccess(`Customer updated`)
+                    this.showSuccess(`Customer updated`);
+                    this.selectItem(data);
                 }
             })
         }
@@ -140,7 +147,7 @@ export class ServiceCustomerComponent {
                     this.customers.push(data)
                     this.editing = false;
                     this.viewing = true;
-                    this.selectItem(data);
+                    this.selectItem(data, true);
                     this.showSuccess(`Customer created`)
                 }
             });

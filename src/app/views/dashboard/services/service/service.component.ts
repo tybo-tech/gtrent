@@ -36,8 +36,10 @@ export class ServiceComponent implements OnInit {
       this.loadBread();
 
 
-      if (this.orderId === 'add')
+      if (this.orderId === 'add'){
+        orderService.updateOrderState(null);
         this.initNewService();
+      }
       else
         this.getOrder();
     });

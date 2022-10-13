@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { Testingreport } from 'src/models/testingreport.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Order } from 'src/models';
+import { Question } from 'src/models/question.model';
+import { Questiontest } from 'src/models/questiontest.model';
 
 
 @Injectable({
@@ -77,7 +79,7 @@ export class TestingreportService {
       MachineId: '',
       MachineName: '',
       CertNo: '',
-      Dol: 'PER00039 INS',
+      Dol: 'D 702',
       DateOfTest: `${this.formatDate(new Date())}`,
       StartTime: '',
       EndTime: '',
@@ -137,5 +139,66 @@ export class TestingreportService {
 
   updateTestState(test: Testingreport) {
     this.testBehaviorSubject.next(test);
+  }
+
+  genarateQuestionsList(testingreport: Testingreport, questions: Question[]) {
+    testingreport.Questiontests = [];
+    questions.forEach(question => {
+      let options = [];
+      // let children: Questiontest[] = [];
+      if (question.QuestionOptions) {
+        options = question.QuestionOptions.split(',');
+      }
+      if (question.QuestionType === 'Sub Questions' && question.Children.length) {
+        question.Children.forEach(child => {
+          let childoptions = [];
+
+          if (child.QuestionOptions) {
+            childoptions = child.QuestionOptions.split(',');
+          }
+          testingreport.Questiontests.push({
+            QuestioTestId: '',
+            ParentId: child.ParentId,
+            QuestionId: child.QuestionId,
+            TestingReportId: testingreport.TestingReportId || '',
+            Question: `${child.Question}`,
+            CertificateQuestion: '',
+            Position: 10000,
+            Answer: '',
+            OtherAnswer: '',
+            Remarks: '',
+            QuestionType: child.QuestionType,
+            QuestionNumber: child.QuestionNumber,
+            QuestionOptions: child.QuestionOptions,
+            Status: '',
+            CreateUserId: '',
+            ModifyUserId: '',
+            StatusId: 1,
+            Options: childoptions
+          })
+        })
+      }
+      testingreport.Questiontests.push({
+        QuestioTestId: '',
+        QuestionId: question.QuestionId,
+        ParentId: question.ParentId,
+        TestingReportId: testingreport.TestingReportId || '',
+        Question: `${question.QuestionNumber} ${question.Question}`,
+        CertificateQuestion: '',
+        Position: 10000,
+        Answer: '',
+        OtherAnswer: '',
+        Remarks: '',
+        QuestionType: question.QuestionType,
+        QuestionNumber: question.QuestionNumber,
+        QuestionOptions: question.QuestionOptions,
+        Status: '',
+        CreateUserId: '',
+        ModifyUserId: '',
+        StatusId: 1,
+        Options: options
+      })
+    });
+    return testingreport;
   }
 }

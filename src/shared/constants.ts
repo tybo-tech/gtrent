@@ -1,4 +1,4 @@
-export const NOTIFY_EMAILS = 'mrnnmthembu@gmail.com, Info@trentcompressors.com';
+export const NOTIFY_EMAILS = 'Info@trentcompressors.com';
 // export const NOTIFY_EMAILS = 'mrnnmthembu@gmail.com';
 export const CUSTOMER = 'Customer';
 export const DRAFT = 55;
@@ -25,6 +25,7 @@ export const PRODUCT_TYPE_JIT = 'Just in time';
 export const PRODUCT_ORDER_LIMIT_MAX = 999999;
 export const INTERRACTION_TYPE_LIKE = 'Like';
 export const INTERRACTION_TYPE_CHAT = 'Chat';
+export const TEMPLATE_ID = 'c9411d7a-dfca-11ec-896e-ac1f6be20cd4';
 export const COMPANY_DESCRIPTION = 'Hey there! I am using GTrent.';
 
 
@@ -155,6 +156,29 @@ export const SERVICE_STATUS = {
 }
 
 
+export const REPORT_STATUS = {
+    DRAFT_NOT_SAVED: {
+        Name: 'Draft not saved',
+        Id: 1
+    },
+    DRAFT_SAVED: {
+        Name: 'Draft saved',
+        Id: 1
+    },
+    PENDING_VERIFY: {
+        Name: 'Pending verify',
+        Id: 1
+    },
+    VERIFIED: {
+        Name: 'Verified',
+        Id: 1
+    },
+    SENT: {
+        Name: 'Sent',
+        Id: 1,
+    }
+}
+
 
 export const TEST_REPORT_PAGES = {
     CUSTOMER: {
@@ -168,5 +192,26 @@ export const TEST_REPORT_PAGES = {
     TEST_INFO: {
         Name: 'test-info',
         Id: 0
+    },
+    TEST_SUMMARY: {
+        Name: 'summary',
+        Id: 0
     }
 }
+
+export const REPORT_MANAGER = 'Report Manager'
+export const FSR_TECHNITAIN = 'FSR Tech'
+export const REPORT_STATUSES = {
+    DRAFT : 'Draft',
+    REVIEW : 'Sent for review',
+    SIGNED : 'Signed',
+}
+
+
+
+export const MONTHS = ["January", "February",
+"March", "April", "May", "June", "July",
+"August", "September", "October", "November",
+"December"];
+
+export const sectionTypes = ['1. PRE-INSPECTION PREPARATION', '3. INSPECTION INFORMATION', '4. SAFETY ACCESSORY VERIFICATION', '5. WALL THICKNESS TESTING', '6. TEST INFORMATION', 'INSPECTOR STATEMENT'];

@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Email, User } from 'src/models';
 import { EmailService, UserService } from 'src/services';
+import { REPORT_MANAGER } from 'src/shared/constants';
 
 @Component({
   selector: 'app-add-user',
@@ -12,6 +13,7 @@ export class AddUserComponent implements OnInit {
   @Input() user: User;
   @Input() heading: string;
   @Output() doneEvent: EventEmitter<User> = new EventEmitter<User>();
+  REPORT_MANAGER = REPORT_MANAGER;
   constructor(private userService: UserService, private emailService: EmailService) {
 
   }

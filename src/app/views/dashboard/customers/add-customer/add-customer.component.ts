@@ -33,7 +33,7 @@ export class AddCustomerComponent implements OnInit {
   showLoader;
   x: AddressComponent;
   address: Address;
-
+  editingCustomer: boolean
   emailToSend: Email;
   users: Customer[];
   user: any;
@@ -55,6 +55,7 @@ export class AddCustomerComponent implements OnInit {
 
     this.activatedRoute.params.subscribe(r => {
       this.userId = r.id;
+
     });
   }
 
@@ -63,7 +64,7 @@ export class AddCustomerComponent implements OnInit {
     this.customerService.customersListObservable.subscribe(data => {
       this.users = data;
     });
-
+    this.editingCustomer = this.customer && this.customer.CustomerId === ''
   }
 
   public uploadFile = (files: FileList) => {
@@ -85,18 +86,21 @@ export class AddCustomerComponent implements OnInit {
       this.customerService.updateCustomerSync(this.customer).subscribe(data => {
         if (data && data.CustomerId) {
           this.doneEddingCustomer.emit(data);
+          this.uxService.updateMessagePopState(undefined, { Message: 'Customer info updated', Class: '_success' })
         }
       })
     }
     else {
       if (this.checkIfCustomerExist()) {
-        this.uxService.updateMessagePopState('Customer already exist.');
+        this.uxService.updateMessagePopState(undefined, { Message: 'Customer already exist.', Class: '_danger' })
         this.showGotoCustomer = true;
         return false
       }
       this.customerService.add(this.customer).subscribe(data => {
         if (data && data.CustomerId) {
           this.doneEddingCustomer.emit(data);
+          this.uxService.updateMessagePopState(undefined, { Message: 'Customer created', Class: '_success' })
+
           // this.sendEmail(data, 'Add-New-Customer');
         }
       });

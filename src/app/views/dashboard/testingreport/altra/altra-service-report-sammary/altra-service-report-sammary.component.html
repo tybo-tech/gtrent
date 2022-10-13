@@ -1,0 +1,269 @@
+<!-- <div class="item d-flex justify-content-between">
+
+</div> -->
+
+<div  id="element-to-print">
+    
+<div class="card" *ngIf="testingreport">
+    <div class="card-header  bg-dark text-white">
+        CUSTOMER & BASIC INFO
+    </div>
+    <div class="card-body">
+        <div class="mb-3">
+            <label>Dol</label> : <b> {{testingreport.Dol || '---------------'}}</b>
+        </div>
+
+        <div class="mb-3">
+            <label>Certificate Number</label> : <b>{{testingreport.CertNo || '---------------'}}</b>
+        </div>
+
+
+
+        <div class="input-group mb-3">
+            <div>
+                <label>Date Of Test</label>
+                <p> <b> {{testingreport.DateOfTest || '---------------'}}</b></p>
+            </div>
+
+            <div>
+                <label>Start Time</label>
+
+                <p><b> {{testingreport.StartTime || '---------------'}}</b></p>
+            </div>
+
+            <div>
+                <label>End Time</label>
+                <p>
+                    <b> {{testingreport.EndTime || '---------------'}}</b>
+                </p>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Customer Name</label>
+            : <b> {{testingreport.CustomerName || '---------------'}}</b>
+        </div>
+
+        <div class="mb-3">
+            <label>Vessel Location</label>
+            :
+            <b> {{testingreport.Location || '---------------'}}</b>
+
+        </div>
+        <br><br>
+
+
+        <div class="mb-3">
+            <label>Reason For Test</label>
+            :
+            <b> {{testingreport.ReasonForTest || '---------------'}}</b>
+
+
+        </div>
+
+
+
+
+
+
+
+        <div class="mb-3">
+            <label>Next inspection date</label>
+            :
+            <b> {{testingreport.NextInspectionDate || '---------------'}}</b>
+
+        </div>
+
+
+
+        <br>
+        <!-- <a class="btn btn-secondary" (click)="previousPage()">Back to list</a>
+        <a class="btn btn-primary" (click)="nextPage()">Next</a> -->
+    </div>
+</div>
+
+<div class="card" *ngIf="testingreport">
+    <div class="card-header  bg-dark text-white">
+        DETAILS ON NAMEPLATE
+    </div>
+    <div class="card-body">
+        <div class="mb-3">
+            <label class="form-label">New Name Plate Fitted By Client</label> :
+            <b>{{testingreport.IsNamePlateFittedByClient || '---'}}</b>
+        </div>
+
+
+        <div class="mb-3">
+            <label>Manufacturer</label>
+            : <b> {{testingreport.Manufacturer || '---------------'}}</b>
+        </div>
+        <div class="mb-3">
+            <label>Country Of Origin</label>
+            : <b> {{testingreport.CountryOfOrigin || '---------------'}}</b>
+        </div>
+
+        <div class="mb-3">
+            <label>Year Of Manufacture</label>
+            :
+            <b>{{testingreport.YearOfManufacture || '-----'}}</b>
+
+        </div>
+
+        <div class="mb-3">
+            <label>Serial No</label>
+            : <b> {{testingreport.SerialNo || '---------------'}}</b>
+        </div>
+
+        <div class="mb-3">
+            <label>Capacity</label>
+            : <b> {{testingreport.Capacity || '---------------'}}</b>
+        </div>
+
+        <div class="mb-3">
+            <label>Mark of AIA</label>
+            : <b> {{testingreport.MarkOfApprovedInspectionAuth || '---------------'}}</b>
+        </div>
+        <br>
+
+        <div class="mb-3">
+            <label>Name, number and date of standard of design</label>
+            : <b> {{testingreport.StandardOfDesign || '---------------'}}</b>
+        </div>
+
+        <label>Operating Temperature</label> <br>
+
+        <div class="input-group mb-3">
+            <div class="max_w max_w-2">
+                <label for="">Min</label>
+                : <b> {{testingreport.MinOperatingTemperature || '---------------'}}</b>
+            </div>
+
+            <div class="max_w max_w-2">
+                <label for="">Max</label>
+                : <b> {{testingreport.MaxOperatingTemperature || '---------------'}}</b>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label>Class Or Category</label>
+            : <b> {{testingreport.ClassOrCategory || '---------------'}}</b>
+        </div>
+
+        <div class="mb-3">
+            <label>Design Pressure</label>
+            : <b> {{testingreport.DesignPressure || '---------------'}}</b>
+        </div>
+
+        <div class="mb-3">
+            <label>Maximum Working Pressure</label>
+            : <b> {{testingreport.MaximumWorkingPressure || '---------------'}}</b>
+        </div>
+
+        <h6>
+            <u> SIZE AND PARTICULARS OF OPENINGS:</u>
+        </h6>
+        <br>
+
+        <div class="mb-3">
+            <label>Test Pressure Gauge</label>
+            : <b> {{testingreport.TestPressureGauge || '---------------'}}</b>
+            <br>
+            <label>Test Pump</label>
+            : <b> {{testingreport.TestPump || '---------------'}}</b>
+        </div>
+
+
+        <div class="mb-3">
+            <label for=""> Test temperature gauge s/n</label>
+            : <b> {{testingreport.TestTemperatureGauge || '---------------'}}</b>
+            <br>
+            <label for="">Thickness tester</label>
+            : <b> {{testingreport.ThicknessTester || '---------------'}}</b>
+        </div>
+
+        <br>
+        <h6>
+            Images
+        </h6>
+        <div class="mb-3  _images">
+            <div class="image" *ngFor="let image of testingreport.Images">
+                <img [src]="image.Url" alt="" (click)="imageUrl = image.Url">
+
+            </div>
+            <!-- <app-image-widget [image]="image.Url" (imageChangedEvent)="onImageChangedEvent($event,image)">
+            </app-image-widget> -->
+        </div>
+
+        <div class="_view-image" *ngIf="imageUrl" (click)="imageUrl = null">
+            <div class="_image">
+                <img [src]="imageUrl" alt="">
+                <h4>
+                    Click any where to close
+                </h4>
+            </div>
+        </div>
+
+
+        <!-- 
+        <a class="btn btn-secondary" (click)="previousPage()">Back to basic</a>
+        <a class="btn btn-primary" (click)="nextPage()">Next</a> -->
+    </div>
+</div>
+
+
+
+<div class="card" *ngIf="testingreport">
+    <div class="card-header  bg-dark text-white">
+        TEST INFORMATION
+    </div>
+    <div class="card-body">
+        <ul class="list-group" *ngIf="testingreport.Questiontests">
+            <li *ngFor="let item of testingreport.Questiontests" class="list-group-item">
+
+                <div
+                    *ngIf="item.QuestionType == 'Dropdown Answer' || item.QuestionType == 'Date'  || item.QuestionType == 'Text' ">
+                    <small>
+                        {{item.Question}} : <b>{{item.Answer || '-------'}} <span
+                                *ngIf="item.OtherAnswer"><i>{{item.OtherAnswer}}</i></span> </b>
+                    </small>
+                </div>
+
+                <div *ngIf="item.QuestionType == 'Sub Questions'">
+                    <p> {{item.Question}}</p>
+                    <ul class="list-group">
+                        <li *ngFor="let child of item.Children" class="list-group-item list-group-item-dark pointer">
+                            <small>
+                                {{child.Question}} : <b>{{child.Answer}} <span
+                                        *ngIf="child.OtherAnswer"><i>{{child.OtherAnswer}}</i></span> </b>
+                            </small>
+                        </li>
+                    </ul>
+                </div>
+
+                <div *ngIf="item.QuestionType == 'Fill in 1 blank' && item.Options.length">
+
+
+                    <small> {{item.Options[0]}} <u><b>{{item.OtherAnswer}}</b></u> {{item.Options[1]}} </small>
+
+
+                </div>
+
+
+
+                <div *ngIf="item.QuestionType == 'Fill in 2 blanks'  && item.Options.length">
+                    {{item.Options[0]}} <br>
+
+                    <small> <u><b> {{item.Answer}}</b></u> {{item.Options[1]}} <u><b>{{item.OtherAnswer}}</b></u>
+                        {{item.Options[2]}}
+                    </small>
+
+                </div>
+            </li>
+
+        </ul>
+        <br>
+        <a class="btn btn-secondary" (click)="previousPage()">Back</a>
+        <a class="btn btn-primary" (click)="nextPage()">Send for aproval</a>
+    </div>
+</div>
+</div>

@@ -45,6 +45,7 @@ export class AllUsersComponent implements OnInit {
             Id: item.UserId,
             Name: `${item.Name} - ${item.UserType}`,
             Description: `${item.Email}`,
+            Description2: `${item.UserType}`,
             Link: `event`,
             Icon: `assets/images/icon-customer.svg`,
             CanDelete: true

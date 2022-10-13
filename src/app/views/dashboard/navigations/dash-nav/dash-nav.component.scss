@@ -10,7 +10,7 @@
 }
 
 ._pc-nav {
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 800px) {
     display: none;
   }
 }
@@ -18,7 +18,7 @@
 
 ._phone-nav{
   display: none;
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 800px) {
     display: block;
   }
 

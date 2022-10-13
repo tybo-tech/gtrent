@@ -46,6 +46,8 @@ export class CustomerComponent implements OnInit {
   products: Product[];
   selectedMachine: Machine;
   searchString
+  doneEdingParts: boolean;
+  editingCustomer: boolean;
   constructor(
     private activatedRoute: ActivatedRoute,
     private customerService: CustomerService,
@@ -216,8 +218,10 @@ export class CustomerComponent implements OnInit {
       this.compressor = m;
       return
     }
-    this.heading = s;
-    this.showSuccess = true;
+    // this.heading = s;
+    // this.showSuccess = true;
+    this.uxService.updateMessagePopState(undefined,{Message: 'Your compressor details have been saved.',  Class:'_success'})
+
     this.compressor = null;
     window.scroll(0, 0)
     this.load();
@@ -235,6 +239,7 @@ export class CustomerComponent implements OnInit {
   }
   addParts(machine: Machine) {
     this.selectedMachine = machine;
+    this.doneEdingParts = false;
     this.heading = 'Add parts to a compressor'
     this.uxService.updateLoadingState({ Loading: true, Message: 'Loading parts, please wait.' })
     this.productService.getProductsSync(this.user.CompanyId).subscribe(data => {
@@ -263,16 +268,22 @@ export class CustomerComponent implements OnInit {
     }
     this.machinePartsService.add(item).subscribe(data => {
       this.onDoneEvent(null, 'Part Linked a Compressor.');
-      this.selectedMachine = null;
+      this.selectedMachine.Parts.push(data);
+      this.doneEdingParts = true;
+      this.uxService.updateMessagePopState(undefined,{Message: 'Part added to a compressor.',  Class:'_success'})
     })
   }
   selectPart(part: Product) {
     part.IsSelected = !part.IsSelected
   }
-  removeParts(machineparts: MachineParts) {
+  removeParts(machineparts: MachineParts, machine: Machine) {
     machineparts.StatusId = STATUS_DELETED;
     this.machinePartsService.updateMachinePartsSync(machineparts).subscribe(data => {
-      this.onDoneEvent(null, 'Part Un-Linked a Compressor.')
+      this.onDoneEvent(null, 'Part Un-Linked a Compressor.');
+      if (machine)
+        machine.Parts = machine.Parts.filter(x => +x.StatusId != STATUS_DELETED);
+        this.uxService.updateMessagePopState(undefined,{Message: 'Part removed.',  Class:'_danger'})
+
     })
   }
 }

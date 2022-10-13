@@ -7,3 +7,10 @@
         margin: 0 !important;
     }
 }
+
+.view-btn{
+    position: fixed;
+    z-index: 100000000000000;
+    top: 1em;
+    right: 1em;
+}

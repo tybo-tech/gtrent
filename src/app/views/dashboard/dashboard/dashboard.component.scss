@@ -3,7 +3,7 @@
   display: grid;
   grid-template-columns: 15em auto;
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 800px) {
     grid-template-columns: 100%;
   }
   .__nav {
@@ -12,8 +12,38 @@
     //  background: red;
     padding: 1em 2em;
 
-    @media only screen and (max-width: 600px) {
+    @media only screen and (max-width: 800px) {
       padding:6em .5em;
     }
   }
+}
+
+._toast{
+  position: fixed;
+  z-index: 1000000;
+  left: 50%;
+  bottom: 2%;
+  background: $white;
+  padding: .5rem;
+  box-shadow: $box-shadow;
+  transform: translate(-50%, 0);
+  font-size: .8rem;
+  width: 15rem;
+  animation: moveInButton .2s ease-out 0s;
+  animation-fill-mode: backwards;
+  border-radius: .5rem;
+  p{
+    width: 100%;
+    text-align: center;
+    padding-top: .5rem;
+  }
+}
+
+._success{
+  background: rgb(41, 120, 58);
+  color: $white;
+}
+._danger{
+  background: rgb(249, 48, 48);
+  color: $white;
 }
